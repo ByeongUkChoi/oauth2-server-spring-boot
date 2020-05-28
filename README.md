@@ -5,8 +5,11 @@ spring security + jwt => auth server
 jwt토큰 사용  
 test case 작성  
 swagger 사용하여 api 명세 문서화  
+최소 Rest Maturity Model level 2  
 
 
 ### spec
 java 1.8  
 spring boot 2.3  
+  spring security  
+  spring data jpa  
