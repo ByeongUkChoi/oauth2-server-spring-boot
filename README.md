@@ -15,4 +15,5 @@ swagger 사용하여 api 명세 문서화
 java 1.8  
 spring boot 2.3  
   spring security  
+  spring security oauth2
   spring data jpa  
