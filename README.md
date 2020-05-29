@@ -1,5 +1,8 @@
 # auth-server
-spring security + jwt => auth server
+OAuth2 + jwt => auth server 
+
+## OAuth2
+
 
 ## 스프링 시큐리티를 이용하여 인증 서버 구현  
 jwt토큰 사용  
