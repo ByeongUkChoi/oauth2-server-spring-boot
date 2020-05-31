@@ -10,6 +10,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        super.configure(clients);
+        clients.inMemory()
+                .withClient("clientIdTest01")
+                .secret("testSecret01")
+                //.redirectUris("http://loacalhost:8080/oauth2/test")
+                //.scopes("read:currentUser", "read:users")
+                .authorizedGrantTypes("authorization_code");
     }
 }
