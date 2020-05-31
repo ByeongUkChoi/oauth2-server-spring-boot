@@ -11,3 +11,7 @@ spring-cloud-starter-oauth2와 spring-cloud-starter-security로 대체하였다.
 #### 2020. 05. 31
 카카오톡으로 로그인하기 기능을 참고하여 명세는 카카오 인증서버를 참고할 계획이다.  
 [카카오 로그인 API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api)
+
+#### 2020. 05. 31
+TODO: rest api test를 위해 @RestClientTest를 사용해보자  
+
