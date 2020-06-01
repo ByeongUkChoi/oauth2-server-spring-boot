@@ -15,3 +15,12 @@ spring-cloud-starter-oauth2와 spring-cloud-starter-security로 대체하였다.
 #### 2020. 05. 31
 TODO: rest api test를 위해 @RestClientTest를 사용해보자  
 
+#### 2020. 06. 02
+스프링 프로젝트에서 spring-security-oauth 더이상 지원하지 않고
+spring security에서 인증 관련 부분을 진행하는데 "No Authorization Server Support"라고 한다
+아래 링크 참조
+[스프링 블로그 spring security oauth2 roadmap](https://spring.io/blog/2019/11/14/spring-security-oauth-2-0-roadmap-update)
+[스프링 블로그 인증서버 발표](https://spring.io/blog/2020/04/15/announcing-the-spring-authorization-server)
+
+스프링 프로젝트에서는 아래와 같은 오픈소스를 사용하라고 한다.
+https://www.keycloak.org/
