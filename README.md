@@ -9,7 +9,7 @@ spring 프로젝트에서 더이상 인증서버지원을 하지 않기로 하�
 authorization code grant type
 jwt토큰 사용  
 test case 작성  
-swagger 사용하여 api 명세 문서화  
+Swagger or Spring Rest Dosc를 사용하여 api 명세 문서화  
 
 
 ### spec
