@@ -4,17 +4,15 @@ OAuth2 + jwt => auth server
 ## OAuth2
 
 
-## 스프링 시큐리티를 이용하여 인증 서버 구현  
+## 인증 서버 개발
+spring 프로젝트에서 더이상 인증서버지원을 하지 않기로 하여 자체 개발 하기로함   
 authorization code grant type
 jwt토큰 사용  
 test case 작성  
 swagger 사용하여 api 명세 문서화  
-최소 Rest Maturity Model level 2  
 
 
 ### spec
 java 1.8  
 spring boot 2.3  
-  spring security  
-  spring security oauth2
   spring data jpa  
