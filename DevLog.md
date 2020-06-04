@@ -24,3 +24,9 @@ spring security에서 인증 관련 부분을 진행하는데 "No Authorization 
 
 스프링 프로젝트에서는 아래와 같은 오픈소스를 사용하라고 한다.
 https://www.keycloak.org/
+
+#### 2020. 06. 04
+asciidoc파일을 html로 변환은 하였으나 
+adoc파일을 불러오지 못함
+
+

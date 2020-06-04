@@ -16,3 +16,11 @@ Spring Rest Dosc를 사용하여 api 명세 문서화
 java 1.8  
 spring boot 2.3  
   spring data jpa  
+
+
+### asciidoc
+src/docs/asciidoc/*.adoc 파일 변환 명령어
+```
+gradlew asciidoc
+```
+

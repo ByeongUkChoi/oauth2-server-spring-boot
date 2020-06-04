@@ -1,0 +1,9 @@
+= 테스트
+=== 테스트입니다.
+include::{snippets}/test/curl-request.adoc[]
+include::{snippets}/test/http-request.adoc[]
+include::{snippets}/test/http-response.adoc[]
+include::{snippets}/test/httpie-request.adoc[]
+include::{snippets}/test/request-body.adoc[]
+include::{snippets}/test/response-body.adoc[]
+include::{snippets}/test/response-fields.adoc[]
