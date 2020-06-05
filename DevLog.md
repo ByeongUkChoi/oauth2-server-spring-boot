@@ -29,4 +29,8 @@ https://www.keycloak.org/
 asciidoc파일을 html로 변환은 하였으나 
 adoc파일을 불러오지 못함
 
+#### 2020. 06. 05
+asciidoc 파일에서 gradle 변수를 가져오지 못하는 문제 해결하여
+정상적으로 문서 생성됨
+
 
