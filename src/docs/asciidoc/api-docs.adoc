@@ -9,13 +9,21 @@
 :java-test: {sources-root}/test/java
 
 = 인증서버
+
 === 인증 코드 요청
-include::{snippets}/auth/curl-request.adoc[]
-include::{snippets}/auth/http-request.adoc[]
-include::{snippets}/auth/http-response.adoc[]
-include::{snippets}/auth/httpie-request.adoc[]
-include::{snippets}/auth/request-body.adoc[]
-include::{snippets}/auth/request-fields.adoc[]
-include::{snippets}/auth/request-parameters.adoc[]
-include::{snippets}/auth/response-body.adoc[]
-include::{snippets}/auth/response-fields.adoc[]
+include::{snippets}/request-auth/curl-request.adoc[]
+include::{snippets}/request-auth/http-request.adoc[]
+include::{snippets}/request-auth/http-response.adoc[]
+include::{snippets}/request-auth/httpie-request.adoc[]
+include::{snippets}/request-auth/request-body.adoc[]
+include::{snippets}/request-auth/request-parameters.adoc[]
+include::{snippets}/request-auth/response-body.adoc[]
+
+=== 토큰 요청
+include::{snippets}/get-token/curl-request.adoc[]
+include::{snippets}/get-token/http-request.adoc[]
+include::{snippets}/get-token/http-response.adoc[]
+include::{snippets}/get-token/httpie-request.adoc[]
+include::{snippets}/get-token/request-body.adoc[]
+include::{snippets}/get-token/request-parameters.adoc[]
+include::{snippets}/get-token/response-body.adoc[]
