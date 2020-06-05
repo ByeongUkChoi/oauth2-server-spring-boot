@@ -1,9 +1,11 @@
-= 테스트
-=== 테스트입니다.
-include::{snippets}/test/curl-request.adoc[]
-include::{snippets}/test/http-request.adoc[]
-include::{snippets}/test/http-response.adoc[]
-include::{snippets}/test/httpie-request.adoc[]
-include::{snippets}/test/request-body.adoc[]
-include::{snippets}/test/response-body.adoc[]
-include::{snippets}/test/response-fields.adoc[]
+= 인증서버
+=== 인증 코드 요청
+include::{snippets}/auth/curl-request.adoc[]
+include::{snippets}/auth/http-request.adoc[]
+include::{snippets}/auth/http-response.adoc[]
+include::{snippets}/auth/httpie-request.adoc[]
+include::{snippets}/auth/request-body.adoc[]
+include::{snippets}/auth/request-fields.adoc[]
+include::{snippets}/auth/request-parameters.adoc[]
+include::{snippets}/auth/response-body.adoc[]
+include::{snippets}/auth/response-fields.adoc[]
