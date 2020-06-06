@@ -9,7 +9,7 @@ spring-security-oauth2 은 더이상 사용되지 않는다고 한다.
 spring-cloud-starter-oauth2와 spring-cloud-starter-security로 대체하였다.
 
 #### 2020. 05. 31
-카카오톡으로 로그인하기 기능을 참고하여 명세는 카카오 인증서버를 참고할 계획이다.  
+카카오톡으로 로그인하기 기능을 참고하여 명세는 카카오 인증서버를 참고 할 계획이다.  
 [카카오 로그인 API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api)  
 
 #### 2020. 06. 01
@@ -35,4 +35,9 @@ asciidoc 파일에서 gradle 변수를 가져오지 못하는 문제 해결하�
 6월1일에 @RestClientTest를 사용하기로 하였으나  
 @MockMvcTest를 사용하기로함  
 rest docs 생성을 위해서면 간단히 컨트롤러 테스트만 하는것이 적합하다고 판단함  
+
+#### 2020. 06. 06
+로그인 페이지를 만들어야 할것 같은데 spring security를 이용해야 되는지 고민중이다.
+아직도 oauth2의 동작 방식을 제대로 이해하지 못한것 같다.  
+카카오 간편 로그인을 포스트맨으로 실행해서 어떻게 작동되는지 이해하도록 하자.
 
