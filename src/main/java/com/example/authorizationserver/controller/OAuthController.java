@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AuthController {
+public class OAuthController {
 
     /**
      * 인증 코드 요청
+     * 로그인 되어있지 않으면 로그인 페이지로 리다이렉트 시킴
      * @param clientId 앱 생성 시 발급 받은 REST API 키
      * @param redirectUri 코드를 리다이렉트 해줄 URI
      * @param responseType "code"로 고정
