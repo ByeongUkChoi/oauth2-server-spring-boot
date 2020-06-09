@@ -5,9 +5,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.text.normalizer.UTF16;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 public class OAuthController {
@@ -24,10 +28,13 @@ public class OAuthController {
                               @RequestParam("redirect_uri") String redirectUri,
                               @RequestParam("response_type") String responseType,
                               RedirectAttributes redirectAttributes,
+                              HttpServletRequest request,
                               HttpServletResponse response) throws IOException {
         // TODO: 테스트로 clientId, response_type 검사하지 않음
 
-        response.sendRedirect("/login");
+        String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
+        String encodedCurrentUrl = URLEncoder.encode(currentUrl, StandardCharsets.UTF_8.toString());
+        response.sendRedirect("/login?continue=" + encodedCurrentUrl);
     }
     @PostMapping("/oauth/token")
     public void getToken(@RequestParam("grant_type") String grantType,
