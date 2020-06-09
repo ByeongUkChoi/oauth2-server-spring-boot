@@ -4,6 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 public class OAuthController {
@@ -17,9 +21,13 @@ public class OAuthController {
      */
     @GetMapping("/oauth/authorize")
     public void requestAuth(@RequestParam("client_id") String clientId,
-                            @RequestParam("redirect_uri") String redirectUri,
-                            @RequestParam("response_type") String responseType) {
+                              @RequestParam("redirect_uri") String redirectUri,
+                              @RequestParam("response_type") String responseType,
+                              RedirectAttributes redirectAttributes,
+                              HttpServletResponse response) throws IOException {
         // TODO: 테스트로 clientId, response_type 검사하지 않음
+
+        response.sendRedirect("/login");
     }
     @PostMapping("/oauth/token")
     public void getToken(@RequestParam("grant_type") String grantType,
