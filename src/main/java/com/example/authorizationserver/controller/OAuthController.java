@@ -43,12 +43,11 @@ public class OAuthController {
                           @RequestParam(value = "client_id", required = false) String clientId,
                           @RequestParam(value = "redirect_uri", required = false) String redirectUri,
                           @RequestParam(value = "code", required = false) String code) {
-        Token token = Token.builder()
+        return Token.builder()
                 .access_token("this_is_access_token")
                 .token_type("bearer")
                 .refresh_token("this_is_refresh_token")
                 .expires_in(3600)
                 .build();
-        return token;
     }
 }
