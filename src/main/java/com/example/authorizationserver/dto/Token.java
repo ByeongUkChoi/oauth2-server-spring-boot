@@ -1,8 +1,6 @@
 package com.example.authorizationserver.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * {
@@ -14,7 +12,8 @@ import lombok.NoArgsConstructor;
  * }
  */
 
-@AllArgsConstructor
+@Data
+@Builder
 public class Token {
     private String access_token;
     private String token_type;

@@ -1,5 +1,6 @@
 package com.example.authorizationserver.controller;
 
+import com.example.authorizationserver.dto.Token;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,10 +36,19 @@ public class OAuthController {
         String encodedCurrentUrl = URLEncoder.encode(currentUrl, StandardCharsets.UTF_8.toString());
         response.sendRedirect("/login?continue=" + encodedCurrentUrl);
     }
+
+    // TODO: require = false 제거하기
     @PostMapping("/oauth/token")
-    public void getToken(@RequestParam("grant_type") String grantType,
-                         @RequestParam("client_id") String clientId,
-                         @RequestParam("redirect_uri") String redirectUri,
-                         @RequestParam("code") String code) {
+    public Token getToken(@RequestParam(value = "grant_type", required = false) String grantType,
+                          @RequestParam(value = "client_id", required = false) String clientId,
+                          @RequestParam(value = "redirect_uri", required = false) String redirectUri,
+                          @RequestParam(value = "code", required = false) String code) {
+        Token token = Token.builder()
+                .access_token("this_is_access_token")
+                .token_type("bearer")
+                .refresh_token("this_is_refresh_token")
+                .expires_in(3600)
+                .build();
+        return token;
     }
 }
