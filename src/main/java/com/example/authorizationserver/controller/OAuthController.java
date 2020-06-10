@@ -37,12 +37,20 @@ public class OAuthController {
         response.sendRedirect("/login?continue=" + encodedCurrentUrl);
     }
 
-    // TODO: require = false 제거하기
+    /**
+     * 토큰 받기
+     * @param grantType     "refresh_token"으로 고정
+     * @param clientId      앱 생성 시 발급 받은 REST API
+     * @param redirectUri   토큰 발급 시 응답으로 받은 refresh_token. Access Token을 갱신하기 위해 사용
+     * @param code          토큰 발급 시, 보안을 강화하기 위해 추가 확인하는 코드(보안 기능 ON일 경우 필수 설정 해야함)
+     * @return
+     */
     @PostMapping("/oauth/token")
-    public Token getToken(@RequestParam(value = "grant_type", required = false) String grantType,
-                          @RequestParam(value = "client_id", required = false) String clientId,
-                          @RequestParam(value = "redirect_uri", required = false) String redirectUri,
+    public Token getToken(@RequestParam(value = "grant_type", required = true) String grantType,
+                          @RequestParam(value = "client_id", required = true) String clientId,
+                          @RequestParam(value = "redirect_uri", required = true) String redirectUri,
                           @RequestParam(value = "code", required = false) String code) {
+
         return Token.builder()
                 .access_token("this_is_access_token")
                 .token_type("bearer")
