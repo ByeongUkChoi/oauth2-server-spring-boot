@@ -38,34 +38,21 @@ public class OAuthController {
     }
 
     /**
-     * 토큰 받기
-     * @param grantType     "refresh_token"으로 고정
-     * @param clientId      앱 생성 시 발급 받은 REST API
-     * @param redirectUri   토큰 발급 시 응답으로 받은 refresh_token. Access Token을 갱신하기 위해 사용
-     * @param code          코드 받기 요청으로 얻은 인증 코드
-     * @param clientSecret  토큰 발급 시, 보안을 강화하기 위해 추가 확인하는 코드(보안 기능 ON일 경우 필수 설정 해야함)
+     * 토큰 발급(발급, 갱신)
+     * @param grantType     authorization_code / refresh_token (발급, 갱신)
+     * @param clientId      앱 생성 시 발급 받은 REST API (발급, 갱신 시)
+     * @param redirectUri   코드가 리다이렉트된 URI (발급 시)
+     * @param code          코드 받기 요청으로 얻은 인증 코드 (발급 시)
+     * @param refreshToken  토큰 발급 시 응답으로 받은 refresh_token. Access Token을 갱신하기 위해 사용 (갱신 시)
+     * @param clientSecret  토큰 발급 시, 보안을 강화하기 위해 추가 확인하는 코드(보안 기능 ON일 경우 필수 설정 해야함) (발급, 갱신 시)
      * @return
      */
     @PostMapping("/oauth/token")
-    public Token getTokenByCode(@RequestParam(value = "grant_type", required = true) String grantType,
+    public Token getToken(@RequestParam(value = "grant_type", required = true) String grantType,
                           @RequestParam(value = "client_id", required = true) String clientId,
-                          @RequestParam(value = "redirect_uri", required = true) String redirectUri,
-                          @RequestParam(value = "code", required = true) String code,
-                          @RequestParam(value = "client_secret", required = false) String clientSecret) {
-
-        return Token.builder()
-                .access_token("this_is_access_token")
-                .token_type("bearer")
-                .refresh_token("this_is_refresh_token")
-                .expires_in(3600)
-                .build();
-    }
-
-    // TODO: 같은 url인데 파라미터로 분기처리 되는지 확인 필요. url 두 함수 url 같게 해야함
-    @PostMapping("/oauth/token1")
-    public Token getTokenByRefreshToken(@RequestParam(value = "grant_type", required = true) String grantType,
-                          @RequestParam(value = "client_id", required = true) String clientId,
-                          @RequestParam(value = "refresh_token", required = true) String refreshToken,
+                          @RequestParam(value = "redirect_uri", required = false) String redirectUri,
+                          @RequestParam(value = "code", required = false) String code,
+                          @RequestParam(value = "refresh_token", required = false) String refreshToken,
                           @RequestParam(value = "client_secret", required = false) String clientSecret) {
 
         return Token.builder()
