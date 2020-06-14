@@ -2,11 +2,17 @@ package com.example.authorizationserver.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 로그인 컨트롤러
@@ -33,9 +39,15 @@ public class AuthenticationController {
     public String login(@RequestParam("id") String id,
                         @RequestParam("password") String password,
                         @RequestParam("continue") String continueUrl,
-                        RedirectAttributes redirectAttributes) {
+                        RedirectAttributes redirectAttributes) throws IOException {
         redirectAttributes.addAttribute("code", "code123");
-        //TODO: redirect continueUrl
-        return "redirect:https://naver.com";
+
+        String decodedContinueUrl = URLDecoder.decode(continueUrl, StandardCharsets.UTF_8.toString());
+
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(decodedContinueUrl).build();
+        MultiValueMap<String, String> queryParams = uriComponents.getQueryParams();
+        String redirectUrl = queryParams.getFirst("redirect_uri");
+
+        return "redirect:" + redirectUrl;
     }
 }
