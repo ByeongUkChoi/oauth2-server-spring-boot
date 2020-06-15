@@ -63,3 +63,11 @@ jwt를 사용하였다.
 모듈을 사용하기 위해 build.gradle에 추가하고 사용하였다.  
 refresh token도 jwt로 해야하는지 고민해봐야한다.  
 
+#### 2020. 06. 16
+로그인 성공시 authenticate code를 반환하고 그 값을 다시 인증서버로 보내 토큰을 발급한다  
+이때 code를 db에 저장해서 검증할지?  그렇게 한다면 로그인 성공시 db에 저장하고 로그인 서버와 인증서버가 같은 db를 봐야한다  
+이 문제는 jwt를 사용하면 해결될것 같다. 하지만 카카오는 code와 access_token, refresh_token을 jwt를 사용하지 않는다.  
+code는 db, token jwt를 사용하자  
+
+h2로 테스트 데이터베이스 연결 완료  
+최신 h2에서는 자동으로 데이터베이스 생성이 불가능하여 application.properties에 설정해줘야한다  
