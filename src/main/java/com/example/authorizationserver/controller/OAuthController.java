@@ -1,5 +1,7 @@
 package com.example.authorizationserver.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.example.authorizationserver.dto.Token;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 @RestController
 public class OAuthController {
@@ -55,8 +60,22 @@ public class OAuthController {
                           @RequestParam(value = "refresh_token", required = false) String refreshToken,
                           @RequestParam(value = "client_secret", required = false) String clientSecret) {
 
+        Algorithm algorithm = Algorithm.HMAC512("secret");
+        Date currentDate = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.SECOND, 3600);
+        Date expiredDate = calendar.getTime();
+
+        String accessToken = JWT.create()
+                .withIssuer("auth0")
+                .withIssuedAt(currentDate)
+                .withExpiresAt(expiredDate)
+                .sign(algorithm);
+
         return Token.builder()
-                .access_token("this_is_access_token")
+                .access_token(accessToken)
                 .token_type("bearer")
                 .refresh_token("this_is_refresh_token")
                 .expires_in(3600)
