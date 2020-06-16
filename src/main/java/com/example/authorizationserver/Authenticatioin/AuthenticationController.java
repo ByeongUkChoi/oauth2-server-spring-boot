@@ -1,4 +1,4 @@
-package com.example.authorizationserver.controller;
+package com.example.authorizationserver.Authenticatioin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +36,7 @@ public class AuthenticationController {
      * 로그인
      */
     @PostMapping("/authenticate")
-    public String login(@RequestParam("id") String id,
+    public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         @RequestParam("continue") String continueUrl,
                         RedirectAttributes redirectAttributes) throws IOException {

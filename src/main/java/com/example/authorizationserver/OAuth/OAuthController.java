@@ -1,8 +1,7 @@
-package com.example.authorizationserver.controller;
+package com.example.authorizationserver.OAuth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.authorizationserver.dto.Token;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.example.authorizationserver.dto;
+package com.example.authorizationserver.OAuth;
 
 import lombok.*;
 
