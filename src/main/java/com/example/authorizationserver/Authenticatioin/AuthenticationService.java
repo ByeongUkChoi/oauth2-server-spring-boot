@@ -1,6 +1,15 @@
 package com.example.authorizationserver.Authenticatioin;
 
+import com.example.authorizationserver.member.Member;
+import com.example.authorizationserver.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class AuthenticationService {
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     /**
      * 로그인
@@ -8,16 +17,17 @@ public class AuthenticationService {
      * @param password 사용자 패스워드
      * @return
      */
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws Exception {
+        Member member = memberRepository.findByUsername(username);
+        if(member == null) {
+            return false;
+        }
+        boolean isCorrectpassword = member.validatePassword(password);
+        // 패스워드 틀릴 시 에러처리
+        if(isCorrectpassword == false) {
+            throw new Exception();
+        }
 
-        // TODO: 로그인 처리 방식
-        // Member member = DaoOrRepository.findbyUsername(username);
-        // 1. 멤버 객체에 패스워드 검증 맡김 (패스워드 인코딩은 멤버객체 안에서)
-        // member.validatePassword(password);
-
-        // 2. 패스워드 가져와서 서비스에서 검증 (패스워드 인코딩도 서비스에서)
-        // String memberPassword = member.getPassword();
-        // if(password != memberPassword)
         return true;
     }
 }

@@ -8,8 +8,13 @@ import javax.persistence.Id;
 public class Member {
     @Id
     @GeneratedValue
-    private String id;
+    private int id;
     private String username;
     private String password;
     private String name;
+
+    // 암호 일치 여부
+    public boolean validatePassword(String password) {
+        return this.password.equals(password);
+    }
 }

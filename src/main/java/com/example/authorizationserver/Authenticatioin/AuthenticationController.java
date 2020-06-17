@@ -1,5 +1,6 @@
 package com.example.authorizationserver.Authenticatioin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -20,6 +21,10 @@ import java.nio.charset.StandardCharsets;
  */
 @Controller
 public class AuthenticationController {
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
     /**
      * 로그인 페이지
      * @param continueUrl
@@ -39,8 +44,13 @@ public class AuthenticationController {
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         @RequestParam("continue") String continueUrl,
-                        RedirectAttributes redirectAttributes) throws IOException {
+                        RedirectAttributes redirectAttributes) throws Exception {
         redirectAttributes.addAttribute("code", "code123");
+
+        // 로그인 실패시 에러처리
+        if (authenticationService.login(username, password) == false) {
+            throw new Exception();
+        }
 
         String decodedContinueUrl = URLDecoder.decode(continueUrl, StandardCharsets.UTF_8.toString());
 

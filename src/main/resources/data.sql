@@ -1,0 +1,1 @@
+insert into member(id, username, password, name) values(90001, 'cbw0916', 'pass123', 'choi bu');
