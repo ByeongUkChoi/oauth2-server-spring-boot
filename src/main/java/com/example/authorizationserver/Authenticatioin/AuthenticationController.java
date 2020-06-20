@@ -54,6 +54,7 @@ public class AuthenticationController {
         }
 
 
+        // TODO: service 안에서 동작 하도록 service 함수로 분리
         String decodedContinueUrl = URLDecoder.decode(continueUrl, StandardCharsets.UTF_8.toString());
 
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(decodedContinueUrl).build();
@@ -65,6 +66,7 @@ public class AuthenticationController {
                 .clientId(clientId)
                 .autorizeCode("test-authorize-code").build();
         // authorize code insert
+
 
         String redirectUrl = queryParams.getFirst("redirect_uri");
         return "redirect:" + redirectUrl;

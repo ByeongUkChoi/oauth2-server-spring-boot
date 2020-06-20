@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 public class AuthorizeCode {
     @Id
+    private int authorizeCodeId;
     private String clientId;
     private String autorizeCode;
     private LocalDateTime expirationTime;
