@@ -1,5 +1,6 @@
 package com.example.authorizationserver.Authenticatioin;
 
+import com.example.authorizationserver.OAuth.AuthorizeCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,12 +53,20 @@ public class AuthenticationController {
             throw new Exception();
         }
 
+
         String decodedContinueUrl = URLDecoder.decode(continueUrl, StandardCharsets.UTF_8.toString());
 
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(decodedContinueUrl).build();
         MultiValueMap<String, String> queryParams = uriComponents.getQueryParams();
-        String redirectUrl = queryParams.getFirst("redirect_uri");
 
+        // authorize_code 생성 및 반환
+        String clientId = queryParams.getFirst("client_id");
+        AuthorizeCode authorizeCode = new AuthorizeCode().builder()
+                .clientId(clientId)
+                .autorizeCode("test-authorize-code").build();
+        // authorize code insert
+
+        String redirectUrl = queryParams.getFirst("redirect_uri");
         return "redirect:" + redirectUrl;
     }
 }
