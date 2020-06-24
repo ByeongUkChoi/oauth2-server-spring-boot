@@ -1,4 +1,4 @@
-package com.example.authorizationserver.Authenticatioin;
+package com.example.authorizationserver.authenticatioin;
 
 import com.example.authorizationserver.member.Member;
 import com.example.authorizationserver.member.MemberRepository;

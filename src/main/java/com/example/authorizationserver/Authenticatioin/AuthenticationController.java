@@ -1,4 +1,4 @@
-package com.example.authorizationserver.Authenticatioin;
+package com.example.authorizationserver.authenticatioin;
 
 import com.example.authorizationserver.OAuth.AuthorizeCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
