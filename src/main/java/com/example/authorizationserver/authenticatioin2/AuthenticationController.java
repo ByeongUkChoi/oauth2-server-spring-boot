@@ -1,4 +1,4 @@
-package com.example.authorizationserver.authenticatioin;
+package com.example.authorizationserver.authenticatioin2;
 
 import com.example.authorizationserver.OAuth.AuthorizeCode;
 import org.springframework.beans.factory.annotation.Autowired;
