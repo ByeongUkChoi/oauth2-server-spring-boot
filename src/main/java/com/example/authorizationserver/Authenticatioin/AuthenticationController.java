@@ -62,7 +62,7 @@ public class AuthenticationController {
 
         // authorize_code 생성 및 반환
         String clientId = queryParams.getFirst("client_id");
-        AuthorizeCode authorizeCode = new AuthorizeCode().builder()
+        AuthorizeCode authorizeCode = AuthorizeCode.builder()
                 .clientId(clientId)
                 .autorizeCode("test-authorize-code").build();
         // authorize code insert
