@@ -58,6 +58,8 @@ public class OAuthController {
                           @RequestParam(value = "refresh_token", required = false) String refreshToken,
                           @RequestParam(value = "client_secret", required = false) String clientSecret) {
 
+
+        // TODO: 아래 로직 서비스 레이어로 분리
         Algorithm algorithm = Algorithm.HMAC512("secret");
         Date currentDate = new Date();
 

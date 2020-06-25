@@ -1,6 +1,7 @@
 package com.example.authorizationserver.OAuth;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * {
@@ -12,7 +13,7 @@ import lombok.*;
  * }
  */
 
-@Data
+@Getter
 @Builder
 public class Token {
     private String access_token;

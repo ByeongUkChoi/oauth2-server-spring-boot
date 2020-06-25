@@ -1,13 +1,13 @@
 package com.example.authorizationserver.OAuth;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @Builder
 @Entity
 public class AuthorizeCode {
