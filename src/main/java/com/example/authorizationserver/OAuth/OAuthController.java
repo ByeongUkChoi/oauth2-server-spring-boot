@@ -1,7 +1,6 @@
 package com.example.authorizationserver.OAuth;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.Date;
 
 @RestController
 public class OAuthController {
+
+    @Autowired
+    private OAuthService oAuthService;
 
     /**
      * 인증 코드 요청
@@ -58,27 +58,9 @@ public class OAuthController {
                           @RequestParam(value = "refresh_token", required = false) String refreshToken,
                           @RequestParam(value = "client_secret", required = false) String clientSecret) {
 
-
-        // TODO: 아래 로직 서비스 레이어로 분리
-        Algorithm algorithm = Algorithm.HMAC512("secret");
-        Date currentDate = new Date();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.SECOND, 3600);
-        Date expiredDate = calendar.getTime();
-
-        String accessToken = JWT.create()
-                .withIssuer("auth0")
-                .withIssuedAt(currentDate)
-                .withExpiresAt(expiredDate)
-                .sign(algorithm);
-
-        return Token.builder()
-                .access_token(accessToken)
-                .token_type("bearer")
-                .refresh_token("this_is_refresh_token")
-                .expires_in(3600)
-                .build();
+        // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
+        
+        Token token = oAuthService.getToken();
+        return token;
     }
 }

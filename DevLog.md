@@ -81,3 +81,6 @@ h2로 테스트 데이터베이스 연결 완료
 
 client_id, client_secret, authorize_code 값을 저장할 테이블이 필요하다.  
 
+#### 2020. 06. 26
+client_id, client_secret db 검증을 해야한다.  
+테이블 구성을 다시 해서 스키마를 한눈에 볼수 있도록 정리해보자.  
