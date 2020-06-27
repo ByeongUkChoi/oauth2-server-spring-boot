@@ -84,3 +84,10 @@ client_id, client_secret, authorize_code 값을 저장할 테이블이 필요하
 #### 2020. 06. 26
 client_id, client_secret db 검증을 해야한다.  
 테이블 구성을 다시 해서 스키마를 한눈에 볼수 있도록 정리해보자.  
+
+#### 2020. 06. 27
+깃허브에서 OAuth2 server 검색 시 가장 많은 별을 받은 오픈소스를 참조 하여 database 스키마를 구성하고,  
+구현 로직을 참조할 예정이다.  
+[OAuth2 server (PHP) 오픈 소스](https://oauth2.thephpleague.com/)
+
+

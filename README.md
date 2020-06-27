@@ -3,7 +3,6 @@ OAuth2 + jwt => auth server
 
 ## OAuth2
 
-
 ## 인증 서버 개발
 spring 프로젝트에서 더이상 인증서버지원을 하지 않기로 하여 자체 개발 하기로함   
 authorization code grant type

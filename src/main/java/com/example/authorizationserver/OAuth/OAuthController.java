@@ -49,6 +49,11 @@ public class OAuthController {
      * @param refreshToken  토큰 발급 시 응답으로 받은 refresh_token. Access Token을 갱신하기 위해 사용 (갱신 시)
      * @param clientSecret  토큰 발급 시, 보안을 강화하기 위해 추가 확인하는 코드(보안 기능 ON일 경우 필수 설정 해야함) (발급, 갱신 시)
      * @return
+     *
+     *  토큰 발급
+     *  grant_type, client_id, redirect_uri, code, client_secret
+     *  토큰 갱신
+     *  grant_type, client_id, refresh_token, client_secret
      */
     @PostMapping("/oauth/token")
     public Token getToken(@RequestParam(value = "grant_type", required = true) String grantType,
@@ -57,6 +62,7 @@ public class OAuthController {
                           @RequestParam(value = "code", required = false) String code,
                           @RequestParam(value = "refresh_token", required = false) String refreshToken,
                           @RequestParam(value = "client_secret", required = false) String clientSecret) {
+
 
         // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
         

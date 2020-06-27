@@ -9,7 +9,7 @@ import lombok.Getter;
  *     "token_type":"bearer",
  *     "refresh_token":"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
  *     "expires_in":43199,
- *     "scope":"Basic_Profile"
+ *     //"scope":"Basic_Profile"
  * }
  */
 
