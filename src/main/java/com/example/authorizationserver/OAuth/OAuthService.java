@@ -15,7 +15,7 @@ public class OAuthService {
      * 토큰 발급
      * @return
      */
-	public Token getToken() {
+	public TokenDto getToken() {
         Algorithm algorithm = Algorithm.HMAC512("secret");
         Date currentDate = new Date();
 
@@ -30,7 +30,7 @@ public class OAuthService {
                 .withExpiresAt(expiredDate)
                 .sign(algorithm);
 
-        return Token.builder()
+        return TokenDto.builder()
                 .access_token(accessToken)
                 .token_type("bearer")
                 .refresh_token("this_is_refresh_token")

@@ -89,7 +89,9 @@ client_id, client_secret db 검증을 해야한다.
 깃허브에서 OAuth2 server 검색 시 가장 많은 별을 받은 오픈소스를 참조 하여 database 스키마를 구성하고,  
 구현 로직을 참조할 예정이다.  
 OAuth2 server (PHP) 오픈 소스
-[thephpleague/oauth2-server document](https://oauth2.thephpleague.com/)
-[bshaffer/oauth2-server-php database schema](http://bshaffer.github.io/oauth2-server-php-docs/cookbook/)
+[thephpleague/oauth2-server document](https://oauth2.thephpleague.com/)  
+[bshaffer/oauth2-server-php database schema](http://bshaffer.github.io/oauth2-server-php-docs/cookbook/)  
+
+
 
 

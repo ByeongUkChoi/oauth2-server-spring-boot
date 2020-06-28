@@ -56,17 +56,17 @@ public class OAuthController {
      *  grant_type, client_id, refresh_token, client_secret
      */
     @PostMapping("/oauth/token")
-    public Token getToken(@RequestParam(value = "grant_type", required = true) String grantType,
-                          @RequestParam(value = "client_id", required = true) String clientId,
-                          @RequestParam(value = "redirect_uri", required = false) String redirectUri,
-                          @RequestParam(value = "code", required = false) String code,
-                          @RequestParam(value = "refresh_token", required = false) String refreshToken,
-                          @RequestParam(value = "client_secret", required = false) String clientSecret) {
+    public TokenDto getToken(@RequestParam(value = "grant_type", required = true) String grantType,
+                             @RequestParam(value = "client_id", required = true) String clientId,
+                             @RequestParam(value = "redirect_uri", required = false) String redirectUri,
+                             @RequestParam(value = "code", required = false) String code,
+                             @RequestParam(value = "refresh_token", required = false) String refreshToken,
+                             @RequestParam(value = "client_secret", required = false) String clientSecret) {
 
 
         // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
         
-        Token token = oAuthService.getToken();
+        TokenDto token = oAuthService.getToken();
         return token;
     }
 }

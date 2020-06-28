@@ -4,11 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * CREATE TABLE members (
+ *   member_id           BIGINT,
+ *   username            VARCHAR(80),
+ *   password            VARCHAR(80),
+ *   name                VARCHAR(80),
+ *   scope               VARCHAR(4000), // 사용하지 않음
+ *   PRIMARY KEY (member_id)
+ * );
+ */
 @Entity
 public class Member {
     @Id
     @GeneratedValue
-    private int id;
+    private int memberId;
     private String username;
     private String password;
     private String name;

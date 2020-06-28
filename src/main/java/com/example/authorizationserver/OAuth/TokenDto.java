@@ -15,7 +15,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class Token {
+public class TokenDto {
     private String access_token;
     private String token_type;
     private String refresh_token;
