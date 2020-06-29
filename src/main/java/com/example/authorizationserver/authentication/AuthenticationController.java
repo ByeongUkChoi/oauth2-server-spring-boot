@@ -1,6 +1,6 @@
 package com.example.authorizationserver.authentication;
 
-import com.example.authorizationserver.OAuth.AuthorizeCode;
+import com.example.authorizationserver.OAuth.AuthorizationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,9 +61,9 @@ public class AuthenticationController {
 
         // authorize_code 생성 및 반환
         String clientId = queryParams.getFirst("client_id");
-        AuthorizeCode authorizeCode = AuthorizeCode.builder()
+        AuthorizationCode authorizationCode = AuthorizationCode.builder()
                 .clientId(clientId)
-                .autorizeCode("test-authorize-code").build();
+                .authorizationCode("test-authorize-code").build();
         // authorize code insert
 
 

@@ -25,7 +25,7 @@ gradlew asciidoc
 
 ### 테스트 로그인 방법
 
-Grant Type : Authorizatino Code  
+Grant Type : Authorization Code  
 Auth URL : http://localhost:8080/oauth/authorize  
 Access Token URL : http://localhost:8080/oauth/token  
 Client Id : cbw-client  

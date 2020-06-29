@@ -26,7 +26,7 @@ public class AuthorizationCode {
     @Id
     private String authorizationCode;
     private String clientId;
-    private String userId;
+    private long memberId;
     private String redirectUri;
     private int expires;
 }

@@ -22,5 +22,5 @@ public class Client {
     private String clientSecret;
     private String redirectUri;
     private String grantType;
-    private String userId;
+    private long memberId;
 }

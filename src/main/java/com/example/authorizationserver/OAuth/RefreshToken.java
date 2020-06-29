@@ -19,6 +19,6 @@ public class RefreshToken {
     @Id
     private String refreshToken;
     private String clientId;
-    private String userId;
+    private long memberId;
     private int expires;
 }
