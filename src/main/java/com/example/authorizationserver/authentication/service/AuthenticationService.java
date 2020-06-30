@@ -28,6 +28,8 @@ public class AuthenticationService {
             throw new Exception();
         }
 
+        // TODO: authorization code 생성 및 insert
+
         return true;
     }
 }

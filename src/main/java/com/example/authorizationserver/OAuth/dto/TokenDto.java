@@ -13,8 +13,8 @@ import lombok.Getter;
  * }
  */
 
-@Getter
 @Builder
+@Getter     // controller에서 반환 될때 변환 되어야 해서 필요함
 public class TokenDto {
     private String access_token;
     private String token_type;

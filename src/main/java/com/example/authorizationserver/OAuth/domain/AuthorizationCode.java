@@ -18,10 +18,9 @@ import java.time.LocalDateTime;
  *   PRIMARY KEY (authorization_code)
  * );
  */
-@Getter
+
 @Builder
 @Entity
-@RequiredArgsConstructor
 public class AuthorizationCode {
     @Id
     private String authorizationCode;
