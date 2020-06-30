@@ -1,4 +1,4 @@
-package com.example.authorizationserver.member;
+package com.example.authorizationserver.member.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

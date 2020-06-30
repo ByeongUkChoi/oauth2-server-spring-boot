@@ -92,6 +92,8 @@ OAuth2 server (PHP) 오픈 소스
 [thephpleague/oauth2-server document](https://oauth2.thephpleague.com/)  
 [bshaffer/oauth2-server-php database schema](http://bshaffer.github.io/oauth2-server-php-docs/cookbook/)  
 
-
-
+#### 2020. 06. 30
+OAuth와 로그인을 다른 패키지로 두어야하는지 고민을 하였다.  
+카카오 간편로그인의 경우 oauth와 로그인이 다른 주소를 갖고있기 때문에 나누었다.  
+하나로 합쳐야 할지는 고민을 해봐야 겠다.  
 

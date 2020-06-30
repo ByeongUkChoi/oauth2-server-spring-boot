@@ -1,7 +1,7 @@
-package com.example.authorizationserver.authentication;
+package com.example.authorizationserver.authentication.service;
 
-import com.example.authorizationserver.member.Member;
-import com.example.authorizationserver.member.MemberRepository;
+import com.example.authorizationserver.member.domain.Member;
+import com.example.authorizationserver.member.dao.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

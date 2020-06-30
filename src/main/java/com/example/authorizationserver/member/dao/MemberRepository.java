@@ -1,5 +1,6 @@
-package com.example.authorizationserver.member;
+package com.example.authorizationserver.member.dao;
 
+import com.example.authorizationserver.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

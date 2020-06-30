@@ -1,4 +1,4 @@
-package com.example.authorizationserver.OAuth;
+package com.example.authorizationserver.OAuth.dto;
 
 import lombok.Builder;
 import lombok.Getter;

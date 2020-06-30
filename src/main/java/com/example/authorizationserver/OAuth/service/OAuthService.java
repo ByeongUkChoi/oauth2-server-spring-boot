@@ -1,4 +1,4 @@
-package com.example.authorizationserver.OAuth;
+package com.example.authorizationserver.OAuth.service;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -6,6 +6,7 @@ import java.util.Date;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
+import com.example.authorizationserver.OAuth.dto.TokenDto;
 import org.springframework.stereotype.Service;
 
 @Service

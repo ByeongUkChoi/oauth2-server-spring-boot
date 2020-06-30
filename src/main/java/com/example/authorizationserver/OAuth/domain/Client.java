@@ -1,4 +1,4 @@
-package com.example.authorizationserver.OAuth;
+package com.example.authorizationserver.OAuth.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

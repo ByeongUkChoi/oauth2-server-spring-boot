@@ -1,5 +1,7 @@
-package com.example.authorizationserver.OAuth;
+package com.example.authorizationserver.OAuth.controller;
 
+import com.example.authorizationserver.OAuth.service.OAuthService;
+import com.example.authorizationserver.OAuth.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

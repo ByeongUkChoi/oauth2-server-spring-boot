@@ -1,6 +1,7 @@
-package com.example.authorizationserver.authentication;
+package com.example.authorizationserver.authentication.controller;
 
-import com.example.authorizationserver.OAuth.AuthorizationCode;
+import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
+import com.example.authorizationserver.authentication.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
