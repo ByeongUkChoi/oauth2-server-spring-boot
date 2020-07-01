@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * CREATE TABLE oauth_authorization_codes (
- *   authorization_code  VARCHAR(40)     NOT NULL,
+ *   code  VARCHAR(40)     NOT NULL,
  *   client_id           VARCHAR(80)     NOT NULL,
  *   member_id           BIGINT,
  *   redirect_uri        VARCHAR(2000),
@@ -20,10 +20,12 @@ import java.time.LocalDateTime;
  */
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class AuthorizationCode {
     @Id
-    private String authorizationCode;
+    private String code;
     private String clientId;
     private long memberId;
     private String redirectUri;

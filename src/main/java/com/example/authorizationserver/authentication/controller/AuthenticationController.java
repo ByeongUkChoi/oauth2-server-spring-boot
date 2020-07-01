@@ -1,5 +1,6 @@
 package com.example.authorizationserver.authentication.controller;
 
+import com.example.authorizationserver.OAuth.dao.AuthorizeCodeRepository;
 import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
 import com.example.authorizationserver.authentication.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    // TODO: 서비스레이어에서 처리하도록 분리 예정
+    @Autowired
+    private AuthorizeCodeRepository authorizeCodeRepository;
+
+
     /**
      * 로그인 페이지
      * @param continueUrl
@@ -46,7 +52,6 @@ public class AuthenticationController {
                         @RequestParam("password") String password,
                         @RequestParam("continue") String continueUrl,
                         RedirectAttributes redirectAttributes) throws Exception {
-        redirectAttributes.addAttribute("code", "code123");
 
         // 로그인 실패시 에러처리
         if (authenticationService.login(username, password) == false) {
@@ -59,16 +64,24 @@ public class AuthenticationController {
 
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(decodedContinueUrl).build();
         MultiValueMap<String, String> queryParams = uriComponents.getQueryParams();
+        String redirectUri = queryParams.getFirst("redirect_uri");
 
+        String code = "test-authorize-code";
+
+        // TODO: 코드 생성기가 있으면 좋을것 같음. 생성기로 만들고 getCode 함수로 코드를 가져와 반환함
         // authorize_code 생성 및 반환
         String clientId = queryParams.getFirst("client_id");
         AuthorizationCode authorizationCode = AuthorizationCode.builder()
                 .clientId(clientId)
-                .authorizationCode("test-authorize-code").build();
+                .memberId(90001)    // TODO: test
+                .redirectUri(redirectUri)
+                .expires(123123123)
+                .code(code).build();
         // authorize code insert
+        authorizeCodeRepository.save(authorizationCode);
 
+        redirectAttributes.addAttribute("code", code);
 
-        String redirectUrl = queryParams.getFirst("redirect_uri");
-        return "redirect:" + redirectUrl;
+        return "redirect:" + redirectUri;
     }
 }
