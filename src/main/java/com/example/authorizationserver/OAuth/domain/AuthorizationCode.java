@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 /**
  * CREATE TABLE oauth_authorization_codes (

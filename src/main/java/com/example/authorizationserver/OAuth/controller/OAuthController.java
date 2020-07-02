@@ -37,9 +37,21 @@ public class OAuthController {
                               HttpServletResponse response) throws IOException {
         // TODO: 테스트로 clientId, response_type 검사하지 않음
 
-        String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
-        String encodedCurrentUrl = URLEncoder.encode(currentUrl, StandardCharsets.UTF_8.toString());
-        response.sendRedirect("/login?continue=" + encodedCurrentUrl);
+        // TODO: 로그인 여부 확인해야함
+        // 로그인이 되어있지 않은 경우
+        if(true) {
+            String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
+            String encodedCurrentUrl = URLEncoder.encode(currentUrl, StandardCharsets.UTF_8.toString());
+            response.sendRedirect("/login?continue=" + encodedCurrentUrl);
+            return;
+        }
+
+        // 로그인이 되어있는 경우
+        String code = oAuthService.getAuthorizationCode(clientId, redirectUri);
+        // TODO: code를 다른 방식으로 넘길 수 있는지
+        response.sendRedirect(redirectUri + "?code=" + code);
+        return;
+
     }
 
     /**

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AuthorizeCodeRepository extends JpaRepository<AuthorizationCode, String>{
+public interface AuthorizationCodeRepository extends JpaRepository<AuthorizationCode, String>{
 }

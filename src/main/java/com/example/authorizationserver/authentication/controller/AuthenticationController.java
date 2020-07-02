@@ -1,6 +1,6 @@
 package com.example.authorizationserver.authentication.controller;
 
-import com.example.authorizationserver.OAuth.dao.AuthorizeCodeRepository;
+import com.example.authorizationserver.OAuth.dao.AuthorizationCodeRepository;
 import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
 import com.example.authorizationserver.authentication.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AuthenticationController {
 
     // TODO: 서비스레이어에서 처리하도록 분리 예정
     @Autowired
-    private AuthorizeCodeRepository authorizeCodeRepository;
+    private AuthorizationCodeRepository authorizationCodeRepository;
 
 
     /**
@@ -78,7 +78,7 @@ public class AuthenticationController {
                 .expires(123123123)
                 .code(code).build();
         // authorize code insert
-        authorizeCodeRepository.save(authorizationCode);
+        authorizationCodeRepository.save(authorizationCode);
 
         redirectAttributes.addAttribute("code", code);
 
