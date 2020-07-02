@@ -4,6 +4,7 @@ import com.example.authorizationserver.OAuth.dao.AuthorizationCodeRepository;
 import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
 import com.example.authorizationserver.authentication.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -51,12 +54,16 @@ public class AuthenticationController {
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         @RequestParam("continue") String continueUrl,
+                        HttpServletRequest request,
                         RedirectAttributes redirectAttributes) throws Exception {
 
         // 로그인 실패시 에러처리
         if (authenticationService.login(username, password) == false) {
             throw new Exception();
         }
+        HttpSession session = request.getSession();
+        // TODO: session 저장 후 리다이렉트
+        //session.setAttribute();
 
 
         // TODO: service 안에서 동작 하도록 service 함수로 분리

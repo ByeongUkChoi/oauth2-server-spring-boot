@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -33,13 +34,15 @@ public class OAuthController {
                               @RequestParam("redirect_uri") String redirectUri,
                               @RequestParam("response_type") String responseType,
                               RedirectAttributes redirectAttributes,
-                              HttpServletRequest request,
+                              HttpSession session
                               HttpServletResponse response) throws IOException {
         // TODO: 테스트로 clientId, response_type 검사하지 않음
 
         // TODO: 로그인 여부 확인해야함
+
+
         // 로그인이 되어있지 않은 경우
-        if(true) {
+        if(session.getAttribute("member") == null) {
             String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
             String encodedCurrentUrl = URLEncoder.encode(currentUrl, StandardCharsets.UTF_8.toString());
             response.sendRedirect("/login?continue=" + encodedCurrentUrl);
