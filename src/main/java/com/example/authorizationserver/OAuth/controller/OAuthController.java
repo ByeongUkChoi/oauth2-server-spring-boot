@@ -34,13 +34,12 @@ public class OAuthController {
                               @RequestParam("redirect_uri") String redirectUri,
                               @RequestParam("response_type") String responseType,
                               RedirectAttributes redirectAttributes,
-                              HttpSession session
+                              HttpServletRequest request,
                               HttpServletResponse response) throws IOException {
         // TODO: 테스트로 clientId, response_type 검사하지 않음
 
         // TODO: 로그인 여부 확인해야함
-
-
+        HttpSession session = request.getSession();
         // 로그인이 되어있지 않은 경우
         if(session.getAttribute("member") == null) {
             String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
