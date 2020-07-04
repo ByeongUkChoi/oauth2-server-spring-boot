@@ -1,7 +1,7 @@
 package com.example.authorizationserver.authentication.service;
 
-import com.example.authorizationserver.member.domain.Member;
 import com.example.authorizationserver.member.dao.MemberRepository;
+import com.example.authorizationserver.member.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +17,18 @@ public class AuthenticationService {
      * @param password 사용자 패스워드
      * @return
      */
-    public boolean login(String username, String password) throws Exception {
+    public Member login(String username, String password) throws Exception {
         Member member = memberRepository.findByUsername(username);
         if(member == null) {
-            return false;
-        }
-        boolean isCorrectpassword = member.validatePassword(password);
-        // 패스워드 틀릴 시 에러처리
-        if(isCorrectpassword == false) {
+            // 아이디 틀릴 경우 예외처리
             throw new Exception();
         }
 
-        // TODO: authorization code 생성 및 insert
+        // 패스워드 틀릴 시 에러처리
+        if(member.validatePassword(password) == false) {
+            throw new Exception();
+        }
 
-        return true;
+        return member;
     }
 }

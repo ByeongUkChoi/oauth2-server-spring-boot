@@ -1,20 +1,18 @@
 package com.example.authorizationserver.OAuth.controller;
 
-import com.example.authorizationserver.OAuth.service.OAuthService;
 import com.example.authorizationserver.OAuth.dto.TokenDto;
+import com.example.authorizationserver.OAuth.service.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 @RestController
 public class OAuthController {
@@ -24,36 +22,35 @@ public class OAuthController {
 
     /**
      * 인증 코드 요청
-     * 로그인 되어있지 않으면 로그인 페이지로 리다이렉트 시킴
+     * 로그인 되어있지 않으면 로그인 페이지로 리다이렉트 시키고
+     * 로그인 되어있으면 redirect_uri로 코드를 담아 리다이렉트 시킴
      * @param clientId 앱 생성 시 발급 받은 REST API 키
      * @param redirectUri 코드를 리다이렉트 해줄 URI
      * @param responseType "code"로 고정
      */
     @GetMapping("/oauth/authorize")
-    public void requestAuth(@RequestParam("client_id") String clientId,
-                              @RequestParam("redirect_uri") String redirectUri,
-                              @RequestParam("response_type") String responseType,
-                              RedirectAttributes redirectAttributes,
-                              HttpServletRequest request,
-                              HttpServletResponse response) throws IOException {
-        // TODO: 테스트로 clientId, response_type 검사하지 않음
+    public RedirectView requestAuth(@RequestParam("client_id") String clientId,
+                                    @RequestParam("redirect_uri") String redirectUri,
+                                    @RequestParam("response_type") String responseType,
+                                    HttpServletRequest request,
+                                    RedirectAttributes redirectAttributes) throws IOException {
 
-        // TODO: 로그인 여부 확인해야함
+        // 세션으로 로그인 여부 확인
         HttpSession session = request.getSession();
-        // 로그인이 되어있지 않은 경우
+
+        // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
         if(session.getAttribute("member") == null) {
             String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
-            String encodedCurrentUrl = URLEncoder.encode(currentUrl, StandardCharsets.UTF_8.toString());
-            response.sendRedirect("/login?continue=" + encodedCurrentUrl);
-            return;
+            redirectAttributes.addAttribute("continue", currentUrl);
+            return new RedirectView("/login");
         }
+
+        // TODO: 테스트로 clientId, response_type 검사하지 않음
 
         // 로그인이 되어있는 경우
         String code = oAuthService.getAuthorizationCode(clientId, redirectUri);
-        // TODO: code를 다른 방식으로 넘길 수 있는지
-        response.sendRedirect(redirectUri + "?code=" + code);
-        return;
-
+        redirectAttributes.addAttribute("code", code);
+        return new RedirectView(redirectUri);
     }
 
     /**
@@ -79,9 +76,10 @@ public class OAuthController {
                              @RequestParam(value = "refresh_token", required = false) String refreshToken,
                              @RequestParam(value = "client_secret", required = false) String clientSecret) {
 
-
+        // TODO: 파라미터들을 dto객체로 만들고 dto.is토큰발급(), dto.is토큰갱신() 이런 함수 만들어서 각각 서비스 함수를 호출하면 좋을것 같음
         // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
-        
+        // TokenDto token = oAuthService.토큰발급(cleintId, redirectUri, code, refreshToken,);
+
         TokenDto token = oAuthService.getToken();
         return token;
     }

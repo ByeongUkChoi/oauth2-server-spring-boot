@@ -1,24 +1,17 @@
 package com.example.authorizationserver.authentication.controller;
 
 import com.example.authorizationserver.OAuth.dao.AuthorizationCodeRepository;
-import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
 import com.example.authorizationserver.authentication.service.AuthenticationService;
+import com.example.authorizationserver.member.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 로그인 컨트롤러
@@ -42,7 +35,7 @@ public class AuthenticationController {
     @GetMapping("/login")
     public String loginForm(@RequestParam(value = "continue", required = false) String continueUrl,
                             Model model) {
-        // TODO: 로그인 페이지 반환
+        //  로그인 페이지 반환
         model.addAttribute("continue", continueUrl);
         return "login";
     }
@@ -53,42 +46,18 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        @RequestParam("continue") String continueUrl,
-                        HttpServletRequest request,
-                        RedirectAttributes redirectAttributes) throws Exception {
+                        @RequestParam(value = "continue", required = false) String continueUrl,
+                        HttpServletRequest request) throws Exception {
 
-        // 로그인 실패시 에러처리
-        if (authenticationService.login(username, password) == false) {
-            throw new Exception();
-        }
+        // 로그인
+        Member member = authenticationService.login(username, password);
+        // 세션에 로그인 정보 저장
         HttpSession session = request.getSession();
-        // TODO: session 저장 후 리다이렉트
-        //session.setAttribute();
+        session.setAttribute("member", member);
 
-
-        // TODO: service 안에서 동작 하도록 service 함수로 분리
-        String decodedContinueUrl = URLDecoder.decode(continueUrl, StandardCharsets.UTF_8.toString());
-
-        UriComponents uriComponents = UriComponentsBuilder.fromUriString(decodedContinueUrl).build();
-        MultiValueMap<String, String> queryParams = uriComponents.getQueryParams();
-        String redirectUri = queryParams.getFirst("redirect_uri");
-
-        String code = "test-authorize-code";
-
-        // TODO: 코드 생성기가 있으면 좋을것 같음. 생성기로 만들고 getCode 함수로 코드를 가져와 반환함
-        // authorize_code 생성 및 반환
-        String clientId = queryParams.getFirst("client_id");
-        AuthorizationCode authorizationCode = AuthorizationCode.builder()
-                .clientId(clientId)
-                .memberId(90001)    // TODO: test
-                .redirectUri(redirectUri)
-                .expires(123123123)
-                .code(code).build();
-        // authorize code insert
-        authorizationCodeRepository.save(authorizationCode);
-
-        redirectAttributes.addAttribute("code", code);
-
-        return "redirect:" + redirectUri;
+        if(continueUrl != null) {
+            return "redirect:" + continueUrl;
+        }
+        return "/";
     }
 }

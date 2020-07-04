@@ -1,17 +1,16 @@
 package com.example.authorizationserver.OAuth.service;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-
-import com.example.authorizationserver.OAuth.dto.TokenDto;
 import com.example.authorizationserver.OAuth.dao.AuthorizationCodeRepository;
 import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
-
+import com.example.authorizationserver.OAuth.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 @Service
 public class OAuthService {
@@ -24,18 +23,21 @@ public class OAuthService {
          * authorize_code 발급
          */
         public String getAuthorizationCode(String clientId, String redirectUri) {
-                // 코드 랜덤으로 생성해야함
-                String code = "test-authorize-code";
-                AuthorizationCode authorizationCode = AuthorizationCode.builder()
-                        .clientId(clientId)
-                        .memberId(90001)    // TODO: test
-                        .redirectUri(redirectUri)
-                        .expires(123123123)
-                        .code(code).build();
-                // authorize code insert
-                authorizationCodeRepository.save(authorizationCode);
+            // 코드 랜덤으로 생성해야함 a-Z까지
+            Random rnd = new Random();
+            String randomStr1 = String.valueOf((char) ((int) (rnd.nextInt(56)) + 65));
+            String randomStr2 = String.valueOf((char) ((int) (rnd.nextInt(56)) + 65));
+            String code = "test-authorize-code" + randomStr1 + randomStr2;
+            AuthorizationCode authorizationCode = AuthorizationCode.builder()
+                    .clientId(clientId)
+                    .memberId(90001)    // TODO: test
+                    .redirectUri(redirectUri)
+                    .expires(123123123)
+                    .code(code).build();
+            // authorize code insert
+            authorizationCodeRepository.save(authorizationCode);
 
-                return code;
+            return code;
         }
 
     /**
