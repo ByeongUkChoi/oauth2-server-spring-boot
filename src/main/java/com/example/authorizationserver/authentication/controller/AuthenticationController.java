@@ -23,11 +23,6 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    // TODO: 서비스레이어에서 처리하도록 분리 예정
-    @Autowired
-    private AuthorizationCodeRepository authorizationCodeRepository;
-
-
     /**
      * 로그인 페이지
      * @param continueUrl
