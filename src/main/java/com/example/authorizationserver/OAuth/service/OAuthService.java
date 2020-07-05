@@ -5,35 +5,41 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.example.authorizationserver.OAuth.dao.AuthorizationCodeRepository;
 import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
 import com.example.authorizationserver.OAuth.dto.TokenDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
 @Service
+@AllArgsConstructor
 public class OAuthService {
 
-        @Autowired
         private AuthorizationCodeRepository authorizationCodeRepository;
 
         /**
          * AuthorizationCode를 생성하여 DB 저장하고 code 반환
          * authorize_code 발급
          */
-        public String getAuthorizationCode(String clientId, String redirectUri) {
-            // 코드 랜덤으로 생성해야함 a-Z까지
-            Random rnd = new Random();
-            String randomStr1 = String.valueOf((char) ((int) (rnd.nextInt(56)) + 65));
-            String randomStr2 = String.valueOf((char) ((int) (rnd.nextInt(56)) + 65));
-            String code = "test-authorize-code" + randomStr1 + randomStr2;
+        public String getAuthorizationCode(long memberId, String clientId, String redirectUri) {
+
+            // 만료 시간 설정. 현재 시간 + 60분
+            int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
+            int expirationTimestamp = 60 * 60;  // authorize_code 만료 시간 60분 ( TODO: 상수로 분리 시켜야함)
+
+            // 코드 랜덤으로 생성
+            String code = RandomStringUtils.randomAlphanumeric(86);
+
             AuthorizationCode authorizationCode = AuthorizationCode.builder()
                     .clientId(clientId)
-                    .memberId(90001)    // TODO: test
+                    .memberId(memberId)    // TODO: test
                     .redirectUri(redirectUri)
-                    .expires(123123123)
+                    .expires(currentTimestamp + expirationTimestamp)
                     .code(code).build();
+
             // authorize code insert
             authorizationCodeRepository.save(authorizationCode);
 
@@ -47,6 +53,8 @@ public class OAuthService {
 	public TokenDto getToken() {
         Algorithm algorithm = Algorithm.HMAC512("secret");
         Date currentDate = new Date();
+
+        // expires_in은 만료 시간
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
