@@ -90,6 +90,7 @@ client_id, client_secret db 검증을 해야한다.
 구현 로직을 참조할 예정이다.  
 OAuth2 server (PHP) 오픈 소스  
 [thephpleague/oauth2-server document](https://oauth2.thephpleague.com/)  
+[thephpleague/oauth2-server github](https://github.com/thephpleague/oauth2-server)  
 [bshaffer/oauth2-server-php database schema](http://bshaffer.github.io/oauth2-server-php-docs/cookbook/)  
 
 #### 2020. 06. 30
@@ -98,4 +99,22 @@ OAuth와 로그인을 다른 패키지로 두어야하는지 고민을 하였다
 하나로 합쳐야 할지는 고민을 해봐야 겠다.  
 
 @Entity의 멤버 변수를 카멜케이스로 하면 데이터베이스에는 스네이크케이스로 변경된다.  
+
+#### 2020. 07. 05
+authorize_code는 카카오 간편 로그인과 동일하게 86자리로 하였다.  
+access_token같은 경우 jwt를 사용할 예정이기 때문에 짧게 할 생각이다.  
+
+이제 테스트 케이스 작성을 해야 하고, 상세한 문서 작성도 필요하다.  
+
+athorize_code, refresh_token의 만료시간에 대해서 생각 해야 한다.  
+1번. db에 만료되는 시간을 저장할 것인지  
+2번. 생성 시간만 저장하고 기간을 변수로 둘 것인지  
+2-1번. 생성 시간과 만료시간 모두 저장할것 인지  
+1번과 2-1번은 생성 시점에 만료되는 시점이 결정되고  
+2번은 해당 토큰(코드)로 요청 시점에 만료되는 시점이 결정된다  
+
+jwt는 payload에 생성시간(iat), 만료시간(exp)이 담겨있다.  
+따라서 2-1번이 제일 적합해 보인다.  만료 기간은 모두 상수로 빼두어 한번에 관리하도록 하자.  
+db에 저장될 컬럼명과 형식을 고민해야 한다.  
+
 

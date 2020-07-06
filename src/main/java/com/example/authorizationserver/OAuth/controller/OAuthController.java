@@ -2,6 +2,8 @@ package com.example.authorizationserver.OAuth.controller;
 
 import com.example.authorizationserver.OAuth.dto.TokenDto;
 import com.example.authorizationserver.OAuth.service.OAuthService;
+import com.example.authorizationserver.member.domain.Member;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RestController
+@AllArgsConstructor
 public class OAuthController {
 
-    @Autowired
     private OAuthService oAuthService;
 
     /**
@@ -37,18 +39,17 @@ public class OAuthController {
 
         // 세션으로 로그인 여부 확인
         HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("member");
 
         // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
-        if(session.getAttribute("member") == null) {
+        if(member == null) {
             String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
             redirectAttributes.addAttribute("continue", currentUrl);
             return new RedirectView("/login");
         }
 
-        // TODO: 테스트로 clientId, response_type 검사하지 않음
-
         // 로그인이 되어있는 경우
-        String code = oAuthService.getAuthorizationCode(clientId, redirectUri);
+        String code = oAuthService.getAuthorizationCode(member.getMemberId(), clientId, redirectUri);
         redirectAttributes.addAttribute("code", code);
         return new RedirectView(redirectUri);
     }
@@ -78,6 +79,8 @@ public class OAuthController {
 
         // TODO: 파라미터들을 dto객체로 만들고 dto.is토큰발급(), dto.is토큰갱신() 이런 함수 만들어서 각각 서비스 함수를 호출하면 좋을것 같음
         // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
+        // TODO: 토큰 발급 시 authorize_code 검증 (만료 시간도)
+        // TODO: 토큰 발급하면서 refresh_token insert
         // TokenDto token = oAuthService.토큰발급(cleintId, redirectUri, code, refreshToken,);
 
         TokenDto token = oAuthService.getToken();

@@ -16,12 +16,17 @@ import javax.persistence.Id;
  */
 @Entity
 public class Member {
+
     @Id
     @GeneratedValue
     private long memberId;
     private String username;
     private String password;
     private String name;
+
+    public long getMemberId() {
+        return memberId;
+    }
 
     // 암호 일치 여부
     public boolean validatePassword(String password) {

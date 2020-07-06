@@ -1,9 +1,8 @@
 package com.example.authorizationserver.authentication.controller;
 
-import com.example.authorizationserver.OAuth.dao.AuthorizationCodeRepository;
 import com.example.authorizationserver.authentication.service.AuthenticationService;
 import com.example.authorizationserver.member.domain.Member;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +17,9 @@ import javax.servlet.http.HttpSession;
  * oauth 서버와 다른 타 서버여도 됨
  */
 @Controller
+@AllArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
     private AuthenticationService authenticationService;
 
     /**
