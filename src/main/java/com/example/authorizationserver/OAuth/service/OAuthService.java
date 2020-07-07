@@ -3,7 +3,10 @@ package com.example.authorizationserver.OAuth.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.authorizationserver.OAuth.dao.AuthorizationCodeRepository;
+import com.example.authorizationserver.OAuth.dao.ClientRepository;
+import com.example.authorizationserver.OAuth.dao.RefreshTokenRepository;
 import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
+import com.example.authorizationserver.OAuth.domain.Client;
 import com.example.authorizationserver.OAuth.dto.TokenDto;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +15,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class OAuthService {
 
-
     @Autowired
     private AuthorizationCodeRepository authorizationCodeRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
 
     //application.properties 사용
     @Value("${authorizationServer.authorizationCode.expiresIn}")
     private int authorizationCodeExpiresIn;
-
     @Value("${authorizationServer.accessToken.expiresIn}")
     private int accessTokenExpiresIn;
-
     @Value("${authorizationServer.refreshToken.expiresIn}")
     private int refreshTokenExpiresIn;
 
@@ -35,6 +40,9 @@ public class OAuthService {
      * authorize_code 발급
      */
     public String getAuthorizationCode(long memberId, String clientId, String redirectUri) {
+        
+        // TODO: client 검증
+        Client client = clientRepository.findByClientIdAndMemberId(clientId, memberId);
 
         // 현재 시간 (타임스탬프 (초))
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);

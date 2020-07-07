@@ -20,7 +20,7 @@ public class Client {
     @Id
     private String clientId;
     private String clientSecret;
-    private String redirectUri;     // 여기 있어야하는지 잘 모르겠음.
+    private String redirectUri;     // 여기 있어야하는지 잘 모르겠음. => 카카오의 경우 redirectUri 값을 확인함. 있어야함
     private String grantType;
     private long memberId;
 }
