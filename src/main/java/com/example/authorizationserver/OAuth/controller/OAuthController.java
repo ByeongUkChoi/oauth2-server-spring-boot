@@ -74,15 +74,26 @@ public class OAuthController {
                              @RequestParam(value = "redirect_uri", required = false) String redirectUri,
                              @RequestParam(value = "code", required = false) String code,
                              @RequestParam(value = "refresh_token", required = false) String refreshToken,
-                             @RequestParam(value = "client_secret", required = false) String clientSecret) {
+                             @RequestParam(value = "client_secret", required = false) String clientSecret) throws Exception {
 
-        // TODO: 파라미터들을 dto객체로 만들고 dto.is토큰발급(), dto.is토큰갱신() 이런 함수 만들어서 각각 서비스 함수를 호출하면 좋을것 같음
+        // grant_type == 'authorization_code' : 토큰 발급, grant_type == 'refresh_token' : 토큰 갱신
+        // TODO: 상수로 변경하거나 함수로 변경해야함
+        TokenDto token;
+        if (grantType.equals("authorization_code")) {
+            token = oAuthService.getToken();
+        } else if (grantType.equals("refresh_token")) {
+            // TODO: 토큰 갱신 함수 사용해야함
+            token = oAuthService.getToken();
+        } else {
+            throw new Exception();
+        }
+
+
         // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
         // TODO: 토큰 발급 시 authorize_code 검증 (만료 시간도)
         // TODO: 토큰 발급하면서 refresh_token insert
         // TokenDto token = oAuthService.토큰발급(cleintId, redirectUri, code, refreshToken,);
 
-        TokenDto token = oAuthService.getToken();
         return token;
     }
 }
