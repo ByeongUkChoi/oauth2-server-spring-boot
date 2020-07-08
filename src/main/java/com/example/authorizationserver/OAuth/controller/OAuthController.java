@@ -4,7 +4,6 @@ import com.example.authorizationserver.OAuth.dto.TokenDto;
 import com.example.authorizationserver.OAuth.service.OAuthService;
 import com.example.authorizationserver.member.domain.Member;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
