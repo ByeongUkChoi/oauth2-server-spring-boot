@@ -2,7 +2,6 @@ package com.example.authorizationserver.OAuth.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 /**
  * CREATE TABLE oauth_refresh_tokens (
