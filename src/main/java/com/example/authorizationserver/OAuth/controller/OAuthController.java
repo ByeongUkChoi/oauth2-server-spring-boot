@@ -36,6 +36,7 @@ public class OAuthController {
                                     HttpServletRequest request,
                                     RedirectAttributes redirectAttributes) throws IOException {
 
+        // TODO: !!!!!!! 로그인 여부를 세선으로 파악하지 못할수 있음
         // 세션으로 로그인 여부 확인
         HttpSession session = request.getSession();
         Member member = (Member) session.getAttribute("member");
