@@ -41,6 +41,11 @@ public class OAuthController {
         HttpSession session = request.getSession();
         Member member = (Member) session.getAttribute("member");
 
+        // TODO: 로그인 페이지로 리다이렉트 시키는 것이 아닌, 사용자 정보를 달라 라는 요청을 보내야하는것이 맞을것 같음.
+        // TODO: 그 이유는 사용자 정보를 받아서 토큰을 발급 할때  사용자 정보(memberId)가 필요하기 때문에.
+        // TODO: 예) 내가 최병욱앱을 카카오 간편로그인과 연동 하였고, 카카오 아이디로 로그인하여 최병욱 앱을 이용할 때 사용자들의 정보가 토큰과 함께 카카오 인증서버에 저장되어야 하기 때문.
+        // TODO: 예를들어 멤버정보를가져온다 라는 요청으로 보내고, 해당 요청은 로그인 되어있지 않으면 로그인페이지로 팅기도록 해야함
+        // TODO: 멤버컨트롤러 생기고 로그인도 멤버컨트롤러 안에 들어가도 될듯함 memberController::login, memberController::getMemberId
         // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
         if(member == null) {
             String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
