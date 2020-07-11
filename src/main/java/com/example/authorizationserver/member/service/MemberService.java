@@ -1,4 +1,4 @@
-package com.example.authorizationserver.authentication.service;
+package com.example.authorizationserver.member.service;
 
 import com.example.authorizationserver.member.dao.MemberRepository;
 import com.example.authorizationserver.member.domain.Member;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticationService {
+public class MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
