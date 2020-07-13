@@ -2,7 +2,6 @@
 OAuth2 + jwt => auth server 
 
 ## OAuth2
-
 ## 인증 서버 개발
 spring 프로젝트에서 더이상 인증서버지원을 하지 않기로 하여 자체 개발 하기로함   
 authorization code grant type
@@ -24,7 +23,6 @@ gradlew asciidoc
 ```
 
 ### 테스트 로그인 방법
-
 Grant Type : Authorization Code  
 Auth URL : http://localhost:8080/oauth/authorize  
 Access Token URL : http://localhost:8080/oauth/token  
@@ -34,3 +32,7 @@ Client Secret : secret123
 #### login  
 ID : cbw0916  
 PW : pass123  
+
+### DevLog
+프로젝트 진행하면서 기록하고 싶은 것들을 일기처럼 자유롭게 정리    
+[devlog.md](https://github.com/ChoiBU/OAuth2-Server/blob/master/DevLog.md)
