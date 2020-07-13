@@ -1,10 +1,9 @@
-package com.example.authorizationserver.controller;
+package com.example.authorizationserver.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -17,12 +16,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
-public class OAuthControllerTest {
-
+public class OAuthApiTest {
     @Autowired
     protected MockMvc mockMvc;
 
-    // TODO: 테스트 케이스 클래스명을 컨트롤러가 아닌 api 혹은 feature로 변경 해야 의미가 더 맞을것 같다.
+    /**
+     * 인증 코드 요청 테스트
+     * 로그인 여부에 따라 리다이렉트 페이지가 다르다.
+     * @throws Exception
+     */
     @Test
     public void requestAuthTest() throws Exception {
 
@@ -37,22 +39,4 @@ public class OAuthControllerTest {
                         parameterWithName("response_type").description("\"code\"로 고정")
                 )));
     }
-
-    //@Test
-//    public void getTokenTest() throws Exception {
-//
-//        this.mockMvc.perform(post("/oauth/token")
-//                .param("grant_type", "authorization_code")
-//                .param("client_id", "testClientId")
-//                .param("redirect_uri", "http://localhost:8080/client")
-//                .param("code", "testCode"))
-//                .andExpect(status().isOk())
-//                .andDo(document("get-token", requestParameters(
-//                        parameterWithName("grant_type").description("\"authorization_code\"로 고정"),
-//                        parameterWithName("client_id").description("앱 생성 시 발급 받은 REST API"),
-//                        parameterWithName("redirect_uri").description("코드가 리다이렉트된 URI"),
-//                        parameterWithName("code").description("코드 받기 요청으로 얻은 인증 코드")
-//                )));
-//    }
-
 }

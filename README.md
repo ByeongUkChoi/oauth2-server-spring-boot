@@ -33,6 +33,6 @@ Client Secret : secret123
 ID : cbw0916  
 PW : pass123  
 
-### DevLog
+### 개발노트
 프로젝트 진행하면서 기록하고 싶은 것들을 일기처럼 자유롭게 정리    
 [devlog.md](https://github.com/ChoiBU/OAuth2-Server/blob/master/DevLog.md)
