@@ -82,10 +82,9 @@ public class OAuthController {
         // TODO: 상수로 변경하거나 함수로 변경해야함
         TokenDto token;
         if (grantType.equals("authorization_code")) {
-            token = oAuthService.getToken();
+            token = oAuthService.getToken(clientId, redirectUri, code, clientSecret);
         } else if (grantType.equals("refresh_token")) {
-            // TODO: 토큰 갱신 함수 사용해야함
-            token = oAuthService.getToken();
+            token = oAuthService.refreshToken(clientId, refreshToken, clientSecret);
         } else {
             throw new Exception();
         }

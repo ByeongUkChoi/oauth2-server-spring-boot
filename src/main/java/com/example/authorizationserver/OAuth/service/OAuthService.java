@@ -62,11 +62,47 @@ public class OAuthService {
         return code;
     }
 
+    // TODO: 토큰 발급과 토큰 갱신의 공통 로직이 있음. 함수로 빼거나 하나의 함수로 만들기
     /**
      * 토큰 발급
      * @return
+     * @param clientId
+     * @param redirectUri
+     * @param code
+     * @param clientSecret
      */
-    public TokenDto getToken() {
+    public TokenDto getToken(String clientId, String redirectUri, String code, String clientSecret) {
+        Algorithm algorithm = Algorithm.HMAC512("secret");  // TODO: sign값 상수로
+        Date currentDate = new Date();
+
+        // expires_in은 만료 시간
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.SECOND, accessTokenExpiresIn);
+        Date expiredDate = calendar.getTime();
+
+        String accessToken = JWT.create()
+                .withIssuer("auth0")
+                .withIssuedAt(currentDate)
+                .withExpiresAt(expiredDate)
+                .sign(algorithm);
+
+        return TokenDto.builder()
+                .access_token(accessToken)
+                .token_type("bearer")
+                .refresh_token("this_is_refresh_token")
+                .expires_in(accessTokenExpiresIn)
+                .build();
+    }
+
+    /**
+     * 토큰 갱신
+     * @param clientId
+     * @param refreshToken
+     * @param clientSecret
+     * @return
+     */
+    public TokenDto refreshToken(String clientId, String refreshToken, String clientSecret) {
         Algorithm algorithm = Algorithm.HMAC512("secret");  // TODO: sign값 상수로
         Date currentDate = new Date();
 
