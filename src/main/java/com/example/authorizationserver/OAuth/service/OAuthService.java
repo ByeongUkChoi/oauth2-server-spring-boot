@@ -7,6 +7,7 @@ import com.example.authorizationserver.OAuth.dao.ClientRepository;
 import com.example.authorizationserver.OAuth.dao.RefreshTokenRepository;
 import com.example.authorizationserver.OAuth.domain.AuthorizationCode;
 import com.example.authorizationserver.OAuth.domain.Client;
+import com.example.authorizationserver.OAuth.domain.RefreshToken;
 import com.example.authorizationserver.OAuth.dto.TokenDto;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,6 @@ public class OAuthService {
         return code;
     }
 
-    // TODO: 토큰 발급과 토큰 갱신의 공통 로직이 있음. 함수로 빼거나 하나의 함수로 만들기
     /**
      * 토큰 발급
      * @return
@@ -72,27 +72,14 @@ public class OAuthService {
      * @param clientSecret
      */
     public TokenDto getToken(String clientId, String redirectUri, String code, String clientSecret) {
-        Algorithm algorithm = Algorithm.HMAC512("secret");  // TODO: sign값 상수로
-        Date currentDate = new Date();
 
-        // expires_in은 만료 시간
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.SECOND, accessTokenExpiresIn);
-        Date expiredDate = calendar.getTime();
+        Client client = clientRepository.getOne(clientId);
+        // TODO: secret 검증
 
-        String accessToken = JWT.create()
-                .withIssuer("auth0")
-                .withIssuedAt(currentDate)
-                .withExpiresAt(expiredDate)
-                .sign(algorithm);
+        AuthorizationCode authorizationCode = authorizationCodeRepository.findByCodeAndClientId(code, clientId);
+        // TODO: 만료시간 및 검증
 
-        return TokenDto.builder()
-                .access_token(accessToken)
-                .token_type("bearer")
-                .refresh_token("this_is_refresh_token")
-                .expires_in(accessTokenExpiresIn)
-                .build();
+        return generateToken();
     }
 
     /**
@@ -103,6 +90,21 @@ public class OAuthService {
      * @return
      */
     public TokenDto refreshToken(String clientId, String refreshToken, String clientSecret) {
+
+        Client client = clientRepository.getOne(clientId);
+        // TODO: secret 검증
+
+        RefreshToken refreshTokenEntity = refreshTokenRepository.findByRefreshTokenAndClientId(refreshToken, clientId);
+        // TODO: 만료시간 및 검증
+
+        return generateToken();
+    }
+
+    /**
+     * 토큰 생성
+     * @return TokenDto
+     */
+    private TokenDto generateToken() {
         Algorithm algorithm = Algorithm.HMAC512("secret");  // TODO: sign값 상수로
         Date currentDate = new Date();
 
