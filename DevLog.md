@@ -147,3 +147,25 @@ db에 저장될 컬럼명과 형식을 고민해야 한다.
 하지만 테스트 시간이 오래 걸리고, 테스트의 단위가 커 디버깅에 어려움이 있다.  
 그러나 일단 API 테스트를 진행하기 위해 @SpringBootTest 어노테이션을 사용하여 테스트 케이스를 작성할 것이다.  
 
+#### 2020. 07. 14
+토큰 발급 시 추상화 시키기  
+grant_type에 따라 추상화를 시킨다.  
+AuthorizationCode, RefreshToken, 추후 다른 타입도 적용 가능  
+컨트롤러에서 grant_type에따라 추상화된 객체를 가져오고,  
+grant_type에 따라 매개변수도 다르기 때문에 이 부분도 고려해야한다.  
+
+```
+switch (grantType)
+ case: AuthorizationCode
+   GrantTypeInterface grantType = new AuthorizationCode(client_id, redirect_uri, code, client_secret);
+ case: RefreshToken
+   GrantTypeInterface grantType = new RefreshToken(client_id, refresh_token, client_secret);
+
+Token token = grantType.getToken();
+```
+위와 같은 방식이면 grant_type에 대하여 추상화하여 확장성 있게 작성할 수 있어 보인다.  
+오픈 소스에도 grant_type에 대하여 추상화 되어있고, response_type에 대해서도 추상화 되어있다.  
+그러나 grant_type에 대해서는 request객체를 매개변수로 넘긴다.  
+필요한 값을 매개변수가 아니라 request자체를 넘기는 방법도 고려해봐야 한다.  
+
+
