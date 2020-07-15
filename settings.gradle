@@ -1,1 +1,3 @@
-rootProject.name = 'AuthorizationServer'
+rootProject.name = 'spring-boot-oauth2-server-example'
+include 'oauth2-server-module'
+
