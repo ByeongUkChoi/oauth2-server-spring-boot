@@ -34,8 +34,9 @@ ID : cbw0916
 PW : pass123  
 
 ### 개발노트
-프로젝트 진행하면서 기록하고 싶은 것들을 일기처럼 자유롭게 정리    
+프로젝트 진행하면서 기록하고 싶은 것들을 일기처럼 자유롭게 정리  
 [devlog.md](https://github.com/ChoiBU/OAuth2-Server/blob/master/DevLog.md)
 
 ### oauth2-server-java
-링크 넣기
+java oauth2 server 라이브러리  
+[oauth2-server-java](https://github.com/ChoiBU/oauth2-server-java)  
