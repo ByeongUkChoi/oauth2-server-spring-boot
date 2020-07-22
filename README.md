@@ -39,4 +39,4 @@ PW : pass123
 
 ### oauth2-server-java
 java oauth2 server 라이브러리  
-[oauth2-server-java](https://github.com//oauth2-server-java)  
+[oauth2-server-java](https://github.com/ByeongUkChoi/oauth2-server-java)  
