@@ -35,7 +35,7 @@ PW : pass123
 
 ### 개발노트
 프로젝트 진행하면서 기록하고 싶은 것들을 일기처럼 자유롭게 정리  
-[devlog.md](https://github.com/ByeongUkChoi/OAuth2-Server/blob/master/DevLog.md)
+[devlog.md](https://github.com/ByeongUkChoi/oauth2-server-spring-example/blob/master/DevLog.md)
 
 ### oauth2-server-java
 java oauth2 server 라이브러리  
