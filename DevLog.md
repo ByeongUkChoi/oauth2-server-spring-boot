@@ -91,6 +91,7 @@ client_id, client_secret db 검증을 해야한다.
 OAuth2 server (PHP) 오픈 소스  
 [thephpleague/oauth2-server document](https://oauth2.thephpleague.com/)  
 [thephpleague/oauth2-server github](https://github.com/thephpleague/oauth2-server)  
+[thephpleague/oauth2-server database schema](http://vpaste.net/lQmK1)  
 [bshaffer/oauth2-server-php database schema](http://bshaffer.github.io/oauth2-server-php-docs/cookbook/)  
 
 #### 2020. 06. 30
