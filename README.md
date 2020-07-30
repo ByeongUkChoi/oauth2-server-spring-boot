@@ -38,4 +38,4 @@ PW : pass123
 [devlog.md](https://github.com/ChoiBU/OAuth2-Server/blob/master/DevLog.md)
 
 ### oauth2-server-java
-링크 넣기
+[oauth2-server-java library](https://github.com/ByeongUkChoi/oauth2-server-java)
