@@ -2,7 +2,6 @@ package com.example.springbootoauth2example.OAuth.controller;
 
 import com.example.springbootoauth2example.OAuth.dto.TokenDto;
 import com.example.springbootoauth2example.OAuth.service.OAuthService;
-import com.example.springbootoauth2example.member.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RestController
@@ -25,33 +23,16 @@ public class OAuthController {
      * 인증 코드 요청
      * 로그인 되어있지 않으면 로그인 페이지로 리다이렉트 시키고
      * 로그인 되어있으면 redirect_uri로 코드를 담아 리다이렉트 시킴
-     * @param clientId 앱 생성 시 발급 받은 REST API 키
-     * @param redirectUri 코드를 리다이렉트 해줄 URI
-     * @param responseType "code"로 고정
+     * client_id 앱 생성 시 발급 받은 REST API 키
+     * redirect_uri 코드를 리다이렉트 해줄 URI
+     * response_type "code"로 고정
      */
     @GetMapping("/oauth/authorize")
-    public RedirectView requestAuth(@RequestParam("client_id") String clientId,
-                                    @RequestParam("redirect_uri") String redirectUri,
-                                    @RequestParam("response_type") String responseType,
-                                    HttpServletRequest request,
+    public RedirectView requestAuth(HttpServletRequest request,
                                     RedirectAttributes redirectAttributes) throws IOException {
 
-        // 인증 서버와 로그인 서버가 다를 경우 쿠키에서 받아온 값으로 로그인 서버에 로그인 정보 확인 및 사용자 정보 가져옴. 현재는 같은 서버이므로 세션으로 확인이 가능하다.
-        // 세션으로 로그인 여부 확인
-        HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
+        return oAuthService.getAuthorizationCode(request, redirectAttributes);
 
-        // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
-        if(member == null) {
-            String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
-            redirectAttributes.addAttribute("continue", currentUrl);
-            return new RedirectView("/login");
-        }
-
-        // 로그인이 되어있는 경우
-        String code = oAuthService.getAuthorizationCode(member.getMemberId(), clientId, redirectUri);
-        redirectAttributes.addAttribute("code", code);
-        return new RedirectView(redirectUri);
     }
 
     /**

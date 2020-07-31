@@ -1,7 +1,7 @@
 package com.example.springbootoauth2example.member.service;
 
 import com.example.springbootoauth2example.member.dao.MemberRepository;
-import com.example.springbootoauth2example.member.domain.Member;
+import com.example.springbootoauth2example.member.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

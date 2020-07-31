@@ -1,4 +1,4 @@
-package com.example.springbootoauth2example.member.domain;
+package com.example.springbootoauth2example.member.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

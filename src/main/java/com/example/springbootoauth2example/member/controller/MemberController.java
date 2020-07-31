@@ -1,6 +1,6 @@
 package com.example.springbootoauth2example.member.controller;
 
-import com.example.springbootoauth2example.member.domain.Member;
+import com.example.springbootoauth2example.member.entity.Member;
 import com.example.springbootoauth2example.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

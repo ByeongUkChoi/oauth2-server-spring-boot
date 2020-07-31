@@ -5,15 +5,20 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.example.springbootoauth2example.OAuth.dao.AuthorizationCodeRepository;
 import com.example.springbootoauth2example.OAuth.dao.ClientRepository;
 import com.example.springbootoauth2example.OAuth.dao.RefreshTokenRepository;
-import com.example.springbootoauth2example.OAuth.domain.AuthorizationCode;
-import com.example.springbootoauth2example.OAuth.domain.Client;
-import com.example.springbootoauth2example.OAuth.domain.RefreshToken;
+import com.example.springbootoauth2example.OAuth.entity.AuthorizationCode;
+import com.example.springbootoauth2example.OAuth.entity.Client;
+import com.example.springbootoauth2example.OAuth.entity.RefreshToken;
 import com.example.springbootoauth2example.OAuth.dto.TokenDto;
+import com.example.springbootoauth2example.member.entity.Member;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,7 +44,7 @@ public class OAuthService {
      * AuthorizationCode를 생성하여 DB 저장하고 code 반환
      * authorize_code 발급
      */
-    public String getAuthorizationCode(long memberId, String clientId, String redirectUri) {
+    private String getAuthorizationCode(long memberId, String clientId, String redirectUri) {
         
         // TODO: client 검증
         Client client = clientRepository.findByClientIdAndMemberId(clientId, memberId);
@@ -126,5 +131,27 @@ public class OAuthService {
                 .refresh_token("this_is_refresh_token")
                 .expires_in(accessTokenExpiresIn)
                 .build();
+    }
+
+    public RedirectView getAuthorizationCode(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        // 인증 서버와 로그인 서버가 다를 경우 쿠키에서 받아온 값으로 로그인 서버에 로그인 정보 확인 및 사용자 정보 가져옴. 현재는 같은 서버이므로 세션으로 확인이 가능하다.
+        // 세션으로 로그인 여부 확인
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("member");
+
+        // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
+        if(member == null) {
+            String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
+            redirectAttributes.addAttribute("continue", currentUrl);
+            return new RedirectView("/login");
+        }
+
+        // 로그인이 되어있는 경우
+        String clientId = request.getParameter("client_id");
+        String redirectUri = request.getParameter("redirect_uri");
+        String responseType = request.getParameter("response_type");
+        String code = getAuthorizationCode(member.getMemberId(), clientId, redirectUri);
+        redirectAttributes.addAttribute("code", code);
+        return new RedirectView(redirectUri);
     }
 }

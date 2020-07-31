@@ -1,4 +1,4 @@
-package com.example.springbootoauth2example.OAuth.domain;
+package com.example.springbootoauth2example.OAuth.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
