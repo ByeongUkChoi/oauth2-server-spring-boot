@@ -41,6 +41,41 @@ public class OAuthService {
     private int refreshTokenExpiresIn;
 
     /**
+     * 로그인 여부를 파악하여 리다이렉트 시킴
+     * @param request
+     * @param redirectAttributes
+     * @return
+     * @throws Exception
+     */
+    public RedirectView getAuthorizationCode(HttpServletRequest request,
+                                             RedirectAttributes redirectAttributes) throws Exception {
+
+        String responseType = request.getParameter("response_type");
+        if( ! responseType.equals("code")) {
+            throw new Exception("Invalid Response type");
+        }
+
+        // 인증 서버와 로그인 서버가 다를 경우 쿠키에서 받아온 값으로 로그인 서버에 로그인 정보 확인 및 사용자 정보 가져옴. 현재는 같은 서버이므로 세션으로 확인이 가능하다.
+        // 세션으로 로그인 여부 확인
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("member");
+
+        // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
+        if(member == null) {
+            String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
+            redirectAttributes.addAttribute("continue", currentUrl);
+            return new RedirectView("/login");
+        }
+
+        // 로그인이 되어있는 경우
+        String clientId = request.getParameter("client_id");
+        String redirectUri = request.getParameter("redirect_uri");
+        String code = getAuthorizationCode(member.getMemberId(), clientId, redirectUri);
+        redirectAttributes.addAttribute("code", code);
+        return new RedirectView(redirectUri);
+    }
+
+    /**
      * AuthorizationCode를 생성하여 DB 저장하고 code 반환
      * authorize_code 발급
      */
@@ -131,27 +166,5 @@ public class OAuthService {
                 .refresh_token("this_is_refresh_token")
                 .expires_in(accessTokenExpiresIn)
                 .build();
-    }
-
-    public RedirectView getAuthorizationCode(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        // 인증 서버와 로그인 서버가 다를 경우 쿠키에서 받아온 값으로 로그인 서버에 로그인 정보 확인 및 사용자 정보 가져옴. 현재는 같은 서버이므로 세션으로 확인이 가능하다.
-        // 세션으로 로그인 여부 확인
-        HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
-
-        // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
-        if(member == null) {
-            String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
-            redirectAttributes.addAttribute("continue", currentUrl);
-            return new RedirectView("/login");
-        }
-
-        // 로그인이 되어있는 경우
-        String clientId = request.getParameter("client_id");
-        String redirectUri = request.getParameter("redirect_uri");
-        String responseType = request.getParameter("response_type");
-        String code = getAuthorizationCode(member.getMemberId(), clientId, redirectUri);
-        redirectAttributes.addAttribute("code", code);
-        return new RedirectView(redirectUri);
     }
 }

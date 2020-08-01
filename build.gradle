@@ -42,10 +42,12 @@ dependencies {
 
     // 랜덤문자열 생성을 위해 사용함
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 
     // oauth2 server library
-    implementation 'com.byeongukchoi:oauth2-server-java:0.0.1'
+    // https://mvnrepository.com/artifact/com.github.byeongukchoi/oauth2-server-java
+    implementation 'com.github.byeongukchoi:oauth2-server-java:0.0.2'
+
 }
 
 test {
