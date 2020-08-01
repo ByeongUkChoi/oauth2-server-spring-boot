@@ -1,7 +1,7 @@
-package com.example.springbootoauth2example.OAuth.controller;
+package com.example.springbootoauth2server.OAuth.controller;
 
-import com.example.springbootoauth2example.OAuth.dto.TokenDto;
-import com.example.springbootoauth2example.OAuth.service.OAuthService;
+import com.example.springbootoauth2server.OAuth.dto.TokenDto;
+import com.example.springbootoauth2server.OAuth.service.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

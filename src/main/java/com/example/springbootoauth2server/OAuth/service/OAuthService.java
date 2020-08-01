@@ -1,15 +1,15 @@
-package com.example.springbootoauth2example.OAuth.service;
+package com.example.springbootoauth2server.OAuth.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.springbootoauth2example.OAuth.dao.AuthorizationCodeRepository;
-import com.example.springbootoauth2example.OAuth.dao.ClientRepository;
-import com.example.springbootoauth2example.OAuth.dao.RefreshTokenRepository;
-import com.example.springbootoauth2example.OAuth.entity.AuthorizationCode;
-import com.example.springbootoauth2example.OAuth.entity.Client;
-import com.example.springbootoauth2example.OAuth.entity.RefreshToken;
-import com.example.springbootoauth2example.OAuth.dto.TokenDto;
-import com.example.springbootoauth2example.member.entity.Member;
+import com.example.springbootoauth2server.OAuth.dao.AuthorizationCodeRepository;
+import com.example.springbootoauth2server.OAuth.dao.ClientRepository;
+import com.example.springbootoauth2server.OAuth.dao.RefreshTokenRepository;
+import com.example.springbootoauth2server.OAuth.entity.AuthorizationCode;
+import com.example.springbootoauth2server.OAuth.entity.Client;
+import com.example.springbootoauth2server.OAuth.entity.RefreshToken;
+import com.example.springbootoauth2server.OAuth.dto.TokenDto;
+import com.example.springbootoauth2server.member.entity.Member;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

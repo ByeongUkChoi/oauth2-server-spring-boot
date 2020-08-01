@@ -1,4 +1,4 @@
-package com.example.springbootoauth2example.OAuth.entity;
+package com.example.springbootoauth2server.OAuth.entity;
 
 import lombok.*;
 

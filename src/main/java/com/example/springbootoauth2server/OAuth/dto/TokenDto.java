@@ -1,4 +1,4 @@
-package com.example.springbootoauth2example.OAuth.dto;
+package com.example.springbootoauth2server.OAuth.dto;
 
 import lombok.Builder;
 import lombok.Getter;

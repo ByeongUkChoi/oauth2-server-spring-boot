@@ -1,7 +1,7 @@
-package com.example.springbootoauth2example.member.controller;
+package com.example.springbootoauth2server.member.controller;
 
-import com.example.springbootoauth2example.member.entity.Member;
-import com.example.springbootoauth2example.member.service.MemberService;
+import com.example.springbootoauth2server.member.entity.Member;
+import com.example.springbootoauth2server.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
