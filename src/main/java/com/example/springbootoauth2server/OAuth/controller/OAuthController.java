@@ -1,5 +1,6 @@
 package com.example.springbootoauth2server.OAuth.controller;
 
+import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
 import com.example.springbootoauth2server.OAuth.dto.TokenDto;
 import com.example.springbootoauth2server.OAuth.service.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @RestController
 public class OAuthController {
@@ -29,10 +29,9 @@ public class OAuthController {
      */
     @GetMapping("/oauth/authorize")
     public RedirectView requestAuth(HttpServletRequest request,
-                                    RedirectAttributes redirectAttributes) throws IOException {
+                                    RedirectAttributes redirectAttributes) throws Exception {
 
         return oAuthService.getAuthorizationCode(request, redirectAttributes);
-
     }
 
     /**
@@ -58,22 +57,15 @@ public class OAuthController {
                              @RequestParam(value = "refresh_token", required = false) String refreshToken,
                              @RequestParam(value = "client_secret", required = false) String clientSecret) throws Exception {
 
-        // grant_type == 'authorization_code' : 토큰 발급, grant_type == 'refresh_token' : 토큰 갱신
-        // TODO: 상수로 변경하거나 함수로 변경해야함
-        TokenDto token;
-        if (grantType.equals("authorization_code")) {
-            token = oAuthService.getToken(clientId, redirectUri, code, clientSecret);
-        } else if (grantType.equals("refresh_token")) {
-            token = oAuthService.refreshToken(clientId, refreshToken, clientSecret);
-        } else {
-            throw new Exception();
-        }
+        AuthorizationRequestDto authorizationRequestDto = AuthorizationRequestDto.builder()
+                .grantType(grantType)
+                .clientId(clientId)
+                .redirectUri(redirectUri)
+                .code(code)
+                .refreshToken(refreshToken)
+                .clientSecret(clientSecret)
+                .build();
 
-        // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
-        // TODO: 토큰 발급 시 authorize_code 검증 (만료 시간도)
-        // TODO: 토큰 발급하면서 refresh_token insert
-        // TokenDto token = oAuthService.토큰발급(cleintId, redirectUri, code, refreshToken,);
-
-        return token;
+        return oAuthService.issueToken(authorizationRequestDto);
     }
 }
