@@ -3,13 +3,17 @@ package com.example.springbootoauth2server.OAuth.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
+import com.byeongukchoi.oauth2.server.dto.TokenDto;
+import com.byeongukchoi.oauth2.server.grant.AbstractGrant;
+import com.byeongukchoi.oauth2.server.grant.AuthorizationCodeGrant;
+import com.byeongukchoi.oauth2.server.grant.RefreshTokenGrant;
+import com.example.springbootoauth2server.OAuth.dao.AccessTokenRepository;
 import com.example.springbootoauth2server.OAuth.dao.AuthorizationCodeRepository;
 import com.example.springbootoauth2server.OAuth.dao.ClientRepository;
 import com.example.springbootoauth2server.OAuth.dao.RefreshTokenRepository;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCode;
 import com.example.springbootoauth2server.OAuth.entity.Client;
 import com.example.springbootoauth2server.OAuth.entity.RefreshToken;
-import com.example.springbootoauth2server.OAuth.dto.TokenDto;
 import com.example.springbootoauth2server.member.entity.Member;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,8 @@ public class OAuthService {
 
     @Autowired
     private AuthorizationCodeRepository authorizationCodeRepository;
+    @Autowired
+    private AccessTokenRepository accessTokenRepository;
     @Autowired
     private ClientRepository clientRepository;
     @Autowired
@@ -104,22 +110,30 @@ public class OAuthService {
         return code;
     }
 
+    /**
+     * 토큰 발급
+     * @param authorizationRequestDto
+     * @return
+     * @throws Exception
+     */
     public TokenDto issueToken(AuthorizationRequestDto authorizationRequestDto) throws Exception {
+
+        // TODO: 1. client 검증
+
+
+        // 2. 토큰 발급
         // grant_type == 'authorization_code' : 토큰 발급, grant_type == 'refresh_token' : 토큰 갱신
         // TODO: 상수로 변경하거나 함수로 변경해야함
-        TokenDto token = null;
-//        if (grantType.equals("authorization_code")) {
-//            token = getToken(clientId, redirectUri, code, clientSecret);
-//        } else if (grantType.equals("refresh_token")) {
-//            token = refreshToken(clientId, refreshToken, clientSecret);
-//        } else {
-//            throw new Exception();
-//        }
-
-        // TODO: 검증 부분 추가 혹은 검증 부분도 서비스에서 해야함
-        // TODO: 토큰 발급 시 authorize_code 검증 (만료 시간도)
-        // TODO: 토큰 발급하면서 refresh_token insert
-        // TokenDto token = oAuthService.토큰발급(cleintId, redirectUri, code, refreshToken,);
+        String grantType = authorizationRequestDto.getGrantType();
+        AbstractGrant grant = null;
+        if (grantType.equals("authorization_code")) {
+            grant = new AuthorizationCodeGrant(authorizationCodeRepository, accessTokenRepository, refreshTokenRepository);
+        } else if (grantType.equals("refresh_token")) {
+            grant = new RefreshTokenGrant(accessTokenRepository, refreshTokenRepository);
+        } else {
+            throw new Exception();
+        }
+        TokenDto token = grant.issueToken(authorizationRequestDto);
 
         return token;
     }
