@@ -189,4 +189,8 @@ Token token = grantType.getToken();
 라이브러리를 개발하여 maven repository에 업로드 하였다.  
 다시 구현하면서 라이브러리도 추가해야할 부분은 추가하자.  
 
+#### 2020. 08. 05
+라이브러리에서는 테이블에 username을 넣었지만 여기에선 memberId를 넣었다.  
+라이브러리의 TokenDto에 expires in 값이 있음. 이 값은 토큰의 만료까지의 시간을 나타낸다.  
+하지만 만료 시간을 정확하게 출력해줘야 하지않나 싶다.  (그러나 카카오는 expires in을 반환한다.)  
 

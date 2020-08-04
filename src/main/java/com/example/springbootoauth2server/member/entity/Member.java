@@ -20,12 +20,17 @@ public class Member {
     @Id
     @GeneratedValue
     private long memberId;
+
     private String username;
     private String password;
     private String name;
 
     public long getMemberId() {
         return memberId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     // 암호 일치 여부

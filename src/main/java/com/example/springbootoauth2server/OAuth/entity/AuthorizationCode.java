@@ -7,14 +7,12 @@ import javax.persistence.Id;
 
 /**
  * CREATE TABLE oauth_authorization_codes (
- *   code  VARCHAR(40)     NOT NULL,
- *   client_id           VARCHAR(80)     NOT NULL,
- *   member_id           BIGINT,
- *   redirect_uri        VARCHAR(2000),
- *   expires             TIMESTAMP       NOT NULL,
- *   scope               VARCHAR(4000), // 사용하지 않음
- *   id_token            VARCHAR(1000), // 사용하지 않음
- *   PRIMARY KEY (authorization_code)
+ *   code              VARCHAR(86)     NOT NULL PRIMARY KEY,
+ *   client_id         VARCHAR(32)     NOT NULL,
+ *   member_id         BIGINT          NOT NULL,
+ *   redirect_uri      VARCHAR(500),
+ *   expired_at        TIMESTAMP       NOT NULL,
+ *   created_at        TIMESTAMP       NOT NULL,
  * );
  */
 
@@ -29,7 +27,8 @@ public class AuthorizationCode implements com.byeongukchoi.oauth2.server.entity.
     private String clientId;
     private long memberId;
     private String redirectUri;
-    private int expires;
+    private int expiredAt;
+    private int createdAt;
 
     @Override
     public String getCode() {

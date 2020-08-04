@@ -6,7 +6,7 @@ import javax.persistence.Id;
  * CREATE TABLE oauth_access_tokens (
  *   token             VARCHAR(400)    NOT NULL PRIMARY KEY,
  *   client_id         VARCHAR(32)     NOT NULL,
- *   username          VARCHAR(40)     NOT NULL,
+ *   member_id         BIGINT          NOT NULL,
  *   expired_at        TIMESTAMP       NOT NULL,
  *   created_at        TIMESTAMP       NOT NULL,
  * );
@@ -15,7 +15,7 @@ public class AccessToken implements com.byeongukchoi.oauth2.server.entity.Access
     @Id
     private String token;
     private String clientId;
-    private String username;
+    private long memberId;
     private int expiredAt;
     private int createdAt;
 

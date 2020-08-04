@@ -101,7 +101,7 @@ public class OAuthService {
                 .clientId(clientId)
                 .memberId(memberId)
                 .redirectUri(redirectUri)
-                .expires(currentTimestamp + authorizationCodeExpiresIn)
+                .expiredAt(currentTimestamp + authorizationCodeExpiresIn)
                 .code(code).build();
 
         // authorize code insert
@@ -196,10 +196,10 @@ public class OAuthService {
                 .sign(algorithm);
 
         return TokenDto.builder()
-                .access_token(accessToken)
-                .token_type("bearer")
-                .refresh_token("this_is_refresh_token")
-                .expires_in(accessTokenExpiresIn)
+                .accessToken(accessToken)
+                .tokenType("bearer")
+                .refreshToken("this_is_refresh_token")
+                .expiresIn(accessTokenExpiresIn)
                 .build();
     }
 
