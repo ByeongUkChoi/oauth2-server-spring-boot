@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ClientRepositoryImpl implements ClientRepository {
     @Override
-    public Client findById(String clientId) {
+    public Client getOne(String id) {
         return null;
     }
 }

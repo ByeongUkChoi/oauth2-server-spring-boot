@@ -16,4 +16,9 @@ public class AuthorizationCodeRepositoryImpl implements AuthorizationCodeReposit
     public AuthorizationCode findByCodeAndClientId(String code, String clientId) {
         return null;
     }
+
+    @Override
+    public void save(AuthorizationCode authorizationCode) {
+
+    }
 }

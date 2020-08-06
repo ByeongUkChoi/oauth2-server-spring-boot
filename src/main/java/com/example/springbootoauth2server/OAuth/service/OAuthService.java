@@ -4,16 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.dto.TokenDto;
+import com.byeongukchoi.oauth2.server.entity.Client;
+import com.byeongukchoi.oauth2.server.entity.RefreshToken;
 import com.byeongukchoi.oauth2.server.grant.AbstractGrant;
-import com.byeongukchoi.oauth2.server.grant.AuthorizationCodeGrant;
-import com.byeongukchoi.oauth2.server.grant.RefreshTokenGrant;
-import com.example.springbootoauth2server.OAuth.dao.AccessTokenRepository;
-import com.example.springbootoauth2server.OAuth.dao.AuthorizationCodeRepository;
-import com.example.springbootoauth2server.OAuth.dao.ClientRepository;
-import com.example.springbootoauth2server.OAuth.dao.RefreshTokenRepository;
+import com.byeongukchoi.oauth2.server.repository.AccessTokenRepository;
+import com.byeongukchoi.oauth2.server.repository.AuthorizationCodeRepository;
+import com.byeongukchoi.oauth2.server.repository.ClientRepository;
+import com.byeongukchoi.oauth2.server.repository.RefreshTokenRepository;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCode;
-import com.example.springbootoauth2server.OAuth.entity.Client;
-import com.example.springbootoauth2server.OAuth.entity.RefreshToken;
 import com.example.springbootoauth2server.member.entity.Member;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +87,7 @@ public class OAuthService {
     private String getAuthorizationCode(long memberId, String clientId, String redirectUri) {
         
         // TODO: client 검증
-        Client client = clientRepository.findByClientIdAndMemberId(clientId, memberId);
+        Client client = clientRepository.getOne(clientId);
 
         // 현재 시간 (타임스탬프 (초))
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
@@ -127,9 +125,9 @@ public class OAuthService {
         String grantType = authorizationRequestDto.getGrantType();
         AbstractGrant grant = null;
         if (grantType.equals("authorization_code")) {
-            grant = new AuthorizationCodeGrant(authorizationCodeRepository, accessTokenRepository, refreshTokenRepository);
+            //grant = new AuthorizationCodeGrant(authorizationCodeRepository, accessTokenRepository, refreshTokenRepository);
         } else if (grantType.equals("refresh_token")) {
-            grant = new RefreshTokenGrant(accessTokenRepository, refreshTokenRepository);
+            //grant = new RefreshTokenGrant(accessTokenRepository, refreshTokenRepository);
         } else {
             throw new Exception();
         }
@@ -151,7 +149,7 @@ public class OAuthService {
         Client client = clientRepository.getOne(clientId);
         // TODO: secret 검증
 
-        AuthorizationCode authorizationCode = authorizationCodeRepository.findByCodeAndClientId(code, clientId);
+        AuthorizationCode authorizationCode = (AuthorizationCode) authorizationCodeRepository.findByCodeAndClientId(code, clientId);
         // TODO: 만료시간 및 검증
 
         return generateToken();
@@ -169,7 +167,7 @@ public class OAuthService {
         Client client = clientRepository.getOne(clientId);
         // TODO: secret 검증
 
-        RefreshToken refreshTokenEntity = refreshTokenRepository.findByRefreshTokenAndClientId(refreshToken, clientId);
+        RefreshToken refreshTokenEntity = refreshTokenRepository.findByTokenAndClientId(refreshToken, clientId);
         // TODO: 만료시간 및 검증
 
         return generateToken();
