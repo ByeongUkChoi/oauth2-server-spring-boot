@@ -31,7 +31,7 @@ public class MemberController {
                             Model model) {
         //  로그인 페이지 반환
         model.addAttribute("continue", continueUrl);
-        return "login";
+        return "member/login";
     }
     /**
      * 로그인
