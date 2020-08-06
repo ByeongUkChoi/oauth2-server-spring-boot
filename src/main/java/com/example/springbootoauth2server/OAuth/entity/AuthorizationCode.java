@@ -10,7 +10,7 @@ import javax.persistence.Id;
  * CREATE TABLE oauth_authorization_codes (
  *   code              VARCHAR(86)     NOT NULL PRIMARY KEY,
  *   client_id         VARCHAR(32)     NOT NULL,
- *   user_id           BIGINT          NOT NULL,
+ *   username          VARCHAR(40)     NOT NULL,
  *   redirect_uri      VARCHAR(500),
  *   expired_at        TIMESTAMP       NOT NULL,
  *   created_at        TIMESTAMP       NOT NULL,
@@ -26,8 +26,7 @@ public class AuthorizationCode implements com.byeongukchoi.oauth2.server.entity.
     @Id
     private String code;
     private String clientId;
-    @Column(name = "user_id")
-    private long memberId;
+    private String username;
     private String redirectUri;
     private int expiredAt;
     private int createdAt;

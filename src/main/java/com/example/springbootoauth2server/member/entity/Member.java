@@ -6,28 +6,20 @@ import javax.persistence.Id;
 
 /**
  * CREATE TABLE members (
- *   member_id           BIGINT,
- *   username            VARCHAR(80),
- *   password            VARCHAR(80),
- *   name                VARCHAR(80),
- *   scope               VARCHAR(4000), // 사용하지 않음
- *   PRIMARY KEY (member_id)
+ *   username            VARCHAR(40),
+ *   password            VARCHAR(40),
+ *   name                VARCHAR(40),
+ *   scope               VARCHAR(1000), // 사용하지 않음
+ *   PRIMARY KEY (username)
  * );
  */
 @Entity
 public class Member {
 
     @Id
-    @GeneratedValue
-    private long memberId;
-
     private String username;
     private String password;
     private String name;
-
-    public long getMemberId() {
-        return memberId;
-    }
 
     public String getUsername() {
         return username;

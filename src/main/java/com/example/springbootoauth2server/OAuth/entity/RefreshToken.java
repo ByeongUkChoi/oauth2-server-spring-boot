@@ -8,7 +8,7 @@ import javax.persistence.Id;
  * CREATE TABLE oauth_refresh_tokens (
  *   token             VARCHAR(400)    NOT NULL PRIMARY KEY,
  *   client_id         VARCHAR(32)     NOT NULL,
- *   user_id           BIGINT          NOT NULL,
+ *   username          VARCHAR(40)     NOT NULL,
  *   access_token      VARCHAR(400),
  *   expired_at        TIMESTAMP       NOT NULL,
  *   created_at        TIMESTAMP       NOT NULL,
@@ -19,8 +19,7 @@ public class RefreshToken implements com.byeongukchoi.oauth2.server.entity.Refre
     @Id
     private String token;
     private String clientId;
-    @Column(name = "user_id")
-    private long memberId;
+    private String username;
     private String accessToken;
     private int expiredAt;
     private int createdAt;
