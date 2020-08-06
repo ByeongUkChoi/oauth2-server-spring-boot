@@ -38,6 +38,7 @@ public class AuthorizationCode implements com.byeongukchoi.oauth2.server.entity.
 
     @Override
     public Boolean isExpired() {
-        return null;
+        // TODO: 구현해야함
+        return false;
     }
 }

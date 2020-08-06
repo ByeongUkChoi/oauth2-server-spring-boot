@@ -7,6 +7,8 @@ import com.byeongukchoi.oauth2.server.dto.TokenDto;
 import com.byeongukchoi.oauth2.server.entity.Client;
 import com.byeongukchoi.oauth2.server.entity.RefreshToken;
 import com.byeongukchoi.oauth2.server.grant.AbstractGrant;
+import com.byeongukchoi.oauth2.server.grant.AuthorizationCodeGrant;
+import com.byeongukchoi.oauth2.server.grant.RefreshTokenGrant;
 import com.byeongukchoi.oauth2.server.repository.AccessTokenRepository;
 import com.byeongukchoi.oauth2.server.repository.AuthorizationCodeRepository;
 import com.byeongukchoi.oauth2.server.repository.ClientRepository;
@@ -75,7 +77,7 @@ public class OAuthService {
         // 로그인이 되어있는 경우
         String clientId = request.getParameter("client_id");
         String redirectUri = request.getParameter("redirect_uri");
-        String code = getAuthorizationCode(member.getMemberId(), clientId, redirectUri);
+        String code = getAuthorizationCode(member.getUsername(), clientId, redirectUri);
         redirectAttributes.addAttribute("code", code);
         return new RedirectView(redirectUri);
     }
@@ -84,7 +86,7 @@ public class OAuthService {
      * AuthorizationCode를 생성하여 DB 저장하고 code 반환
      * authorize_code 발급
      */
-    private String getAuthorizationCode(long memberId, String clientId, String redirectUri) {
+    private String getAuthorizationCode(String username, String clientId, String redirectUri) {
         
         // TODO: client 검증
         Client client = clientRepository.getOne(clientId);
@@ -97,7 +99,7 @@ public class OAuthService {
 
         AuthorizationCode authorizationCode = AuthorizationCode.builder()
                 .clientId(clientId)
-                .memberId(memberId)
+                .username(username)
                 .redirectUri(redirectUri)
                 .expiredAt(currentTimestamp + authorizationCodeExpiresIn)
                 .code(code).build();
@@ -125,9 +127,9 @@ public class OAuthService {
         String grantType = authorizationRequestDto.getGrantType();
         AbstractGrant grant = null;
         if (grantType.equals("authorization_code")) {
-            //grant = new AuthorizationCodeGrant(authorizationCodeRepository, accessTokenRepository, refreshTokenRepository);
+            grant = new AuthorizationCodeGrant(authorizationCodeRepository, accessTokenRepository, refreshTokenRepository);
         } else if (grantType.equals("refresh_token")) {
-            //grant = new RefreshTokenGrant(accessTokenRepository, refreshTokenRepository);
+            grant = new RefreshTokenGrant(accessTokenRepository, refreshTokenRepository);
         } else {
             throw new Exception();
         }
