@@ -58,7 +58,7 @@ public class OAuthService {
                                              RedirectAttributes redirectAttributes) throws Exception {
 
         String responseType = request.getParameter("response_type");
-        if( ! responseType.equals("code")) {
+        if(responseType != null && ! responseType.equals("code")) {
             throw new Exception("Invalid Response type");
         }
 
