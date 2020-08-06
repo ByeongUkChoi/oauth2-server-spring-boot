@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.member.dao;
+package com.example.springbootoauth2server.member.repository;
 
 import com.example.springbootoauth2server.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
