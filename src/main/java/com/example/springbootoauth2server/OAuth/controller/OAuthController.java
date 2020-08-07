@@ -4,16 +4,14 @@ import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.dto.TokenDto;
 import com.example.springbootoauth2server.OAuth.service.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping("/oauth")
 public class OAuthController {
 
     @Autowired
@@ -27,7 +25,7 @@ public class OAuthController {
      * redirect_uri 코드를 리다이렉트 해줄 URI
      * response_type "code"로 고정
      */
-    @GetMapping("/oauth/authorize")
+    @GetMapping("/authorize")
     public RedirectView requestAuth(HttpServletRequest request,
                                     RedirectAttributes redirectAttributes) throws Exception {
 
@@ -49,7 +47,7 @@ public class OAuthController {
      *  토큰 갱신
      *  grant_type, client_id, refresh_token, client_secret
      */
-    @PostMapping("/oauth/token")
+    @PostMapping("/token")
     public TokenDto getToken(@RequestParam(value = "grant_type", required = true) String grantType,
                              @RequestParam(value = "client_id", required = true) String clientId,
                              @RequestParam(value = "redirect_uri", required = false) String redirectUri,

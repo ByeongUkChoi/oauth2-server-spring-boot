@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.dto.TokenDto;
+import com.byeongukchoi.oauth2.server.entity.AuthorizationCode;
 import com.byeongukchoi.oauth2.server.entity.Client;
 import com.byeongukchoi.oauth2.server.entity.RefreshToken;
 import com.byeongukchoi.oauth2.server.grant.AbstractGrant;
@@ -13,7 +14,7 @@ import com.byeongukchoi.oauth2.server.repository.AccessTokenRepository;
 import com.byeongukchoi.oauth2.server.repository.AuthorizationCodeRepository;
 import com.byeongukchoi.oauth2.server.repository.ClientRepository;
 import com.byeongukchoi.oauth2.server.repository.RefreshTokenRepository;
-import com.example.springbootoauth2server.OAuth.entity.AuthorizationCode;
+import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
 import com.example.springbootoauth2server.member.entity.Member;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,39 +68,31 @@ public class OAuthService {
         HttpSession session = request.getSession();
         Member member = (Member) session.getAttribute("member");
 
+        RedirectView redirectView = new RedirectView();
         // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
         if(member == null) {
             String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
             redirectAttributes.addAttribute("continue", currentUrl);
-            return new RedirectView("/login");
+            redirectView.setUrl("/login");
+            return redirectView;
         }
 
         // 로그인이 되어있는 경우
         String clientId = request.getParameter("client_id");
         String redirectUri = request.getParameter("redirect_uri");
-        String code = getAuthorizationCode(member.getUsername(), clientId, redirectUri);
-        redirectAttributes.addAttribute("code", code);
-        return new RedirectView(redirectUri);
-    }
 
-    /**
-     * AuthorizationCode를 생성하여 DB 저장하고 code 반환
-     * authorize_code 발급
-     */
-    private String getAuthorizationCode(String username, String clientId, String redirectUri) {
-        
-        // TODO: client 검증
         Client client = clientRepository.getOne(clientId);
-
+        // TODO: client 검증
         // 현재 시간 (타임스탬프 (초))
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
 
         // 코드 랜덤으로 생성
         String code = RandomStringUtils.randomAlphanumeric(86);
 
-        AuthorizationCode authorizationCode = AuthorizationCode.builder()
+        // TODO: 생성을 repository에서 매개변수 받아서 getNewAuthorizationCode로 해도 좋을 듯
+        AuthorizationCode authorizationCode = AuthorizationCodeImpl.builder()
                 .clientId(clientId)
-                .username(username)
+                .username(member.getUsername())
                 .redirectUri(redirectUri)
                 .expiredAt(currentTimestamp + authorizationCodeExpiresIn)
                 .code(code).build();
@@ -107,11 +100,14 @@ public class OAuthService {
         // authorize code insert
         authorizationCodeRepository.save(authorizationCode);
 
-        return code;
+        redirectAttributes.addAttribute("code", code);
+        redirectView.setUrl(redirectUri);
+        return redirectView;
     }
 
     /**
-     * 토큰 발급
+     * 토큰 발급 clientId, redirectUri, code, clientSecret
+     * 토큰 갱신 clientId, refreshToken, clientSecret
      * @param authorizationRequestDto
      * @return
      * @throws Exception
@@ -125,13 +121,13 @@ public class OAuthService {
         // grant_type == 'authorization_code' : 토큰 발급, grant_type == 'refresh_token' : 토큰 갱신
         // TODO: 상수로 변경하거나 함수로 변경해야함
         String grantType = authorizationRequestDto.getGrantType();
-        AbstractGrant grant = null;
+        AbstractGrant grant;
         if (grantType.equals("authorization_code")) {
             grant = new AuthorizationCodeGrant(authorizationCodeRepository, accessTokenRepository, refreshTokenRepository);
         } else if (grantType.equals("refresh_token")) {
             grant = new RefreshTokenGrant(accessTokenRepository, refreshTokenRepository);
         } else {
-            throw new Exception();
+            throw new Exception("Invalid Grant Type");
         }
         TokenDto token = grant.issueToken(authorizationRequestDto);
 
@@ -139,43 +135,7 @@ public class OAuthService {
     }
 
     /**
-     * 토큰 발급
-     * @return
-     * @param clientId
-     * @param redirectUri
-     * @param code
-     * @param clientSecret
-     */
-    public TokenDto getToken(String clientId, String redirectUri, String code, String clientSecret) {
-
-        Client client = clientRepository.getOne(clientId);
-        // TODO: secret 검증
-
-        AuthorizationCode authorizationCode = (AuthorizationCode) authorizationCodeRepository.findByCodeAndClientId(code, clientId);
-        // TODO: 만료시간 및 검증
-
-        return generateToken();
-    }
-
-    /**
-     * 토큰 갱신
-     * @param clientId
-     * @param refreshToken
-     * @param clientSecret
-     * @return
-     */
-    public TokenDto refreshToken(String clientId, String refreshToken, String clientSecret) {
-
-        Client client = clientRepository.getOne(clientId);
-        // TODO: secret 검증
-
-        RefreshToken refreshTokenEntity = refreshTokenRepository.findByTokenAndClientId(refreshToken, clientId);
-        // TODO: 만료시간 및 검증
-
-        return generateToken();
-    }
-
-    /**
+     * TODO: tokenRepository에서 불러올 것임. 걸로 옴겨야함 공통 로직이기 때문에 util로 빼서 호출할것
      * 토큰 생성
      * @return TokenDto
      */
