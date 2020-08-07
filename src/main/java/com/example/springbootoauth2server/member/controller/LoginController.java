@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,8 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @AllArgsConstructor
-public class MemberController {
+@RequestMapping("/login")
+public class LoginController {
 
     private MemberService memberService;
 
@@ -26,7 +28,7 @@ public class MemberController {
      * 로그인 페이지
      * @param continueUrl
      */
-    @GetMapping("/login")
+    @GetMapping()
     public String loginForm(@RequestParam(value = "continue", required = false) String continueUrl,
                             Model model) {
         //  로그인 페이지 반환
