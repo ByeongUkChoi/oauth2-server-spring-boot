@@ -2,6 +2,7 @@ package com.example.springbootoauth2server.OAuth.repository;
 
 import com.byeongukchoi.oauth2.server.entity.AccessToken;
 import com.byeongukchoi.oauth2.server.repository.AccessTokenRepository;
+import com.example.springbootoauth2server.OAuth.entity.AccessTokenImpl;
 import com.example.springbootoauth2server.OAuth.repository.jpaRepository.AccessTokenJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,10 @@ public class AccessTokenRepositoryImpl implements AccessTokenRepository {
 
     @Override
     public AccessToken getNewToken() {
-        return null;
+        AccessToken accessToken = AccessTokenImpl.builder()
+                .token("testToken")
+                .build();
+        return accessToken;
     }
 
     @Override

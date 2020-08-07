@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.OAuth.repository.jpaRepository;
 
-import com.example.springbootoauth2server.OAuth.entity.RefreshToken;
+import com.example.springbootoauth2server.OAuth.entity.RefreshTokenImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RefreshTokenJpaRepository extends JpaRepository<RefreshToken, String> {
+public interface RefreshTokenJpaRepository extends JpaRepository<RefreshTokenImpl, String> {
 }
