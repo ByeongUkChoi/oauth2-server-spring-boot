@@ -1,10 +1,12 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
+import com.byeongukchoi.oauth2.server.entity.AuthorizationCode;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * CREATE TABLE oauth_authorization_codes (
@@ -22,7 +24,8 @@ import javax.persistence.Id;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
 @AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Entity
-public class AuthorizationCode implements com.byeongukchoi.oauth2.server.entity.AuthorizationCode {
+@Table(name = "oauth_authorization_codes")
+public class AuthorizationCodeImpl implements AuthorizationCode {
     @Id
     private String code;
     private String clientId;
@@ -33,7 +36,7 @@ public class AuthorizationCode implements com.byeongukchoi.oauth2.server.entity.
 
     @Override
     public String getCode() {
-        return null;
+        return code;
     }
 
     @Override

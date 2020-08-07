@@ -1,8 +1,11 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * CREATE TABLE oauth_refresh_tokens (
@@ -14,8 +17,13 @@ import javax.persistence.Id;
  *   created_at        TIMESTAMP       NOT NULL,
  * );
  */
+@Builder
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
+@AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Entity
-public class RefreshToken implements com.byeongukchoi.oauth2.server.entity.RefreshToken {
+@Table(name = "oauth_refresh_tokens")
+public class RefreshTokenImpl implements com.byeongukchoi.oauth2.server.entity.RefreshToken {
     @Id
     private String token;
     private String clientId;
@@ -26,7 +34,7 @@ public class RefreshToken implements com.byeongukchoi.oauth2.server.entity.Refre
 
     @Override
     public String getToken() {
-        return null;
+        return token;
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
+import com.byeongukchoi.oauth2.server.entity.Client;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * CREATE TABLE oauth_clients (
@@ -13,7 +16,8 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Client implements com.byeongukchoi.oauth2.server.entity.Client {
+@Table(name = "oauth_clients")
+public class ClientImpl implements Client {
     @Id
     private String clientId;
     private String clientSecret;
@@ -21,7 +25,13 @@ public class Client implements com.byeongukchoi.oauth2.server.entity.Client {
     private String grantType;
 
     @Override
-    public void verifyClient(String redirectUri, String clientSecret) {
-
+    public boolean verifyClient(String redirectUri, String clientSecret) {
+        if(this.redirectUri != null && redirectUri != null && this.redirectUri.equals(redirectUri)) {
+            return false;
+        }
+        if(this.clientSecret != null && clientSecret != null && this.clientSecret.equals(clientSecret)) {
+            return false;
+        }
+        return true;
     }
 }
