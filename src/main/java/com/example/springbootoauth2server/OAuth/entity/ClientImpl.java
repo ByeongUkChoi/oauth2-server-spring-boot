@@ -1,6 +1,7 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
 import com.byeongukchoi.oauth2.server.entity.Client;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
  * );
  */
 
+@Getter
 @Entity
 @Table(name = "oauth_clients")
 public class ClientImpl implements Client {
