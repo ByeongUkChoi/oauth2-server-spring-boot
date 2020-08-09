@@ -2,7 +2,6 @@ package com.example.springbootoauth2server.OAuth.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -40,5 +39,11 @@ public class RefreshTokenImpl implements com.byeongukchoi.oauth2.server.entity.R
     @Override
     public Boolean isExpired() {
         return null;
+    }
+
+    public void expire() {
+        // 현재 시간 (타임스탬프 (초))
+        int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
+        expiredAt = currentTimestamp - 1;
     }
 }
