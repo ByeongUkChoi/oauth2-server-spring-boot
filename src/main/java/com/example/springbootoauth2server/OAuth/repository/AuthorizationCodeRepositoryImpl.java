@@ -33,6 +33,7 @@ public class AuthorizationCodeRepositoryImpl implements AuthorizationCodeReposit
                 .username(username)
                 .redirectUri(redirectUri)
                 .expiredAt(currentTimestamp + authorizationCodeExpiresIn)
+                .createdAt(currentTimestamp)
                 .code(code).build();
         return authorizationCode;
     }
