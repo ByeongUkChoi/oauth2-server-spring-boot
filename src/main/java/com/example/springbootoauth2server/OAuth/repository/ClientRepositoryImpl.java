@@ -14,6 +14,6 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public Client getOne(String id) {
-        return null;
+        return clientJpaRepository.getOne(id);
     }
 }

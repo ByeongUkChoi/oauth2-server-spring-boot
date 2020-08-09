@@ -40,6 +40,6 @@ public class AccessTokenRepositoryImpl implements AccessTokenRepository {
 
     @Override
     public void saveNewToken(AccessToken accessToken) {
-
+        accessTokenJpaRepository.save((AccessTokenImpl) accessToken);
     }
 }

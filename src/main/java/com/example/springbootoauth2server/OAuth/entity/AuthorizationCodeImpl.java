@@ -41,8 +41,8 @@ public class AuthorizationCodeImpl implements AuthorizationCode {
 
     @Override
     public Boolean isExpired() {
-        // TODO: 구현해야함
-        return false;
+        int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
+        return currentTimestamp > expiredAt;
     }
 
     public void expire() {

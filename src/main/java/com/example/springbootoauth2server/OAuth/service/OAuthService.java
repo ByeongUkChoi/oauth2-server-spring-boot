@@ -13,6 +13,7 @@ import com.byeongukchoi.oauth2.server.repository.ClientRepository;
 import com.byeongukchoi.oauth2.server.repository.RefreshTokenRepository;
 import com.example.springbootoauth2server.member.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;

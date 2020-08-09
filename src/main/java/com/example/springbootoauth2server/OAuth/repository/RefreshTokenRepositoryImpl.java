@@ -42,12 +42,13 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
 
     @Override
     public void saveNewToken(RefreshToken refreshToken) {
-
+        refreshTokenJpaRepository.save((RefreshTokenImpl) refreshToken);
     }
 
     @Override
     public RefreshToken findByTokenAndClientId(String refreshToken, String clientId) {
-        return null;
+        RefreshToken refreshTokenEntity = refreshTokenJpaRepository.findByTokenAndClientId(refreshToken, clientId);
+        return refreshTokenEntity;
     }
 
     @Override

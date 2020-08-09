@@ -38,7 +38,13 @@ public class RefreshTokenImpl implements com.byeongukchoi.oauth2.server.entity.R
 
     @Override
     public Boolean isExpired() {
-        return null;
+        int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
+        return currentTimestamp > expiredAt;
+    }
+
+    @Override
+    public int getExpiresIn() {
+        return expiredAt - createdAt;
     }
 
     public void expire() {

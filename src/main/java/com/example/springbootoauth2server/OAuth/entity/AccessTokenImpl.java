@@ -37,6 +37,13 @@ public class AccessTokenImpl implements AccessToken {
 
     @Override
     public Boolean isExpired() {
-        return null;
+        // 현재 시간 (타임스탬프 (초))
+        int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
+        return currentTimestamp > expiredAt;
+    }
+
+    @Override
+    public int getExpiresIn() {
+        return expiredAt - createdAt;
     }
 }
