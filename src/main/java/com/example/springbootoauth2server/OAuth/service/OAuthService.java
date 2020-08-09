@@ -7,13 +7,12 @@ import com.byeongukchoi.oauth2.server.entity.Client;
 import com.byeongukchoi.oauth2.server.grant.AbstractGrant;
 import com.byeongukchoi.oauth2.server.grant.AuthorizationCodeGrant;
 import com.byeongukchoi.oauth2.server.grant.RefreshTokenGrant;
-import com.byeongukchoi.oauth2.server.repository.AccessTokenRepository;
-import com.byeongukchoi.oauth2.server.repository.AuthorizationCodeRepository;
-import com.byeongukchoi.oauth2.server.repository.ClientRepository;
-import com.byeongukchoi.oauth2.server.repository.RefreshTokenRepository;
+import com.example.springbootoauth2server.OAuth.repository.AccessTokenRepository;
+import com.example.springbootoauth2server.OAuth.repository.AuthorizationCodeRepository;
+import com.example.springbootoauth2server.OAuth.repository.ClientRepository;
+import com.example.springbootoauth2server.OAuth.repository.RefreshTokenRepository;
 import com.example.springbootoauth2server.member.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -25,11 +24,11 @@ import javax.servlet.http.HttpSession;
 public class OAuthService {
 
     @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
     private AuthorizationCodeRepository authorizationCodeRepository;
     @Autowired
     private AccessTokenRepository accessTokenRepository;
-    @Autowired
-    private ClientRepository clientRepository;
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
@@ -89,9 +88,9 @@ public class OAuthService {
     public TokenDto issueToken(AuthorizationRequestDto authorizationRequestDto) throws Exception {
 
         // TODO: 1. client 검증
+        Client client = clientRepository.getOne(authorizationRequestDto.getClientId());
 
         // 2. 토큰 발급
-        // grant_type == 'authorization_code' : 토큰 발급, grant_type == 'refresh_token' : 토큰 갱신
         // TODO: 상수로 변경하거나 함수로 변경해야함
         String grantType = authorizationRequestDto.getGrantType();
         AbstractGrant grant;

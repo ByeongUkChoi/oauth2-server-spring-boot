@@ -1,23 +1,25 @@
-package com.example.springbootoauth2server.OAuth.repository;
+package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
 import com.byeongukchoi.oauth2.server.entity.AuthorizationCode;
-import com.byeongukchoi.oauth2.server.repository.AuthorizationCodeRepository;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
-import com.example.springbootoauth2server.OAuth.repository.jpaRepository.AuthorizationCodeJpaRepository;
+import com.example.springbootoauth2server.OAuth.repository.custom.AuthorizationCodeCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 
 @Repository
-public class AuthorizationCodeRepositoryImpl implements AuthorizationCodeRepository {
+public class AuthorizationCodeCustomRepositoryImpl implements AuthorizationCodeCustomRepository<AuthorizationCode, String> {
 
     //application.properties 사용
     @Value("${authorizationServer.authorizationCode.expiresIn}")
     private int authorizationCodeExpiresIn;
 
     @Autowired
-    private AuthorizationCodeJpaRepository authorizationCodeJpaRepository;
+    private EntityManager entityManager;
 
     @Override
     public AuthorizationCode getNewCode(String clientId, String username, String redirectUri) {
@@ -40,19 +42,23 @@ public class AuthorizationCodeRepositoryImpl implements AuthorizationCodeReposit
 
     @Override
     public AuthorizationCode findByCodeAndClientId(String code, String clientId) {
-        AuthorizationCode authorizationCode = authorizationCodeJpaRepository.findByCodeAndClientId(code, clientId);
+        AuthorizationCode authorizationCode = entityManager.find(AuthorizationCodeImpl.class, code);
+        // TODO: clientId 맞는지 확인 필요
         return authorizationCode;
     }
 
     @Override
-    public void save(AuthorizationCode authorizationCode) {
-        authorizationCodeJpaRepository.save((AuthorizationCodeImpl) authorizationCode);
+    @Transactional
+    public AuthorizationCode save(AuthorizationCode authorizationCode) {
+        entityManager.persist((AuthorizationCodeImpl)authorizationCode);
+        return authorizationCode;
     }
 
     @Override
+    @Transactional
     public void expireCode(AuthorizationCode authorizationCode) {
         AuthorizationCodeImpl authorizationCodeImpl = (AuthorizationCodeImpl) authorizationCode;
         authorizationCodeImpl.expire();
-        authorizationCodeJpaRepository.save(authorizationCodeImpl);
+        entityManager.persist(authorizationCodeImpl);
     }
 }

@@ -199,3 +199,6 @@ Token token = grantType.getToken();
 관리자 전용 api를 만들자.  
 관리자 전용 api는 url을 어떻게 해야할지  
 
+제네릭 타입을 추가하였다.  
+custom repository를 만들어 library를 구현하였고, jpaRepository와 함께 쓸 수 있도록 하였다.  
+

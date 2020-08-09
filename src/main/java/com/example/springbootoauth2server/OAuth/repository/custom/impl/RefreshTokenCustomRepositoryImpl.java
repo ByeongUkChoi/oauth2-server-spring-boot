@@ -1,24 +1,26 @@
-package com.example.springbootoauth2server.OAuth.repository;
+package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
 import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.entity.RefreshToken;
-import com.byeongukchoi.oauth2.server.repository.RefreshTokenRepository;
 import com.example.springbootoauth2server.OAuth.entity.RefreshTokenImpl;
-import com.example.springbootoauth2server.OAuth.repository.jpaRepository.RefreshTokenJpaRepository;
+import com.example.springbootoauth2server.OAuth.repository.custom.RefreshTokenCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 
 @Repository
-public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
+public class RefreshTokenCustomRepositoryImpl implements RefreshTokenCustomRepository<RefreshToken, String> {
 
     //application.properties 사용
     @Value("${authorizationServer.refreshToken.expiresIn}")
     private int refreshTokenExpiresIn;
 
     @Autowired
-    private RefreshTokenJpaRepository refreshTokenJpaRepository;
+    private EntityManager entityManager;
 
     @Override
     public RefreshToken getNewToken(AuthorizationRequestDto authorizationRequestDto, String accessToken) {
@@ -41,13 +43,16 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
     }
 
     @Override
+    @Transactional
     public void saveNewToken(RefreshToken refreshToken) {
-        refreshTokenJpaRepository.save((RefreshTokenImpl) refreshToken);
+        entityManager.persist((RefreshTokenImpl) refreshToken);
     }
 
     @Override
     public RefreshToken findByTokenAndClientId(String refreshToken, String clientId) {
-        RefreshToken refreshTokenEntity = refreshTokenJpaRepository.findByTokenAndClientId(refreshToken, clientId);
+        //RefreshToken refreshTokenEntity = entityManager.findByTokenAndClientId(refreshToken, clientId);
+        RefreshToken refreshTokenEntity = entityManager.find(RefreshTokenImpl.class, refreshToken);
+        // TODO: code로 검증해야함
         return refreshTokenEntity;
     }
 
@@ -55,7 +60,6 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
     public void expireToken(RefreshToken refreshToken) {
         RefreshTokenImpl refreshTokenImpl = (RefreshTokenImpl) refreshToken;
         refreshTokenImpl.expire();
-        refreshTokenJpaRepository.save(refreshTokenImpl);
-
+        entityManager.persist(refreshTokenImpl);
     }
 }
