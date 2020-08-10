@@ -202,3 +202,11 @@ Token token = grantType.getToken();
 제네릭 타입을 추가하였다.  
 custom repository를 만들어 library를 구현하였고, jpaRepository와 함께 쓸 수 있도록 하였다.  
 
+#### 2020. 08. 10
+ModelMapper를 이용하여 Entity Dto간 타입 변환을 한다.  
+일단 스프링 예제 페이지에서 나온 것처럼 컨트롤러에서 하였다. 그러나 서비스에서 해도 될것 같아 고민이 필요하다.  
+
+spring security로 로그인 부분과 api의 인증 부분을 처리 할 수 있는지 확인 후 적용 예정.  
+
+
+

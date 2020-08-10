@@ -47,6 +47,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+
     // oauth2 server library
     // https://mvnrepository.com/artifact/com.github.byeongukchoi/oauth2-server-java
     implementation 'com.github.byeongukchoi:oauth2-server-java:0.0.22'

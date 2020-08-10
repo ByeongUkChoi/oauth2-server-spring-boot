@@ -1,10 +1,12 @@
 package com.example.springbootoauth2server.OAuth.controller;
 
+import com.example.springbootoauth2server.OAuth.dto.AuthorizationCodeDto;
 import com.example.springbootoauth2server.OAuth.entity.AccessTokenImpl;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
 import com.example.springbootoauth2server.OAuth.entity.ClientImpl;
 import com.example.springbootoauth2server.OAuth.entity.RefreshTokenImpl;
 import com.example.springbootoauth2server.OAuth.service.AdminService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     /**
      * 관리자 메인 페이지
@@ -46,11 +49,12 @@ public class AdminController {
     }
 
     @GetMapping("/authorization-codes")
-    public Page<AuthorizationCodeImpl> getAuthorizationCodes(final Pageable pageable) {
+    public Page<AuthorizationCodeDto> getAuthorizationCodes(final Pageable pageable) {
 
         Page<AuthorizationCodeImpl> authorizationCodes = adminService.getAuthorizationCodes(pageable);
+        Page<AuthorizationCodeDto> authorizationCodeDtoPage = authorizationCodes.map(authorizationCode -> modelMapper.map(authorizationCode, AuthorizationCodeDto.class));
 
-        return authorizationCodes;
+        return authorizationCodeDtoPage;
     }
 
     @GetMapping("/access-tokens")
