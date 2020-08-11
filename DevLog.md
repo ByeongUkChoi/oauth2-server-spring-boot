@@ -208,5 +208,22 @@ ModelMapper를 이용하여 Entity Dto간 타입 변환을 한다.
 
 spring security로 로그인 부분과 api의 인증 부분을 처리 할 수 있는지 확인 후 적용 예정.  
 
+#### 2020. 08. 12
+spring security로 적용 중이다.  
+security config에서 아래와 같이 두가지로 사용하는 경우를 확인 하였다.  
+```
+auth.userDetailsService(userDetailsService);
+auth.authenticationProvider(authenticationProvider);
+```
+스프링 시큐리티 인증 절차는 authenticationProvider authenticate 메서드에서  
+userDetailsService의 loadUserByUsername메서드에서 반환된 userDetail를 받아  
+입력된 아이디 패스워드와 검증한다.  
 
+따라서 인증 절차 자체를 커스터마이징 할게 아닌, 유저를 가져오는 방식만 변경 할것이기 때문에 userDetailsService를 구현하였다.  
+
+패키지명에 대해 고민이 필요하다.  
+현재 사용자, 인증, 관리자가 존재한다.  
+
+TODO: 권한에 따라 페이지 접속하도록 해야한다.  
+로그인 시 권한을 넣어주고 사용할 수 있도록  
 

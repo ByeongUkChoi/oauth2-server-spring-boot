@@ -19,15 +19,15 @@ public class OAuthController {
 
     /**
      * 인증 코드 요청
-     * 로그인 되어있지 않으면 로그인 페이지로 리다이렉트 시키고
-     * 로그인 되어있으면 redirect_uri로 코드를 담아 리다이렉트 시킴
+     * spring security에서 로그인 된 사용자만 접속 가능
+     * redirect_uri로 코드를 담아 리다이렉트 시킴
      * client_id 앱 생성 시 발급 받은 REST API 키
      * redirect_uri 코드를 리다이렉트 해줄 URI
      * response_type "code"로 고정
      */
     @GetMapping("/authorize")
     public RedirectView requestAuth(HttpServletRequest request,
-                                    RedirectAttributes redirectAttributes) throws Exception {
+                                     RedirectAttributes redirectAttributes) throws Exception {
 
         return oAuthService.getAuthorizationCode(request, redirectAttributes);
     }

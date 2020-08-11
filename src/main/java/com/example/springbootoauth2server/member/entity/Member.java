@@ -25,8 +25,13 @@ public class Member {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     // 암호 일치 여부
     public boolean validatePassword(String password) {
         return this.password.equals(password);
     }
+
 }

@@ -11,14 +11,13 @@ import com.example.springbootoauth2server.OAuth.repository.AccessTokenRepository
 import com.example.springbootoauth2server.OAuth.repository.AuthorizationCodeRepository;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;
 import com.example.springbootoauth2server.OAuth.repository.RefreshTokenRepository;
-import com.example.springbootoauth2server.member.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Service
 public class OAuthService {
@@ -47,35 +46,24 @@ public class OAuthService {
             throw new Exception("Invalid Response type");
         }
 
-        // 인증 서버와 로그인 서버가 다를 경우 쿠키에서 받아온 값으로 로그인 서버에 로그인 정보 확인 및 사용자 정보 가져옴. 현재는 같은 서버이므로 세션으로 확인이 가능하다.
-        // 세션으로 로그인 여부 확인
-        HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
-
-        RedirectView redirectView = new RedirectView();
-        // 로그인이 되어있지 않은 경우 로그인으로 redirect. 현재 접속 uri를 넘김
-        if(member == null) {
-            String currentUrl = request.getRequestURL().toString() + "?" + request.getQueryString();
-            redirectAttributes.addAttribute("continue", currentUrl);
-            redirectView.setUrl("/login");
-            return redirectView;
-        }
-
-        // 로그인이 되어있는 경우
+        // spring security의 userDetails의 username 가져오기
+        Principal userPrincipal = request.getUserPrincipal();
+        String username = userPrincipal.getName();
         String clientId = request.getParameter("client_id");
         String redirectUri = request.getParameter("redirect_uri");
 
         Client client = clientRepository.getOne(clientId);
         // TODO: client 검증
 
-        AuthorizationCode authorizationCode = authorizationCodeRepository.getNewCode(clientId, member.getUsername(), redirectUri);
+
+        // TODO: test
+        AuthorizationCode authorizationCode = authorizationCodeRepository.getNewCode(clientId, username, redirectUri);
 
         // authorize code insert
         authorizationCodeRepository.save(authorizationCode);
 
         redirectAttributes.addAttribute("code", authorizationCode.getCode());
-        redirectView.setUrl(redirectUri);
-        return redirectView;
+        return new RedirectView(redirectUri);
     }
 
     /**
