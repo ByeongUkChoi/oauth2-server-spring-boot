@@ -1,6 +1,7 @@
 package com.example.springbootoauth2server.OAuth.controller;
 
 import com.example.springbootoauth2server.OAuth.dto.AuthorizationCodeDto;
+import com.example.springbootoauth2server.OAuth.dto.ClientDto;
 import com.example.springbootoauth2server.OAuth.entity.AccessTokenImpl;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
 import com.example.springbootoauth2server.OAuth.entity.ClientImpl;
@@ -41,11 +42,12 @@ public class AdminController {
     }
 
     @GetMapping("/clients")
-    public Page<ClientImpl> getClients(final Pageable pageable) {
+    public Page<ClientDto> getClients(final Pageable pageable) {
 
         Page<ClientImpl> clients = adminService.getClients(pageable);
+        Page<ClientDto> clientDtoPage = clients.map(client -> modelMapper.map(client, ClientDto.class));
 
-        return clients;
+        return clientDtoPage;
     }
 
     @GetMapping("/authorization-codes")
