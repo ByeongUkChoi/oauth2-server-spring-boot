@@ -227,3 +227,10 @@ userDetailsService의 loadUserByUsername메서드에서 반환된 userDetail를 
 TODO: 권한에 따라 페이지 접속하도록 해야한다.  
 로그인 시 권한을 넣어주고 사용할 수 있도록  
 
+#### 2020. 08. 13
+authority와 role  
+authority는 기능 단위 이고 role은 여러 권한을 가지는 포괄적인 의미이다.  
+예)  
+authority : WRITE, READ  
+role : ROLE_ADMIN, ROLE_USER  
+따라서 role은 prefix로 ROLE_을 추가해야 한다.  

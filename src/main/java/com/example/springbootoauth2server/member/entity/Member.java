@@ -1,8 +1,10 @@
 package com.example.springbootoauth2server.member.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * CREATE TABLE members (
@@ -20,6 +22,10 @@ public class Member {
     private String username;
     private String password;
     private String name;
+
+//    @OneToMany(mappedBy = "member")
+//    private List<MemberRole> memberProducts = new ArrayList<>();
+    //private Set<MemberRole> memberProducts;
 
     public String getUsername() {
         return username;

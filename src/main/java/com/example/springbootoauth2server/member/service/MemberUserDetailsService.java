@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class MemberUserDetailsService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -34,7 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         // TODO: 권한 넣어주기
         List<GrantedAuthority> authorities = new ArrayList<>();
         // TODO: test
-        authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority(null));
         User user = new User(member.getUsername(), passwordEncoder.encode(member.getPassword()), authorities);
 
         return user;
