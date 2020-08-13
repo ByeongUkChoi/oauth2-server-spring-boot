@@ -234,3 +234,9 @@ authority는 기능 단위 이고 role은 여러 권한을 가지는 포괄적�
 authority : WRITE, READ  
 role : ROLE_ADMIN, ROLE_USER  
 따라서 role은 prefix로 ROLE_을 추가해야 한다.  
+
+#### 2020. 08. 14
+spring security 멀티 로그인을 구현하였다.  
+oauth2 사용자와 oauth를 관리하는 관리자는 다른 저장공간에 저장되어야 하기 때문  
+순환 참조를 피하기위해 field injection 보다 constructor injection을 활용하자  
+

@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.OAuth.controller;
+package com.example.springbootoauth2server.admin.controller;
 
 import com.example.springbootoauth2server.OAuth.dto.AuthorizationCodeDto;
 import com.example.springbootoauth2server.OAuth.dto.ClientDto;
@@ -27,17 +27,24 @@ public class AdminController {
     private ModelMapper modelMapper;
 
     /**
+     * 관리자 로그인 페이지
+     * @return
+     */
+    @GetMapping("/login")
+    public ModelAndView login() {
+
+        //mav.setViewName("oauth/admin/admin");
+        return new ModelAndView("admin/login");
+    }
+    /**
      * 관리자 메인 페이지
      * @return
      */
-    @GetMapping("")
+    @GetMapping("/dashboard")
     public ModelAndView admin(ModelAndView mav) {
-        // TODO: 관리자 여부 확인
 
-        mav.setViewName("oauth/admin/admin");
-
+        mav.setViewName("admin/dashboard");
         mav.addObject("test", "testabcd");
-
         return mav;
     }
 

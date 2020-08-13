@@ -1,6 +1,7 @@
 package com.example.springbootoauth2server.OAuth.config;
 
 import com.example.springbootoauth2server.member.service.MemberUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +19,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MemberUserDetailsService memberUserDetailsService;
 
-    @Bean
+    // TODO: 어플리케이션 분리를 위해 일부로 중복 생성. 분리 후 이름 변경
+    @Bean(name = "memberPasswordEncoder")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(memberUserDetailsService)
                 .passwordEncoder(passwordEncoder());

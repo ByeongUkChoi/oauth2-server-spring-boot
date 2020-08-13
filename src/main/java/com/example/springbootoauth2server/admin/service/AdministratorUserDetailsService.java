@@ -1,7 +1,7 @@
-package com.example.springbootoauth2server.member.service;
+package com.example.springbootoauth2server.admin.service;
 
-import com.example.springbootoauth2server.member.entity.Member;
-import com.example.springbootoauth2server.member.repository.MemberRepository;
+import com.example.springbootoauth2server.admin.entity.Administrator;
+import com.example.springbootoauth2server.admin.repository.AdministratorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,15 +17,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberUserDetailsService implements UserDetailsService {
+public class AdministratorUserDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
-    private final PasswordEncoder memberPasswordEncoder;
+    private final AdministratorRepository administratorRepository;
+    private final PasswordEncoder adminPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByUsername(username);
-        if (member == null) {
+        Administrator administrator = administratorRepository.getOne(username);
+        if (administrator == null) {
             throw new UsernameNotFoundException(username + "is not found.");
         }
 
@@ -33,8 +33,9 @@ public class MemberUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         // TODO: test
         //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        authorities.add(new SimpleGrantedAuthority("USER"));
-        User user = new User(member.getUsername(), memberPasswordEncoder.encode(member.getPassword()), authorities);
+        authorities.add(new SimpleGrantedAuthority(null));
+        // TODO: password가 평문으로 들어가 있기 때문에 이렇게 넣어줌
+        User user = new User(administrator.getUsername(), adminPasswordEncoder.encode(administrator.getPassword()), authorities);
 
         return user;
     }

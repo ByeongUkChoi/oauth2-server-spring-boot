@@ -1,3 +1,5 @@
+-- administrator
+insert into administrator(username, password, name) values('admin', 'pass123', 'choi bu admin');
 -- member
 insert into member(username, password, name) values('cbw0916', 'pass123', 'choi bu');
 -- role
