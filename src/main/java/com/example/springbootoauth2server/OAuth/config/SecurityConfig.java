@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                //.loginPage("/login")  // 커스텀 로그인 페이지
+                .loginPage("/member/login")  // 커스텀 로그인 페이지
                 .permitAll()
                 .and()
                 // TODO: 왜 있는지 확인 필요
