@@ -24,7 +24,7 @@ public class AdministratorUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Administrator administrator = administratorRepository.getOne(username);
+        Administrator administrator = administratorRepository.findByUsername(username);
         if (administrator == null) {
             throw new UsernameNotFoundException(username + "is not found.");
         }
@@ -32,8 +32,7 @@ public class AdministratorUserDetailsService implements UserDetailsService {
         // TODO: 권한 넣어주기
         List<GrantedAuthority> authorities = new ArrayList<>();
         // TODO: test
-        //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        authorities.add(new SimpleGrantedAuthority(null));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         // TODO: password가 평문으로 들어가 있기 때문에 이렇게 넣어줌
         User user = new User(administrator.getUsername(), adminPasswordEncoder.encode(administrator.getPassword()), authorities);
 

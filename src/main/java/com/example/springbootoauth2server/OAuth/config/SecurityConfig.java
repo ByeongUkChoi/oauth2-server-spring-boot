@@ -35,12 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/oauth/**").permitAll()
                 // test database 접속
                 .antMatchers("/h2-console/**").permitAll()
-                // 관리자 권한만 접속 가능
-                //.antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/member/login")  // 커스텀 로그인 페이지
+                .formLogin().loginPage("/member/login")  // 커스텀 로그인 페이지
                 .permitAll()
                 .and()
                 // TODO: 왜 있는지 확인 필요

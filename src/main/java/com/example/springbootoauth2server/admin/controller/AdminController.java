@@ -7,6 +7,7 @@ import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
 import com.example.springbootoauth2server.OAuth.entity.ClientImpl;
 import com.example.springbootoauth2server.OAuth.entity.RefreshTokenImpl;
 import com.example.springbootoauth2server.OAuth.service.AdminService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,13 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final AdminService adminService;
+    private final ModelMapper modelMapper;
 
     /**
      * 관리자 로그인 페이지

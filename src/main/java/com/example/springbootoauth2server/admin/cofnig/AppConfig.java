@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.OAuth.config;
+package com.example.springbootoauth2server.admin.cofnig;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

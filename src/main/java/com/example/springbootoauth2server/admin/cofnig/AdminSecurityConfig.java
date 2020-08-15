@@ -28,12 +28,13 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/admin/**")
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests().anyRequest().hasRole("ADMIN")
                 .and().formLogin().loginPage("/admin/login")
                 .defaultSuccessUrl("/admin/dashboard", true)
                 .permitAll()
-                .and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/admin/login");
-        http.csrf().disable();
+                .and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/admin/login")
+                .and()
+                .csrf().disable();
     }
 
     @Autowired
