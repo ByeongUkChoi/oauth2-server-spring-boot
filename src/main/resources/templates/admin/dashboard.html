@@ -2,11 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Dashboard</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <!-- // jQuery -->
+    <!-- bootstrap -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- // bootstrap -->
 </head>
 <body>
-dashboard
-<input th:value="${test}">
-
+<div class="container-fluid">
+    <table class="table">
+        <caption>clients</caption>
+        <thead>
+        <tr>
+            <th>client id</th>
+            <th>client secret</th>
+            <th>redirect uri</th>
+            <th>grant types</th>
+        </tr>
+        </thead>
+        <tbody id="client_table">
+        <tr th:each="client: ${clients}">
+            <td th:text="${client.clientId}"></td>
+            <td th:text="${client.clientSecret}"></td>
+            <td th:text="${client.redirectUri}"></td>
+            <td th:text="${client.grantTypes}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- 페이저 -->
+    <nav>
+        <ul th:if="${clients.totalPages > 1}" class="pager">
+            <li th:class="${clients.number} == 0 ? 'disabled'">
+                <a class="btn_paging" data-kind="client" th:data-page="${clients.number} - 1"><span aria-hidden="true">&larr;</span> Newer </a>
+            </li>
+            <li th:class="${clients.number + 1 == clients.totalPages} ? 'disabled'">
+                <a class="btn_paging" data-kind="client" th:data-page="${clients.number} + 1"> Older <span aria-hidden="true">&rarr;</span></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- // 페이저 -->
+    <hr>
+    <table class="table">
+        <caption>authorization codes</caption>
+        <thead>
+        <tr>
+            <th>code</th>
+            <th>client id</th>
+            <th>username</th>
+            <th>redirect uri</th>
+            <th>expired at</th>
+            <th>created at</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="authorizationCode: ${authorizationCodes}">
+            <td th:text="${authorizationCode.code}"></td>
+            <td th:text="${authorizationCode.clientId}"></td>
+            <td th:text="${authorizationCode.username}"></td>
+            <td th:text="${authorizationCode.redirectUri}"></td>
+            <td th:text="${authorizationCode.expiredAt}"></td>
+            <td th:text="${authorizationCode.createdAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- 페이저 -->
+    <nav>
+        <ul th:if="${authorizationCodes.totalPages > 1}" class="pager">
+            <li th:class="${authorizationCodes.number} == 0 ? 'disabled'"><a href="#"><span aria-hidden="true">&larr;</span> Newer </a></li>
+            <li th:class="${authorizationCodes.number + 1 == authorizationCodes.totalPages} ? 'disabled'"><a href="#"> Older <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+    <!-- // 페이저 -->
+    <hr>
+    <table class="table">
+        <caption>access tokens</caption>
+        <thead>
+        <tr>
+            <th>token</th>
+            <th>client id</th>
+            <th>username</th>
+            <th>expired at</th>
+            <th>created at</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="accessToken: ${accessTokens}">
+            <td th:text="${accessToken.token}"></td>
+            <td th:text="${accessToken.clientId}"></td>
+            <td th:text="${accessToken.username}"></td>
+            <td th:text="${accessToken.expiredAt}"></td>
+            <td th:text="${accessToken.createdAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <table class="table">
+        <caption>refresh tokens</caption>
+        <thead>
+        <tr>
+            <th>token</th>
+            <th>client id</th>
+            <th>username</th>
+            <th>access token</th>
+            <th>expired at</th>
+            <th>created at</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="refreshToken: ${refreshTokens}">
+            <td th:text="${refreshToken.token}"></td>
+            <td th:text="${refreshToken.clientId}"></td>
+            <td th:text="${refreshToken.username}"></td>
+            <td th:text="${refreshToken.accessToken}"></td>
+            <td th:text="${refreshToken.expiredAt}"></td>
+            <td th:text="${refreshToken.createdAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function() {
+        $('.btn_paging').click(function(){
+            var kind = $(this).data('kind');
+            var page = $(this).data('page');
+        });
+    });
+</script>
 </body>
 </html>

@@ -9,8 +9,8 @@ import com.example.springbootoauth2server.OAuth.entity.RefreshTokenImpl;
 import com.example.springbootoauth2server.OAuth.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +24,8 @@ public class AdminController {
 
     private final AdminService adminService;
     private final ModelMapper modelMapper;
+
+    private final int DASHBOARD_PAGE_SIZE = 5;
 
     /**
      * 관리자 로그인 페이지
@@ -41,9 +43,22 @@ public class AdminController {
      */
     @GetMapping("/dashboard")
     public ModelAndView admin(ModelAndView mav) {
+        // 첫 페이지 정보
+        Pageable pageable = PageRequest.of(0, DASHBOARD_PAGE_SIZE);
+
+        Page<ClientImpl> clients = adminService.getClients(pageable);
+        Page<AuthorizationCodeImpl> authorizationCodes = adminService.getAuthorizationCodes(pageable);
+        Page<AccessTokenImpl> accessTokens = adminService.getAccessTokens(pageable);
+        Page<RefreshTokenImpl> refreshTokens = adminService.getRefreshTokens(pageable);
+
+        mav.addObject("clients", clients);
+        mav.addObject("authorizationCodes", authorizationCodes);
+        mav.addObject("accessTokens", accessTokens);
+        mav.addObject("refreshTokens", refreshTokens);
+
+        mav.addObject("dashboardPageSize", DASHBOARD_PAGE_SIZE);
 
         mav.setViewName("admin/dashboard");
-        mav.addObject("test", "testabcd");
         return mav;
     }
 

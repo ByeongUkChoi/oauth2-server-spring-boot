@@ -9,7 +9,8 @@ Spring Rest Dosc를 사용하여 api 명세 문서화
 
 ### spec
 java 1.8  
-spring boot 2.3  
+spring boot 2.3.3  
+  spring security  
   spring data jpa  
 
 
@@ -28,6 +29,9 @@ Client Secret : secret123
 
 #### login  
 ID : cbw0916  
+PW : pass123  
+#### Admin login 
+ID : admin    
 PW : pass123  
 
 ### 개발노트
