@@ -27,7 +27,7 @@
             <th>grant types</th>
         </tr>
         </thead>
-        <tbody id="client_table">
+        <tbody id="clients_table">
         <tr th:each="client: ${clients}">
             <td th:text="${client.clientId}"></td>
             <td th:text="${client.clientSecret}"></td>
@@ -40,10 +40,10 @@
     <nav>
         <ul th:if="${clients.totalPages > 1}" class="pager">
             <li th:class="${clients.number} == 0 ? 'disabled'">
-                <a class="btn_paging" data-kind="clients" th:data-page="${clients.number} - 1"><span aria-hidden="true">&larr;</span> Newer </a>
+                <a class="btn_paging" data-kind="clients" th:data-page="${clients.number} - 1" id="clients_prev_btn"><span aria-hidden="true">&larr;</span> Newer </a>
             </li>
             <li th:class="${clients.number + 1 == clients.totalPages} ? 'disabled'">
-                <a class="btn_paging" data-kind="clients" th:data-page="${clients.number} + 1"> Older <span aria-hidden="true">&rarr;</span></a>
+                <a class="btn_paging" data-kind="clients" th:data-page="${clients.number} + 1" id="clients_next_btn"> Older <span aria-hidden="true">&rarr;</span></a>
             </li>
         </ul>
     </nav>
@@ -75,8 +75,12 @@
     <!-- 페이저 -->
     <nav>
         <ul th:if="${authorizationCodes.totalPages > 1}" class="pager">
-            <li th:class="${authorizationCodes.number} == 0 ? 'disabled'"><a href="#"><span aria-hidden="true">&larr;</span> Newer </a></li>
-            <li th:class="${authorizationCodes.number + 1 == authorizationCodes.totalPages} ? 'disabled'"><a href="#"> Older <span aria-hidden="true">&rarr;</span></a></li>
+            <li th:class="${authorizationCodes.number} == 0 ? 'disabled'">
+                <a class="btn_paging" data-kind="authorizationCodes" th:data-page="${authorizationCodes.number} - 1" id="authorizationCodes_prev_btn"><span aria-hidden="true">&larr;</span> Newer </a>
+            </li>
+            <li th:class="${authorizationCodes.number + 1 == authorizationCodes.totalPages} ? 'disabled'">
+                <a class="btn_paging" data-kind="authorizationCodes" th:data-page="${authorizationCodes.number} + 1" id="authorizationCodes_next_btn"> Older <span aria-hidden="true">&rarr;</span></a>
+            </li>
         </ul>
     </nav>
     <!-- // 페이저 -->
@@ -102,6 +106,18 @@
         </tr>
         </tbody>
     </table>
+    <!-- 페이저 -->
+    <nav>
+        <ul th:if="${accessTokens.totalPages > 1}" class="pager">
+            <li th:class="${accessTokens.number} == 0 ? 'disabled'">
+                <a class="btn_paging" data-kind="accessTokens" th:data-page="${accessTokens.number} - 1" id="accessTokens_prev_btn"><span aria-hidden="true">&larr;</span> Newer </a>
+            </li>
+            <li th:class="${accessTokens.number + 1 == accessTokens.totalPages} ? 'disabled'">
+                <a class="btn_paging" data-kind="accessTokens" th:data-page="${accessTokens.number} + 1" id="accessTokens_next_btn"> Older <span aria-hidden="true">&rarr;</span></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- // 페이저 -->
     <hr>
     <table class="table">
         <caption>refresh tokens</caption>
@@ -126,6 +142,18 @@
         </tr>
         </tbody>
     </table>
+    <!-- 페이저 -->
+    <nav>
+        <ul th:if="${refreshTokens.totalPages > 1}" class="pager">
+            <li th:class="${refreshTokens.number} == 0 ? 'disabled'">
+                <a class="btn_paging" data-kind="refreshTokens" th:data-page="${refreshTokens.number} - 1" id="refreshTokens_prev_btn"><span aria-hidden="true">&larr;</span> Newer </a>
+            </li>
+            <li th:class="${refreshTokens.number + 1 == refreshTokens.totalPages} ? 'disabled'">
+                <a class="btn_paging" data-kind="refreshTokens" th:data-page="${refreshTokens.number} + 1" id="refreshTokens_next_btn"> Older <span aria-hidden="true">&rarr;</span></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- // 페이저 -->
 </div>
 <script th:inline="javascript">
     $(function() {
@@ -136,8 +164,36 @@
             var size = /*[[${dashboardPageSize}]]*/ 5;
 
             $.ajax("/admin/" + kind + "?page=" + page + "&size=" + size)
-                .done(function() {
-                    alert("요청 성공");
+                .done(function(data) {
+                    console.log(data);
+                    switch (kind){
+                        case "clients" :
+                            $("#clients_table").empty();
+                            data.content.forEach(function(item){
+                                $("#clients_table").append(`
+                                    <tr>
+                                    <td>${item.clientId}</td>
+                                    <td>${item.clientSecret}</td>
+                                    <td>${item.redirectUri}</td>
+                                    <td>${item.grantTypes}</td>
+                                    </tr>`);
+                            });
+                            $("#clients_prev_btn").data('page', data.number - 1);
+                            $("#clients_next_btn").data('page', data.number + 1);
+                            if(data.first) {
+                                $("#clients_prev_btn").parent().addClass('disabled');
+                            } else {
+                                $("#clients_prev_btn").parent().removeClass('disabled');
+                            }
+                            if(data.last) {
+                                $("#clients_next_btn").parent().addClass('disabled');
+                            } else {
+                                $("#clients_next_btn").parent().removeClass('disabled');
+                            }
+                            break;
+                        default :
+                            console.log("default");
+                    }
                 })
                 .fail(function() {
                     alert("요청 실패");

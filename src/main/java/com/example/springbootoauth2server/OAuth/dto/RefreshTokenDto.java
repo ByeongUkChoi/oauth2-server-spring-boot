@@ -5,11 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthorizationCodeDto {
-    private String code;
+public class RefreshTokenDto {
+    private String token;
     private String clientId;
     private String username;
-    private String redirectUri;
+    private String accessToken;
     private int expiredAt;
     private int createdAt;
 }

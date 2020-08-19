@@ -1,7 +1,9 @@
 package com.example.springbootoauth2server.admin.controller;
 
+import com.example.springbootoauth2server.OAuth.dto.AccessTokenDto;
 import com.example.springbootoauth2server.OAuth.dto.AuthorizationCodeDto;
 import com.example.springbootoauth2server.OAuth.dto.ClientDto;
+import com.example.springbootoauth2server.OAuth.dto.RefreshTokenDto;
 import com.example.springbootoauth2server.OAuth.entity.AccessTokenImpl;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
 import com.example.springbootoauth2server.OAuth.entity.ClientImpl;
@@ -47,14 +49,21 @@ public class AdminController {
         Pageable pageable = PageRequest.of(0, DASHBOARD_PAGE_SIZE);
 
         Page<ClientImpl> clients = adminService.getClients(pageable);
-        Page<AuthorizationCodeImpl> authorizationCodes = adminService.getAuthorizationCodes(pageable);
-        Page<AccessTokenImpl> accessTokens = adminService.getAccessTokens(pageable);
-        Page<RefreshTokenImpl> refreshTokens = adminService.getRefreshTokens(pageable);
+        Page<ClientDto> clientDtoPage = clients.map(client -> modelMapper.map(client, ClientDto.class));
 
-        mav.addObject("clients", clients);
-        mav.addObject("authorizationCodes", authorizationCodes);
-        mav.addObject("accessTokens", accessTokens);
-        mav.addObject("refreshTokens", refreshTokens);
+        Page<AuthorizationCodeImpl> authorizationCodes = adminService.getAuthorizationCodes(pageable);
+        Page<AuthorizationCodeDto> authorizationCodeDtoPage = authorizationCodes.map(authorizationCode -> modelMapper.map(authorizationCode, AuthorizationCodeDto.class));
+
+        Page<AccessTokenImpl> accessTokens = adminService.getAccessTokens(pageable);
+        Page<AccessTokenDto> accessTokenDtoPage = accessTokens.map(accessToken -> modelMapper.map(accessToken, AccessTokenDto.class));
+
+        Page<RefreshTokenImpl> refreshTokens = adminService.getRefreshTokens(pageable);
+        Page<RefreshTokenDto> refreshTokenDtoPage = refreshTokens.map(refreshToken -> modelMapper.map(refreshToken, RefreshTokenDto.class));
+
+        mav.addObject("clients", clientDtoPage);
+        mav.addObject("authorizationCodes", authorizationCodeDtoPage);
+        mav.addObject("accessTokens", accessTokenDtoPage);
+        mav.addObject("refreshTokens", refreshTokenDtoPage);
 
         mav.addObject("dashboardPageSize", DASHBOARD_PAGE_SIZE);
 
