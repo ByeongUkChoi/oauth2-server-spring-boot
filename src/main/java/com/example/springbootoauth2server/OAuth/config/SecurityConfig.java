@@ -29,8 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                // 사용자 회원가입은 세션 검증하지 않음  TODO: 추후 멤버가 분리되면 같이 분리 해야 함
+                .antMatchers("/member/join/**").permitAll()
                 // 코드 발급 시 로그인 되어있어야함
-                .antMatchers("/oauth/authorize").authenticated()
+                .antMatchers("/oauth/authorize").hasRole("USER")
                 // 나머지 oauth2는 로그인과 상관 없음
                 .antMatchers("/oauth/**").permitAll()
                 // test database 접속
