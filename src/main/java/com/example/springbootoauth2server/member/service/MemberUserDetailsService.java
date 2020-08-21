@@ -36,7 +36,7 @@ public class MemberUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         // TODO: test
         //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         User user = new User(member.getUsername(), memberPasswordEncoder.encode(member.getPassword()), authorities);
 
         return user;
