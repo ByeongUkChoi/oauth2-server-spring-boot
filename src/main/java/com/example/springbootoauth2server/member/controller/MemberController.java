@@ -22,7 +22,7 @@ public class MemberController {
      */
     @GetMapping("/login")
     public String login() {
-        return "member/login";
+        return "member/member/login";
     }
     /**
      * 회원가입 페이지
@@ -30,7 +30,7 @@ public class MemberController {
      */
     @GetMapping("/join")
     public String joinForm() {
-        return "member/joinForm";
+        return "member/member/joinForm";
     }
     /**
      * 회원가입
@@ -42,6 +42,6 @@ public class MemberController {
         // TODO: 성공 및 실패 에러 처리 필요
         memberUserDetailsService.signUp(memberDto);
 
-        return "member/joinResult";
+        return "member/member/joinResult";
     }
 }

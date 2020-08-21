@@ -9,22 +9,24 @@ import javax.persistence.Table;
 
 /**
  * CREATE TABLE oauth_clients (
- *   client_id         VARCHAR(86)     NOT NULL PRIMARY KEY,
+ *   client_id         VARCHAR(86)      NOT NULL PRIMARY KEY,
  *   client_secret     VARCHAR(32),
  *   redirect_uri      VARCHAR(500),
- *   grant_types        VARCHAR(20),
+ *   grant_types       VARCHAR(20),
+ *   username          VARCHAR(40)      NOT NULL
  * );
  */
 
 @Getter
 @Entity
 @Table(name = "oauth_clients")
-public class ClientImpl implements Client {
+public class ClientEntity implements Client {
     @Id
     private String clientId;
     private String clientSecret;
     private String redirectUri;     // 여기 있어야하는지 잘 모르겠음. => 카카오의 경우 redirectUri 값을 확인함. 있어야함
     private String grantTypes;
+    private String username;
 
     @Override
     public boolean verifyClient(String redirectUri, String clientSecret) {

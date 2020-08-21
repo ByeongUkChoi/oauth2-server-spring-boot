@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Entity
 @Table(name = "oauth_access_tokens")
-public class AccessTokenImpl implements AccessToken {
+public class AccessTokenEntity implements AccessToken {
     @Id
     private String token;
     private String clientId;

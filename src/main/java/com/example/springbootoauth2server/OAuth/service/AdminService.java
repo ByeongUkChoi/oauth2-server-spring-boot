@@ -1,9 +1,9 @@
 package com.example.springbootoauth2server.OAuth.service;
 
-import com.example.springbootoauth2server.OAuth.entity.AccessTokenImpl;
-import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
-import com.example.springbootoauth2server.OAuth.entity.ClientImpl;
-import com.example.springbootoauth2server.OAuth.entity.RefreshTokenImpl;
+import com.example.springbootoauth2server.OAuth.entity.AccessTokenEntity;
+import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeEntity;
+import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
+import com.example.springbootoauth2server.OAuth.entity.RefreshTokenEntity;
 import com.example.springbootoauth2server.OAuth.repository.AccessTokenRepository;
 import com.example.springbootoauth2server.OAuth.repository.AuthorizationCodeRepository;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;
@@ -22,20 +22,20 @@ public class AdminService {
     private final AccessTokenRepository accessTokenRepository;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public Page<ClientImpl> getClients(Pageable pageable) {
-        Page<ClientImpl> clients = clientRepository.findAll(pageable);
+    public Page<ClientEntity> getClients(Pageable pageable) {
+        Page<ClientEntity> clients = clientRepository.findAll(pageable);
         return clients;
     }
 
-    public Page<AuthorizationCodeImpl> getAuthorizationCodes(Pageable pageable) {
+    public Page<AuthorizationCodeEntity> getAuthorizationCodes(Pageable pageable) {
         return authorizationCodeRepository.findAll(pageable);
     }
 
-    public Page<AccessTokenImpl> getAccessTokens(Pageable pageable) {
+    public Page<AccessTokenEntity> getAccessTokens(Pageable pageable) {
         return accessTokenRepository.findAll(pageable);
     }
 
-    public Page<RefreshTokenImpl> getRefreshTokens(Pageable pageable) {
+    public Page<RefreshTokenEntity> getRefreshTokens(Pageable pageable) {
         return refreshTokenRepository.findAll(pageable);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
 import com.byeongukchoi.oauth2.server.entity.AuthorizationCode;
-import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
+import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeEntity;
 import com.example.springbootoauth2server.OAuth.repository.custom.AuthorizationCodeCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class AuthorizationCodeCustomRepositoryImpl implements AuthorizationCodeC
         // 코드 랜덤으로 생성
         String code = RandomStringUtils.randomAlphanumeric(86);
 
-        AuthorizationCode authorizationCode = AuthorizationCodeImpl.builder()
+        AuthorizationCode authorizationCode = AuthorizationCodeEntity.builder()
                 .clientId(clientId)
                 .username(username)
                 .redirectUri(redirectUri)
@@ -42,7 +42,7 @@ public class AuthorizationCodeCustomRepositoryImpl implements AuthorizationCodeC
 
     @Override
     public AuthorizationCode findByCodeAndClientId(String code, String clientId) {
-        AuthorizationCode authorizationCode = entityManager.find(AuthorizationCodeImpl.class, code);
+        AuthorizationCode authorizationCode = entityManager.find(AuthorizationCodeEntity.class, code);
         // TODO: clientId 맞는지 확인 필요
         return authorizationCode;
     }
@@ -50,15 +50,15 @@ public class AuthorizationCodeCustomRepositoryImpl implements AuthorizationCodeC
     @Override
     @Transactional
     public AuthorizationCode save(AuthorizationCode authorizationCode) {
-        entityManager.persist((AuthorizationCodeImpl)authorizationCode);
+        entityManager.persist((AuthorizationCodeEntity)authorizationCode);
         return authorizationCode;
     }
 
     @Override
     @Transactional
     public void expireCode(AuthorizationCode authorizationCode) {
-        AuthorizationCodeImpl authorizationCodeImpl = (AuthorizationCodeImpl) authorizationCode;
-        authorizationCodeImpl.expire();
-        entityManager.persist(authorizationCodeImpl);
+        AuthorizationCodeEntity authorizationCodeEntity = (AuthorizationCodeEntity) authorizationCode;
+        authorizationCodeEntity.expire();
+        entityManager.persist(authorizationCodeEntity);
     }
 }

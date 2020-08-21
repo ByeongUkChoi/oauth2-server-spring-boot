@@ -4,10 +4,10 @@ import com.example.springbootoauth2server.OAuth.dto.AccessTokenDto;
 import com.example.springbootoauth2server.OAuth.dto.AuthorizationCodeDto;
 import com.example.springbootoauth2server.OAuth.dto.ClientDto;
 import com.example.springbootoauth2server.OAuth.dto.RefreshTokenDto;
-import com.example.springbootoauth2server.OAuth.entity.AccessTokenImpl;
-import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeImpl;
-import com.example.springbootoauth2server.OAuth.entity.ClientImpl;
-import com.example.springbootoauth2server.OAuth.entity.RefreshTokenImpl;
+import com.example.springbootoauth2server.OAuth.entity.AccessTokenEntity;
+import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeEntity;
+import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
+import com.example.springbootoauth2server.OAuth.entity.RefreshTokenEntity;
 import com.example.springbootoauth2server.OAuth.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -48,16 +48,16 @@ public class AdminController {
         // 첫 페이지 정보
         Pageable pageable = PageRequest.of(0, DASHBOARD_PAGE_SIZE);
 
-        Page<ClientImpl> clients = adminService.getClients(pageable);
+        Page<ClientEntity> clients = adminService.getClients(pageable);
         Page<ClientDto> clientDtoPage = clients.map(client -> modelMapper.map(client, ClientDto.class));
 
-        Page<AuthorizationCodeImpl> authorizationCodes = adminService.getAuthorizationCodes(pageable);
+        Page<AuthorizationCodeEntity> authorizationCodes = adminService.getAuthorizationCodes(pageable);
         Page<AuthorizationCodeDto> authorizationCodeDtoPage = authorizationCodes.map(authorizationCode -> modelMapper.map(authorizationCode, AuthorizationCodeDto.class));
 
-        Page<AccessTokenImpl> accessTokens = adminService.getAccessTokens(pageable);
+        Page<AccessTokenEntity> accessTokens = adminService.getAccessTokens(pageable);
         Page<AccessTokenDto> accessTokenDtoPage = accessTokens.map(accessToken -> modelMapper.map(accessToken, AccessTokenDto.class));
 
-        Page<RefreshTokenImpl> refreshTokens = adminService.getRefreshTokens(pageable);
+        Page<RefreshTokenEntity> refreshTokens = adminService.getRefreshTokens(pageable);
         Page<RefreshTokenDto> refreshTokenDtoPage = refreshTokens.map(refreshToken -> modelMapper.map(refreshToken, RefreshTokenDto.class));
 
         mav.addObject("clients", clientDtoPage);
@@ -74,7 +74,7 @@ public class AdminController {
     @GetMapping("/clients")
     public Page<ClientDto> getClients(final Pageable pageable) {
 
-        Page<ClientImpl> clients = adminService.getClients(pageable);
+        Page<ClientEntity> clients = adminService.getClients(pageable);
         Page<ClientDto> clientDtoPage = clients.map(client -> modelMapper.map(client, ClientDto.class));
 
         return clientDtoPage;
@@ -83,20 +83,20 @@ public class AdminController {
     @GetMapping("/authorization-codes")
     public Page<AuthorizationCodeDto> getAuthorizationCodes(final Pageable pageable) {
 
-        Page<AuthorizationCodeImpl> authorizationCodes = adminService.getAuthorizationCodes(pageable);
+        Page<AuthorizationCodeEntity> authorizationCodes = adminService.getAuthorizationCodes(pageable);
         Page<AuthorizationCodeDto> authorizationCodeDtoPage = authorizationCodes.map(authorizationCode -> modelMapper.map(authorizationCode, AuthorizationCodeDto.class));
 
         return authorizationCodeDtoPage;
     }
 
     @GetMapping("/access-tokens")
-    public Page<AccessTokenImpl> getAccessTokens() {
+    public Page<AccessTokenEntity> getAccessTokens() {
 
         return null;
     }
 
     @GetMapping("/refresh-tokens")
-    public Page<RefreshTokenImpl> getRefreshTokens() {
+    public Page<RefreshTokenEntity> getRefreshTokens() {
 
         return null;
     }

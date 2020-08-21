@@ -2,7 +2,7 @@ package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
 import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.entity.AccessToken;
-import com.example.springbootoauth2server.OAuth.entity.AccessTokenImpl;
+import com.example.springbootoauth2server.OAuth.entity.AccessTokenEntity;
 import com.example.springbootoauth2server.OAuth.repository.custom.AccessTokenCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AccessTokenCustomRepositoryImpl implements AccessTokenCustomReposit
         // 토큰 랜덤으로 생성
         String token = RandomStringUtils.randomAlphanumeric(86);
 
-        AccessToken accessToken = AccessTokenImpl.builder()
+        AccessToken accessToken = AccessTokenEntity.builder()
                 .token(token)
                 .clientId(authorizationRequestDto.getClientId())
                 .username(authorizationRequestDto.getUsername())
