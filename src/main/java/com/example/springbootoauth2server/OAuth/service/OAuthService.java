@@ -77,6 +77,9 @@ public class OAuthService {
 
         // TODO: 1. client 검증
         Client client = clientRepository.getOne(authorizationRequestDto.getClientId());
+        if(client == null) {
+            throw new Exception("Invalid client id");
+        }
 
         // 2. 토큰 발급
         // TODO: 상수로 변경하거나 함수로 변경해야함
