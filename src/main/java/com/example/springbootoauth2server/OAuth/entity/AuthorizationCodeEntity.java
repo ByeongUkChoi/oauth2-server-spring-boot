@@ -3,6 +3,7 @@ package com.example.springbootoauth2server.OAuth.entity;
 import com.byeongukchoi.oauth2.server.entity.AuthorizationCode;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -26,6 +27,7 @@ import javax.persistence.Table;
 @Table(name = "oauth_authorization_codes")
 public class AuthorizationCodeEntity implements AuthorizationCode {
     @Id
+    @Column(length = 86)
     private String code;
     private String clientId;
     private String username;

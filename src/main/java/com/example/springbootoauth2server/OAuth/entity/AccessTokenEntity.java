@@ -3,6 +3,7 @@ package com.example.springbootoauth2server.OAuth.entity;
 import com.byeongukchoi.oauth2.server.entity.AccessToken;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -24,6 +25,7 @@ import javax.persistence.Table;
 @Table(name = "oauth_access_tokens")
 public class AccessTokenEntity implements AccessToken {
     @Id
+    @Column(length = 54)
     private String token;
     private String clientId;
     private String username;

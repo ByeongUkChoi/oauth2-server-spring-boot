@@ -29,7 +29,7 @@ public class RefreshTokenCustomRepositoryImpl implements RefreshTokenCustomRepos
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
 
         // 토큰 랜덤으로 생성
-        String token = RandomStringUtils.randomAlphanumeric(86);
+        String token = RandomStringUtils.randomAlphanumeric(54);
 
         RefreshToken refreshToken = RefreshTokenEntity.builder()
                 .token(token)

@@ -27,7 +27,7 @@ public class AccessTokenCustomRepositoryImpl implements AccessTokenCustomReposit
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
 
         // 토큰 랜덤으로 생성
-        String token = RandomStringUtils.randomAlphanumeric(86);
+        String token = RandomStringUtils.randomAlphanumeric(54);
 
         AccessToken accessToken = AccessTokenEntity.builder()
                 .token(token)

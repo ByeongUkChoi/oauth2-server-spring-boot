@@ -2,6 +2,7 @@ package com.example.springbootoauth2server.OAuth.entity;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -24,6 +25,7 @@ import javax.persistence.Table;
 @Table(name = "oauth_refresh_tokens")
 public class RefreshTokenEntity implements com.byeongukchoi.oauth2.server.entity.RefreshToken {
     @Id
+    @Column(length = 54)
     private String token;
     private String clientId;
     private String username;
