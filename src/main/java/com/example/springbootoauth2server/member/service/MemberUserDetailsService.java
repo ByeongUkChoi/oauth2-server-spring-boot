@@ -37,7 +37,7 @@ public class MemberUserDetailsService implements UserDetailsService {
         // TODO: test
         //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        User user = new User(member.getUsername(), memberPasswordEncoder.encode(member.getPassword()), authorities);
+        User user = new User(member.getUsername(), member.getPassword(), authorities);
 
         return user;
     }
@@ -48,6 +48,7 @@ public class MemberUserDetailsService implements UserDetailsService {
      */
     public void signUp(MemberDto memberDto) {
         Member member = modelMapper.map(memberDto, Member.class);
+        member.setPassword(memberPasswordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
     }
 }

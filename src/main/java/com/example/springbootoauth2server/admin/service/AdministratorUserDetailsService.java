@@ -20,7 +20,6 @@ import java.util.List;
 public class AdministratorUserDetailsService implements UserDetailsService {
 
     private final AdministratorRepository administratorRepository;
-    private final PasswordEncoder adminPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,7 +33,7 @@ public class AdministratorUserDetailsService implements UserDetailsService {
         // TODO: test
         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         // TODO: password가 평문으로 들어가 있기 때문에 이렇게 넣어줌
-        User user = new User(administrator.getUsername(), adminPasswordEncoder.encode(administrator.getPassword()), authorities);
+        User user = new User(administrator.getUsername(), administrator.getPassword(), authorities);
 
         return user;
     }

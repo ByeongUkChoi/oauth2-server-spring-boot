@@ -57,6 +57,7 @@ public class RefreshTokenCustomRepositoryImpl implements RefreshTokenCustomRepos
     }
 
     @Override
+    @Transactional
     public void expireToken(RefreshToken refreshToken) {
         RefreshTokenEntity refreshTokenEntity = (RefreshTokenEntity) refreshToken;
         refreshTokenEntity.expire();
