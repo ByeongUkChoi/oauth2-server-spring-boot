@@ -5,6 +5,7 @@ spring 프로젝트에서 더이상 인증서버지원을 하지 않기로 하�
 authorization code grant type
 TDD
 Spring Rest Dosc를 사용하여 api 명세 문서화  
+Docker 컨테이너로 실행
 
 
 ### spec
@@ -12,6 +13,8 @@ java 1.8
 spring boot 2.3.3  
   spring security  
   spring data jpa  
+mysql
+docker
 
 
 ### asciidoc
