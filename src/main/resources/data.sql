@@ -1,7 +1,7 @@
--- administrator
-insert into administrator(username, password, name) values('admin', 'pass123', 'choi bu admin');
--- member
-insert into member(username, password, name) values('cbw0916', 'pass123', 'choi bu');
+-- administrator (password : pass123)
+insert into administrator(username, password, name) values('admin', '$2a$10$wJq8RWR.vvweA46Idgcs4OtnuZwQRF/0siKbxx3zItJbNiyF/4iEW', 'choi bu admin');
+-- member (password : pass123)
+insert into member(username, password, name) values('cbw0916', '$2a$10$wJq8RWR.vvweA46Idgcs4OtnuZwQRF/0siKbxx3zItJbNiyF/4iEW', 'choi bu');
 -- role
 -- insert into role(id, name) values(1, 'ROLE_ADMIN');
 -- member_role
