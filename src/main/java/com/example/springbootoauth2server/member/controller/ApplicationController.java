@@ -1,8 +1,11 @@
 package com.example.springbootoauth2server.member.controller;
 
+import com.example.springbootoauth2server.member.dto.ApplicationDto;
+import com.example.springbootoauth2server.member.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/app")
 @RequiredArgsConstructor
-public class AppController {
+public class ApplicationController {
+
+    private final ApplicationService applicationService;
 
     /**
      * 대시보드
@@ -35,7 +40,8 @@ public class AppController {
      * @return
      */
     @PostMapping("/regist")
-    public String regist() {
+    public String regist(@ModelAttribute ApplicationDto applicationDto) {
+        applicationService.createApplication(applicationDto);
         return "member/app/registResult";
     }
 }

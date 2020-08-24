@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
 import com.byeongukchoi.oauth2.server.entity.Client;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,11 @@ import javax.persistence.Table;
  * );
  */
 
-@Getter
 @Entity
+@Builder
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
+@AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Table(name = "oauth_clients")
 public class ClientEntity implements Client {
     @Id
@@ -46,5 +49,9 @@ public class ClientEntity implements Client {
             return false;
         }
         return true;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 }

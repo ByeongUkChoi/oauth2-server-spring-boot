@@ -13,7 +13,7 @@ java 1.8
 spring boot 2.3.3  
   spring security  
   spring data jpa  
-mysql
+mysql  
 docker
 
 
