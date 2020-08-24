@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <!-- // jQuery -->
+    <!-- bootstrap -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- // bootstrap -->
+</head>
+<body>
+<div class="container">
+    <!-- 제목 -->
+    <div class="page-header">
+        <h1 class="text-center">dashboard</h1>
+    </div>
+    <!-- // 제목 -->
+    <table class="table">
+        <caption>clients</caption>
+        <thead>
+        <tr>
+            <th>client id</th>
+            <th>client secret</th>
+            <th>redirect uri</th>
+<!--            <th>grant types</th>-->
+        </tr>
+        </thead>
+        <tbody id="clients_table">
+        <tr th:each="client: ${clients}">
+            <td th:text="${client.clientId}"></td>
+            <td th:text="${client.clientSecret}"></td>
+            <td th:text="${client.redirectUri}"></td>
+<!--            <td th:text="${client.grantTypes}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

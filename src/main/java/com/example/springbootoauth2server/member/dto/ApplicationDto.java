@@ -11,4 +11,5 @@ public class ApplicationDto {
     private String name;
     private String redirectUri;
     private boolean clientSecret;
+    private String username;
 }
