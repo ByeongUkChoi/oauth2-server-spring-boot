@@ -28,21 +28,10 @@ public class Member {
     private String password;
     private String name;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<MemberRole> memberProducts = new ArrayList<>();
-    //private Set<MemberRole> memberProducts;
-
     public String getUsername() {
         return username;
     }
-
     public String getPassword() {
         return password;
     }
-
-    // 암호 일치 여부
-    public boolean validatePassword(String password) {
-        return this.password.equals(password);
-    }
-
 }

@@ -20,6 +20,8 @@ public class ApplicationService {
     @Transactional
     public ClientEntity createApplication(ApplicationDto applicationDto) {
 
+        // TODO: client repository에 만들 예정
+
         // clienti id 랜덤으로 생성
         String clientId = RandomStringUtils.randomAlphanumeric(32);
 
