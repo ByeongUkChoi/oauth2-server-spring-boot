@@ -27,11 +27,8 @@ public class AdministratorUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username + "is not found.");
         }
 
-        // TODO: 권한 넣어주기
         List<GrantedAuthority> authorities = new ArrayList<>();
-        // TODO: test
         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        // TODO: password가 평문으로 들어가 있기 때문에 이렇게 넣어줌
         User user = new User(administrator.getUsername(), administrator.getPassword(), authorities);
 
         return user;

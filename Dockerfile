@@ -16,6 +16,8 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 #docker run -d --name oauth2-server-container -p 8080:8080 --link mysql-db byeongukchoi/oauth2-server
 # 외부포트 5000
 #docker run -d --name oauth2-server-container -p 5000:8080 --link mysql-db byeongukchoi/oauth2-server
+# 도커 허브에서 이미지 받아서 컨테이너 실행
+#docker run -d --name oauth2-server-container -p 80:8080 --link mysql-db cbw0916/spring-boot-oauth2-server
 
 ## 도커 MySQL 컨테이너 실행
 #docker run --name mysql-db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pass123 -d mysql

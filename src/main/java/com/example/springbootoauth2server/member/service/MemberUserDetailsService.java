@@ -32,10 +32,7 @@ public class MemberUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username + "is not found.");
         }
 
-        // TODO: 권한 넣어주기
         List<GrantedAuthority> authorities = new ArrayList<>();
-        // TODO: test
-        //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         User user = new User(member.getUsername(), member.getPassword(), authorities);
 
