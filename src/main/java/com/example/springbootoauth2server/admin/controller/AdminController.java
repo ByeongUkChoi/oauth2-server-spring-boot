@@ -8,7 +8,7 @@ import com.example.springbootoauth2server.OAuth.entity.AccessTokenEntity;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeEntity;
 import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
 import com.example.springbootoauth2server.OAuth.entity.RefreshTokenEntity;
-import com.example.springbootoauth2server.OAuth.service.AdminService;
+import com.example.springbootoauth2server.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

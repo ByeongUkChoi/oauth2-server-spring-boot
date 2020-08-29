@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.OAuth.service;
+package com.example.springbootoauth2server.admin.service;
 
 import com.example.springbootoauth2server.OAuth.entity.AccessTokenEntity;
 import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeEntity;

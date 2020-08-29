@@ -51,9 +51,12 @@ public class OAuthService {
         String username = userPrincipal.getName();
         String clientId = request.getParameter("client_id");
         String redirectUri = request.getParameter("redirect_uri");
+        String clientSecret = request.getParameter("client_secret");
 
         Client client = clientRepository.getOne(clientId);
-        // TODO: client 검증
+        if( ! client.verifyClient(redirectUri, clientSecret)) {
+            throw new Exception("Invalid client");
+        }
 
 
         // TODO: test
