@@ -54,7 +54,7 @@ public class OAuthService {
         String clientSecret = request.getParameter("client_secret");
 
         Client client = clientRepository.getOne(clientId);
-        if( ! client.verifyClient(redirectUri, clientSecret)) {
+        if(client == null || ! client.verifyClient(redirectUri, clientSecret)) {
             throw new Exception("Invalid client");
         }
 
@@ -80,8 +80,8 @@ public class OAuthService {
 
         // TODO: 1. client 검증
         Client client = clientRepository.getOne(authorizationRequestDto.getClientId());
-        if(client == null) {
-            throw new Exception("Invalid client id");
+        if(client == null || ! client.verifyClient(authorizationRequestDto.getRedirectUri(), authorizationRequestDto.getClientSecret())) {
+            throw new Exception("Invalid client");
         }
 
         // 2. 토큰 발급
