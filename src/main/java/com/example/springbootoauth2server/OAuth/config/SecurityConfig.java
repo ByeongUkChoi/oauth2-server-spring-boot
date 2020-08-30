@@ -35,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/member/login")  // 커스텀 로그인 페이지
                 .permitAll()
                 .and()
-                // TODO: 왜 있는지 확인 필요
-                .logout()
+                .logout().logoutUrl("/member/logout").logoutSuccessUrl("/member/login")
                 .and()
                 // h2 console을 이용하기 위함
                 .headers().frameOptions().disable()

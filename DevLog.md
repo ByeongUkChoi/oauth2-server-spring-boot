@@ -263,3 +263,13 @@ TDD까지는 못하였더라도 테스트 코드는 작성하자
 데이터베이스와 어플리케이션 모두 도커로 올려서 구동하였다.  
 데이터베이스 접근을 어플리케이션 외에는 못하도록 특정 ip만 허용 하도록 해야 한다.  
 
+#### 2020. 08. 31
+grant type에 따라 client를 검증하는 값이 달라진다.  
+authorization code :    client id, client secret, redirect uri  
+refresh token :         client id, client secret  
+어디에서 분기처리 할지 고민해 봐야한다.  
+1. 서비스에서 grant type에 따라 다른 함수 실행 (메소드 오버로딩)  
+2. 서비스에서 같은 함수를 실행 시키고 매개변수로 authorizationRequestDto객체를 넘겨  
+client entity에서 grant type에 따라 분기처리하여 검증  
+
+
