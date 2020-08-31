@@ -37,7 +37,7 @@ PW : pass123
 ID : admin    
 PW : pass123  
 
-### 개발노트
+### 개발일기
 프로젝트 진행하면서 기록하고 싶은 것들을 일기처럼 자유롭게 정리  
 [devlog.md](https://github.com/ByeongUkChoi/oauth2-server-spring-example/blob/master/DevLog.md)
 
