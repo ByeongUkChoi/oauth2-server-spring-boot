@@ -10,6 +10,7 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 ## 도커 이미지 빌드 전에 어플리케이션을 빌드 해야 한다.
 ## gradlew build
 
+#(빌드한 도커 이미지와 도커 허브 레포지토리 이름이 다른 경우)
 ## 도커 이미지 빌드 방법
 #docker build --build-arg JAR_FILE=build/libs/*.jar --tag byeongukchoi/oauth2-server .
 ## 도커 이미지로 컨테이너 실행 (background)
@@ -31,3 +32,12 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 #              도커허브아이디/레포지토리이름:태그
 # docker push cbw0916/spring-boot-oauth2-server
 
+# 도커 허브 업로드 방법 2 (도커 이미지 이름을 도커 허브 레포지토리와 같게 한 경우)
+# gradlew clean
+# gradlew build
+# docker build --build-arg JAR_FILE=build/libs/*.jar --tag cbw0916/spring-boot-oauth2-server .
+# docker login
+# docker push cbw0916/spring-boot-oauth2-server
+
+# 도커허브에 업로드한 이미지로 도커 컨테이너 실행
+#docker run -d --name oauth2-server-container -p 80:8080 --link mysql-db cbw0916/spring-boot-oauth2-server
