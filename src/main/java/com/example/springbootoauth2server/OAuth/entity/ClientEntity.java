@@ -1,5 +1,6 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
+import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.entity.Client;
 import lombok.*;
 
@@ -31,18 +32,17 @@ public class ClientEntity implements Client {
     private String clientId;
     private String clientSecret;
     private String name;
-    private String redirectUri;     // 여기 있어야하는지 잘 모르겠음. => 카카오의 경우 redirectUri 값을 확인함. 있어야함
+    private String redirectUri;     // 카카오의 경우 redirectUri 값을 확인함
     private String grantTypes;
     private String username;
 
     @Override
-    public boolean verifyClient(String redirectUri, String clientSecret) {
-        // 값이 비어 있으면 안됨
-        if(this.redirectUri == null || redirectUri == null) {
-            return false;
-        }
-        if( ! this.redirectUri.equals(redirectUri)) {
-            return false;
+    public boolean verifyClient(AuthorizationRequestDto authorizationRequestDto) {
+        String redirectUri = authorizationRequestDto.getRedirectUri();
+        if(redirectUri != null) {
+            if( ! redirectUri.equals(this.redirectUri)) {
+                return false;
+            }
         }
         // clientSecret 같은 경우 값이 있는 경우는 검사를 해야하고, 값이 없는 경우는 clientSecret을 사용하지 않는 경우임
         if(this.clientSecret != null && clientSecret != null && this.clientSecret.equals(clientSecret)) {
@@ -50,7 +50,6 @@ public class ClientEntity implements Client {
         }
         return true;
     }
-
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
     }

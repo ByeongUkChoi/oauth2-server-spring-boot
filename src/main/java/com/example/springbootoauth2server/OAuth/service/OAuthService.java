@@ -16,9 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-
 @Service
 public class OAuthService {
 
@@ -33,40 +30,26 @@ public class OAuthService {
 
     /**
      * 로그인 여부를 파악하여 리다이렉트 시킴
-     * @param request
+     * @param authorizationRequestDto
      * @param redirectAttributes
      * @return
      * @throws Exception
      */
-    public RedirectView getAuthorizationCode(HttpServletRequest request,
+    public RedirectView getAuthorizationCode(AuthorizationRequestDto authorizationRequestDto,
                                              RedirectAttributes redirectAttributes) throws Exception {
 
-        String responseType = request.getParameter("response_type");
-        if(responseType != null && ! responseType.equals("code")) {
-            throw new Exception("Invalid Response type");
-        }
-
-        // spring security의 userDetails의 username 가져오기
-        Principal userPrincipal = request.getUserPrincipal();
-        String username = userPrincipal.getName();
-        String clientId = request.getParameter("client_id");
-        String redirectUri = request.getParameter("redirect_uri");
-        String clientSecret = request.getParameter("client_secret");
-
-        Client client = clientRepository.getOne(clientId);
-        if(client == null || ! client.verifyClient(redirectUri, clientSecret)) {
+        Client client = clientRepository.getOne(authorizationRequestDto.getClientId());
+        if(client == null || ! client.verifyClient(authorizationRequestDto)) {
             throw new Exception("Invalid client");
         }
 
-
-        // TODO: test
-        AuthorizationCode authorizationCode = authorizationCodeRepository.getNewCode(clientId, username, redirectUri);
+        AuthorizationCode authorizationCode = authorizationCodeRepository.getNewCode(authorizationRequestDto.getClientId(), authorizationRequestDto.getUsername(), authorizationRequestDto.getRedirectUri());
 
         // authorize code insert
         authorizationCodeRepository.save(authorizationCode);
 
         redirectAttributes.addAttribute("code", authorizationCode.getCode());
-        return new RedirectView(redirectUri);
+        return new RedirectView(authorizationRequestDto.getRedirectUri());
     }
 
     /**
@@ -80,7 +63,7 @@ public class OAuthService {
 
         // TODO: 1. client 검증
         Client client = clientRepository.getOne(authorizationRequestDto.getClientId());
-        if(client == null || ! client.verifyClient(authorizationRequestDto.getRedirectUri(), authorizationRequestDto.getClientSecret())) {
+        if(client == null || ! client.verifyClient(authorizationRequestDto)) {
             throw new Exception("Invalid client");
         }
 

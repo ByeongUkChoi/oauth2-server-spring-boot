@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/oauth")
@@ -27,9 +28,25 @@ public class OAuthController {
      */
     @GetMapping("/authorize")
     public RedirectView requestAuth(HttpServletRequest request,
+                                    @RequestParam(value = "client_id", required = true) String clientId,
+                                    @RequestParam(value = "redirect_uri", required = true) String redirectUri,
+                                    @RequestParam(value = "response_type", required = true) String responseType,
                                      RedirectAttributes redirectAttributes) throws Exception {
 
-        return oAuthService.getAuthorizationCode(request, redirectAttributes);
+        if(! responseType.equals("code")) {
+            throw new Exception("Invalid Response type");
+        }
+
+        Principal userPrincipal = request.getUserPrincipal();
+        String username = userPrincipal.getName();
+
+        AuthorizationRequestDto authorizationRequestDto = AuthorizationRequestDto.builder()
+                .clientId(clientId)
+                .redirectUri(redirectUri)
+                .username(username)
+                .build();
+
+        return oAuthService.getAuthorizationCode(authorizationRequestDto, redirectAttributes);
     }
 
     /**

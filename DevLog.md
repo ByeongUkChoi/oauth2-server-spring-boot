@@ -224,7 +224,7 @@ userDetailsService의 loadUserByUsername메서드에서 반환된 userDetail를 
 패키지명에 대해 고민이 필요하다.  
 현재 사용자, 인증, 관리자가 존재한다.  
 
-TODO: 권한에 따라 페이지 접속하도록 해야한다.  
+권한에 따라 페이지 접속하도록 해야한다.  
 로그인 시 권한을 넣어주고 사용할 수 있도록  
 
 #### 2020. 08. 13
@@ -271,5 +271,9 @@ refresh token :         client id, client secret
 1. 서비스에서 grant type에 따라 다른 함수 실행 (메소드 오버로딩)  
 2. 서비스에서 같은 함수를 실행 시키고 매개변수로 authorizationRequestDto객체를 넘겨  
 client entity에서 grant type에 따라 분기처리하여 검증  
+
+2번으로 진행함.  
+클라이언트엔티티가 요청객체에 대하여 자신을 검증한다는 관점으로 보았을 때 클라이언트엔티티 안에서 처리해야 한다고 판단하였다.  
+따라서 요청 객체도 클라이언트엔티티 내부에서 판단하여 검사한다.  
 
 
