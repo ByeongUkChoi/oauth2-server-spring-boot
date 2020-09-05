@@ -276,4 +276,10 @@ client entity에서 grant type에 따라 분기처리하여 검증
 클라이언트엔티티가 요청객체에 대하여 자신을 검증한다는 관점으로 보았을 때 클라이언트엔티티 안에서 처리해야 한다고 판단하였다.  
 따라서 요청 객체도 클라이언트엔티티 내부에서 판단하여 검사한다.  
 
+#### 2020. 09. 05
+controller 테스트를 작성중이다.  
+security가 적용되어있기 대문에 @WithMockUser를 추가 하였다.  
+security를 무시하려면 @AutoConfigureMockMvc(addFilters = false)이렇게 필터를 false로 한다.  
+테스트 케이스의 검증할 때 데이터를 어떤 방식으로 주입하고 검증할지 고민해야한다.  
+
 

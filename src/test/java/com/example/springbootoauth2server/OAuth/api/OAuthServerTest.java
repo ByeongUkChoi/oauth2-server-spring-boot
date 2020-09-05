@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.api;
+package com.example.springbootoauth2server.OAuth.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
