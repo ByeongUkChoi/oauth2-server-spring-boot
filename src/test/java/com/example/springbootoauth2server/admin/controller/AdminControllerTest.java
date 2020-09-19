@@ -2,6 +2,7 @@ package com.example.springbootoauth2server.admin.controller;
 
 import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -65,9 +68,18 @@ class AdminControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
-        String content = result.getResponse().getContentAsString();
-        JSONObject jsonObject = new JSONObject(content);
-        String a = content;
+        String body = result.getResponse().getContentAsString();
+
+        JSONObject jsonObject = new JSONObject(body);
+        JSONArray contents = (JSONArray) jsonObject.get("content");
+        JSONObject content1 = (JSONObject) contents.get(0);
+        JSONObject content2 = (JSONObject) contents.get(1);
+
+        assertTrue("cbw-client".equals(content1.get("clientId")));
+        assertTrue("cbw-client2".equals(content2.get("clientId")));
+//        assertSame(content1.get("clientId"), "cbw-client");
+//        assertSame(content2.get("clientId"), "cbw-client2");
+
         //.andExpect(MockMvcResultMatchers.content().json("{\"content\":[{\"clientId\":\"cbw-client\",\"clientSecret\":\"secret123\",\"name\":\"cbw-app\",\"redirectUri\":\"https://oauth.pstmn.io/v1/callback\",\"grantTypes\":\"Authorization Code\",\"username\":\"cbw0916\"}],\"pageable\":{\"sort\":{\"unsorted\":true,\"sorted\":false,\"empty\":true},\"offset\":0,\"pageSize\":20,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"totalPages\":1,\"totalElements\":1,\"last\":true,\"size\":20,\"number\":0,\"sort\":{\"unsorted\":true,\"sorted\":false,\"empty\":true},\"numberOfElements\":1,\"first\":true,\"empty\":false}"));
         // TODO: 검증을 해야함
     }
