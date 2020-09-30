@@ -41,6 +41,9 @@ PW : pass123
 프로젝트 진행하면서 기록하고 싶은 것들을 일기처럼 자유롭게 정리  
 [devlog.md](https://github.com/ByeongUkChoi/oauth2-server-spring-example/blob/master/DevLog.md)
 
+### 시연 영상
+[영상 보기](https://www.youtube.com/watch?v=gG1UYuitx2w)
+
 ### oauth2-server-java
 java oauth2 server 라이브러리 사용  
 [oauth2-server-java](https://github.com/ByeongUkChoi/oauth2-server-java)  
