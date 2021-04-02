@@ -52,7 +52,7 @@ dependencies {
 
     // oauth2 server library
     // https://mvnrepository.com/artifact/com.github.byeongukchoi/oauth2-server-java
-    implementation 'com.github.byeongukchoi:oauth2-server-java:0.0.26'
+    implementation 'com.github.byeongukchoi:oauth2-server-java:0.0.27'
 
 }
 

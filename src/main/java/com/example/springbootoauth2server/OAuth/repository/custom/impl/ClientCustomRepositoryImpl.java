@@ -1,6 +1,6 @@
 package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
-import com.byeongukchoi.oauth2.server.entity.Client;
+import com.byeongukchoi.oauth2.server.domain.Client;
 import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
 import com.example.springbootoauth2server.OAuth.repository.custom.ClientCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;

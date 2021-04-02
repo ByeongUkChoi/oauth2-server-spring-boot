@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
-import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
-import com.byeongukchoi.oauth2.server.entity.Client;
+import com.byeongukchoi.oauth2.server.application.dto.AuthorizationRequestDto;
+import com.byeongukchoi.oauth2.server.domain.Client;
 import lombok.*;
 
 import javax.persistence.Column;

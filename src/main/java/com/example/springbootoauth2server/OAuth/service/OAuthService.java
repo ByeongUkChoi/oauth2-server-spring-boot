@@ -1,12 +1,12 @@
 package com.example.springbootoauth2server.OAuth.service;
 
-import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
-import com.byeongukchoi.oauth2.server.dto.TokenDto;
-import com.byeongukchoi.oauth2.server.entity.AuthorizationCode;
-import com.byeongukchoi.oauth2.server.entity.Client;
-import com.byeongukchoi.oauth2.server.grant.AbstractGrant;
-import com.byeongukchoi.oauth2.server.grant.AuthorizationCodeGrant;
-import com.byeongukchoi.oauth2.server.grant.RefreshTokenGrant;
+import com.byeongukchoi.oauth2.server.application.dto.AuthorizationRequestDto;
+import com.byeongukchoi.oauth2.server.application.dto.TokenDto;
+import com.byeongukchoi.oauth2.server.domain.AuthorizationCode;
+import com.byeongukchoi.oauth2.server.domain.Client;
+import com.byeongukchoi.oauth2.server.application.AbstractGrant;
+import com.byeongukchoi.oauth2.server.application.AuthorizationCodeGrant;
+import com.byeongukchoi.oauth2.server.application.RefreshTokenGrant;
 import com.example.springbootoauth2server.OAuth.repository.AccessTokenRepository;
 import com.example.springbootoauth2server.OAuth.repository.AuthorizationCodeRepository;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;

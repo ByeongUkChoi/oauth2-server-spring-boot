@@ -1,5 +1,6 @@
 package com.example.springbootoauth2server.OAuth.entity;
 
+import com.byeongukchoi.oauth2.server.domain.RefreshToken;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ import javax.persistence.Table;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Entity
 @Table(name = "oauth_refresh_tokens")
-public class RefreshTokenEntity implements com.byeongukchoi.oauth2.server.entity.RefreshToken {
+public class RefreshTokenEntity implements RefreshToken {
     @Id
     @Column(length = 54)
     private String token;

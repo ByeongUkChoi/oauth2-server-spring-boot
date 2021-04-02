@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
-import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
-import com.byeongukchoi.oauth2.server.entity.RefreshToken;
+import com.byeongukchoi.oauth2.server.application.dto.AuthorizationRequestDto;
+import com.byeongukchoi.oauth2.server.domain.RefreshToken;
 import com.example.springbootoauth2server.OAuth.entity.RefreshTokenEntity;
 import com.example.springbootoauth2server.OAuth.repository.custom.RefreshTokenCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;

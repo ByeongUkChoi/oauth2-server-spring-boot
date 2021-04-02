@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.OAuth.controller;
 
-import com.byeongukchoi.oauth2.server.dto.AuthorizationRequestDto;
-import com.byeongukchoi.oauth2.server.dto.TokenDto;
+import com.byeongukchoi.oauth2.server.application.dto.AuthorizationRequestDto;
+import com.byeongukchoi.oauth2.server.application.dto.TokenDto;
 import com.example.springbootoauth2server.OAuth.service.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

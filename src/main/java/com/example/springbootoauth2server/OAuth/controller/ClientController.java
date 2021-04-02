@@ -1,6 +1,6 @@
 package com.example.springbootoauth2server.OAuth.controller;
 
-import com.byeongukchoi.oauth2.server.dto.TokenDto;
+import com.byeongukchoi.oauth2.server.application.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
