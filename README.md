@@ -16,6 +16,8 @@ spring boot 2.3.3
 mysql  
 docker
 
+### Dependencies
+[ByeongUkChoi/oauth2-server-java](https://github.com/ByeongUkChoi/oauth2-server-java)
 
 ### asciidoc
 src/docs/asciidoc/*.adoc 파일 변환 명령어
