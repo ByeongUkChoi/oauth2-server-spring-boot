@@ -19,10 +19,10 @@ import javax.persistence.Table;
  * );
  */
 @Builder
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
 @AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Entity
+@Getter
 @Table(name = "oauth_refresh_tokens")
 public class RefreshTokenEntity implements RefreshToken {
     @Id
@@ -33,11 +33,6 @@ public class RefreshTokenEntity implements RefreshToken {
     private String accessToken;
     private int expiredAt;
     private int createdAt;
-
-    @Override
-    public String getToken() {
-        return token;
-    }
 
     @Override
     public Boolean isExpired() {

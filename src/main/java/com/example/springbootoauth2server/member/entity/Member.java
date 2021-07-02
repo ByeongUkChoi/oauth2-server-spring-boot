@@ -1,5 +1,6 @@
 package com.example.springbootoauth2server.member.entity;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -19,19 +20,13 @@ import java.util.List;
  * );
  */
 @Entity
-@Setter
+@Getter
 public class Member {
 
     @Id
     @Column(length = 40)
     private String username;
+    @Setter
     private String password;
     private String name;
-
-    public String getUsername() {
-        return username;
-    }
-    public String getPassword() {
-        return password;
-    }
 }

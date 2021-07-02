@@ -30,6 +30,7 @@ public class ClientEntity implements Client {
     @Id
     @Column(length = 86)
     private String clientId;
+    @Setter
     private String clientSecret;
     private String name;
     private String redirectUri;     // 카카오의 경우 redirectUri 값을 확인함
@@ -49,8 +50,5 @@ public class ClientEntity implements Client {
             return false;
         }
         return true;
-    }
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
     }
 }

@@ -33,11 +33,6 @@ public class AccessTokenEntity implements AccessToken {
     private int createdAt;
 
     @Override
-    public String getToken() {
-        return token;
-    }
-
-    @Override
     public Boolean isExpired() {
         // 현재 시간 (타임스탬프 (초))
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
