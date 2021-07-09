@@ -21,10 +21,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
-@AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Table(name = "oauth_clients")
 public class ClientEntity implements Client {
     @Id
@@ -36,6 +34,19 @@ public class ClientEntity implements Client {
     private String redirectUri;     // 카카오의 경우 redirectUri 값을 확인함
     private String grantTypes;
     private String username;
+
+    @Builder
+    public ClientEntity(@NonNull String clientId,
+                        String clientSecret,
+                        @NonNull String name,
+                        @NonNull String redirectUri,
+                        String grantTypes,
+                        @NonNull String username) {
+        this.clientId = clientId;
+        this.name = name;
+        this.redirectUri = redirectUri;
+        this.username = username;
+    }
 
     @Override
     public boolean verifyClient(AuthorizationRequestDto authorizationRequestDto) {
