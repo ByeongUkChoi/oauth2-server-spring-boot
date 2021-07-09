@@ -1,6 +1,6 @@
 package com.example.springbootoauth2server.admin.repository;
 
-import com.example.springbootoauth2server.admin.entity.Administrator;
+import com.example.springbootoauth2server.admin.domain.Administrator;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

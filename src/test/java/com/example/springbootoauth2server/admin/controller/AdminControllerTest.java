@@ -1,6 +1,6 @@
 package com.example.springbootoauth2server.admin.controller;
 
-import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
+import com.example.springbootoauth2server.OAuth.domain.ClientEntity;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;

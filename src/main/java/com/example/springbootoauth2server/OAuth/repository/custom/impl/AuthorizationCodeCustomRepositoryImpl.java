@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
 import com.byeongukchoi.oauth2.server.domain.AuthorizationCode;
-import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeEntity;
+import com.example.springbootoauth2server.OAuth.domain.AuthorizationCodeEntity;
 import com.example.springbootoauth2server.OAuth.repository.custom.AuthorizationCodeCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

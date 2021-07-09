@@ -1,6 +1,6 @@
 package com.example.springbootoauth2server.admin.service;
 
-import com.example.springbootoauth2server.admin.entity.Administrator;
+import com.example.springbootoauth2server.admin.domain.Administrator;
 import com.example.springbootoauth2server.admin.repository.AdministratorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,9 +1,8 @@
 package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
 import com.byeongukchoi.oauth2.server.domain.Client;
-import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
+import com.example.springbootoauth2server.OAuth.domain.ClientEntity;
 import com.example.springbootoauth2server.OAuth.repository.custom.ClientCustomRepository;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,9 @@
 package com.example.springbootoauth2server.admin.service;
 
-import com.example.springbootoauth2server.OAuth.entity.AccessTokenEntity;
-import com.example.springbootoauth2server.OAuth.entity.AuthorizationCodeEntity;
-import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
-import com.example.springbootoauth2server.OAuth.entity.RefreshTokenEntity;
+import com.example.springbootoauth2server.OAuth.domain.AccessTokenEntity;
+import com.example.springbootoauth2server.OAuth.domain.AuthorizationCodeEntity;
+import com.example.springbootoauth2server.OAuth.domain.ClientEntity;
+import com.example.springbootoauth2server.OAuth.domain.RefreshTokenEntity;
 import com.example.springbootoauth2server.OAuth.repository.AccessTokenRepository;
 import com.example.springbootoauth2server.OAuth.repository.AuthorizationCodeRepository;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;

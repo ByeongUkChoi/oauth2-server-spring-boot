@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.OAuth.entity;
+package com.example.springbootoauth2server.OAuth.domain;
 
 import com.byeongukchoi.oauth2.server.application.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.domain.Client;

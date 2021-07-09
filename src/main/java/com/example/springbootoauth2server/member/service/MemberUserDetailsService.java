@@ -1,7 +1,7 @@
 package com.example.springbootoauth2server.member.service;
 
 import com.example.springbootoauth2server.member.dto.MemberDto;
-import com.example.springbootoauth2server.member.entity.Member;
+import com.example.springbootoauth2server.member.domain.Member;
 import com.example.springbootoauth2server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

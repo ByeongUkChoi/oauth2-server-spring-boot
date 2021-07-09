@@ -1,12 +1,11 @@
 package com.example.springbootoauth2server.member.controller;
 
 import com.example.springbootoauth2server.OAuth.dto.ClientDto;
-import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
+import com.example.springbootoauth2server.OAuth.domain.ClientEntity;
 import com.example.springbootoauth2server.member.dto.ApplicationDto;
 import com.example.springbootoauth2server.member.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

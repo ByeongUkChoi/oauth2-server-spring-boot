@@ -1,11 +1,10 @@
 package com.example.springbootoauth2server.member.service;
 
-import com.example.springbootoauth2server.OAuth.entity.ClientEntity;
+import com.example.springbootoauth2server.OAuth.domain.ClientEntity;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;
 import com.example.springbootoauth2server.member.dto.ApplicationDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

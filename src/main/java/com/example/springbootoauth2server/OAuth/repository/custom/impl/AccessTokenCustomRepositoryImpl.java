@@ -2,7 +2,7 @@ package com.example.springbootoauth2server.OAuth.repository.custom.impl;
 
 import com.byeongukchoi.oauth2.server.application.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.domain.AccessToken;
-import com.example.springbootoauth2server.OAuth.entity.AccessTokenEntity;
+import com.example.springbootoauth2server.OAuth.domain.AccessTokenEntity;
 import com.example.springbootoauth2server.OAuth.repository.custom.AccessTokenCustomRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

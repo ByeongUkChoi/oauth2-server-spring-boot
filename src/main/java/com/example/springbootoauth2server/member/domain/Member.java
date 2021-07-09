@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.member.entity;
+package com.example.springbootoauth2server.member.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,9 +6,6 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * CREATE TABLE members (

@@ -1,4 +1,4 @@
-package com.example.springbootoauth2server.admin.entity;
+package com.example.springbootoauth2server.admin.domain;
 
 import lombok.Getter;
 
