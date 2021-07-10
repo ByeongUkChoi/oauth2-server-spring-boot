@@ -19,11 +19,9 @@ import javax.persistence.Table;
  * );
  */
 
-@Builder
+@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
-@AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
-@Entity
 @Table(name = "oauth_authorization_codes")
 public class AuthorizationCodeEntity implements AuthorizationCode {
     @Id
@@ -34,6 +32,21 @@ public class AuthorizationCodeEntity implements AuthorizationCode {
     private String redirectUri;
     private int expiredAt;
     private int createdAt;
+
+    @Builder
+    public AuthorizationCodeEntity(@NonNull String code,
+                                   @NonNull String clientId,
+                                   @NonNull String username,
+                                   @NonNull String redirectUri,
+                                   @NonNull int expiredAt,
+                                   @NonNull int createdAt) {
+        this.code = code;
+        this.clientId = clientId;
+        this.username = username;
+        this.redirectUri = redirectUri;
+        this.expiredAt = expiredAt;
+        this.createdAt = createdAt;
+    }
 
     @Override
     public Boolean isExpired() {
