@@ -17,10 +17,8 @@ import javax.persistence.Table;
  *   created_at        TIMESTAMP       NOT NULL,
  * );
  */
-@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
-@AllArgsConstructor(access = AccessLevel.PRIVATE)   // @Builder를 위해 필요함
 @Entity
 @Table(name = "oauth_access_tokens")
 public class AccessTokenEntity implements AccessToken {
@@ -31,6 +29,19 @@ public class AccessTokenEntity implements AccessToken {
     private String username;
     private int expiredAt;
     private int createdAt;
+
+    @Builder
+    public AccessTokenEntity(@NonNull String token,
+                             @NonNull String clientId,
+                             @NonNull String username,
+                             @NonNull int expiredAt,
+                             @NonNull int createdAt) {
+        this.token = token;
+        this.clientId = clientId;
+        this.username = username;
+        this.expiredAt = expiredAt;
+        this.createdAt = createdAt;
+    }
 
     @Override
     public Boolean isExpired() {
