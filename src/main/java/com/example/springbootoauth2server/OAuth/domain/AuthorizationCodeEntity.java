@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * CREATE TABLE oauth_authorization_codes (
@@ -19,10 +18,9 @@ import javax.persistence.Table;
  * );
  */
 
-@Entity
+@Entity(name = "oauth_authorization_codes")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // @Entity를 위해 필요함. private여도 insert는 작동하나 public/protected로 하라고 나옴
-@Table(name = "oauth_authorization_codes")
 public class AuthorizationCodeEntity implements AuthorizationCode {
     @Id
     @Column(length = 86)
