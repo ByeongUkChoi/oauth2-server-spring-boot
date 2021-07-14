@@ -9,8 +9,8 @@ Docker 컨테이너로 실행
 
 
 ### spec
-java 1.8  
-spring boot 2.3.3  
+java 11  
+spring boot 2.5.2  
   spring security  
   spring data jpa  
 mysql  
