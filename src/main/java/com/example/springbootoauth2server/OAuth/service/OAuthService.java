@@ -7,6 +7,7 @@ import com.byeongukchoi.oauth2.server.domain.Client;
 import com.byeongukchoi.oauth2.server.application.AbstractGrant;
 import com.byeongukchoi.oauth2.server.application.AuthorizationCodeGrant;
 import com.byeongukchoi.oauth2.server.application.RefreshTokenGrant;
+import com.byeongukchoi.oauth2.server.error.exception.OAuth2ServerException;
 import com.example.springbootoauth2server.OAuth.repository.AccessTokenRepository;
 import com.example.springbootoauth2server.OAuth.repository.AuthorizationCodeRepository;
 import com.example.springbootoauth2server.OAuth.repository.ClientRepository;
@@ -33,14 +34,13 @@ public class OAuthService {
      * @param authorizationRequestDto
      * @param redirectAttributes
      * @return
-     * @throws Exception
      */
     public RedirectView getAuthorizationCode(AuthorizationRequestDto authorizationRequestDto,
-                                             RedirectAttributes redirectAttributes) throws Exception {
+                                             RedirectAttributes redirectAttributes) {
 
         Client client = clientRepository.getOne(authorizationRequestDto.getClientId());
         if(client == null || ! client.verifyClient(authorizationRequestDto)) {
-            throw new Exception("Invalid client");
+            throw new IllegalArgumentException("Invalid client");
         }
 
         AuthorizationCode authorizationCode = authorizationCodeRepository.getNewCode(authorizationRequestDto.getClientId(), authorizationRequestDto.getUsername(), authorizationRequestDto.getRedirectUri());
@@ -57,14 +57,14 @@ public class OAuthService {
      * 토큰 갱신 clientId, refreshToken, clientSecret
      * @param authorizationRequestDto
      * @return
-     * @throws Exception
+     * @throws OAuth2ServerException
      */
-    public TokenDto issueToken(AuthorizationRequestDto authorizationRequestDto) throws Exception {
+    public TokenDto issueToken(AuthorizationRequestDto authorizationRequestDto) throws OAuth2ServerException {
 
         // TODO: 1. client 검증
         Client client = clientRepository.getOne(authorizationRequestDto.getClientId());
         if(client == null || ! client.verifyClient(authorizationRequestDto)) {
-            throw new Exception("Invalid client");
+            throw new IllegalArgumentException("Invalid client");
         }
 
         // 2. 토큰 발급
@@ -76,7 +76,7 @@ public class OAuthService {
         } else if (grantType.equals("refresh_token")) {
             grant = new RefreshTokenGrant(accessTokenRepository, refreshTokenRepository);
         } else {
-            throw new Exception("Invalid Grant Type");
+            throw new IllegalArgumentException("Invalid Grant Type");
         }
         TokenDto token = grant.issueToken(authorizationRequestDto);
 

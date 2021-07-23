@@ -47,7 +47,7 @@ public class AuthorizationCodeEntity implements AuthorizationCode {
     }
 
     @Override
-    public Boolean isExpired() {
+    public boolean isExpired() {
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
         return currentTimestamp > expiredAt;
     }

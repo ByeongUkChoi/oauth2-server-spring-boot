@@ -18,7 +18,7 @@ public class WebLayerTest {
     private MockRestServiceServer server;
 
     @Test
-    public void shouldReturnDefaultMessage() throws Exception {
+    public void shouldReturnDefaultMessage() {
         server.expect(requestTo("/"))
                 .andRespond(withSuccess("{\"message\":\"Hello, World\"}", MediaType.APPLICATION_JSON));
     }

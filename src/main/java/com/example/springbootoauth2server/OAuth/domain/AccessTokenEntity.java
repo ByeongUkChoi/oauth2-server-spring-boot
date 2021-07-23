@@ -42,7 +42,7 @@ public class AccessTokenEntity implements AccessToken {
     }
 
     @Override
-    public Boolean isExpired() {
+    public boolean isExpired() {
         // 현재 시간 (타임스탬프 (초))
         int currentTimestamp = (int) (System.currentTimeMillis() / 1000);
         return currentTimestamp > expiredAt;

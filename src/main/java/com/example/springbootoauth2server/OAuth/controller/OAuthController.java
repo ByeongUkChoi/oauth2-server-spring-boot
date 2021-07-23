@@ -2,9 +2,14 @@ package com.example.springbootoauth2server.OAuth.controller;
 
 import com.byeongukchoi.oauth2.server.application.dto.AuthorizationRequestDto;
 import com.byeongukchoi.oauth2.server.application.dto.TokenDto;
+import com.byeongukchoi.oauth2.server.error.exception.OAuth2ServerException;
 import com.example.springbootoauth2server.OAuth.service.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -31,10 +36,10 @@ public class OAuthController {
                                     @RequestParam(value = "client_id", required = true) String clientId,
                                     @RequestParam(value = "redirect_uri", required = true) String redirectUri,
                                     @RequestParam(value = "response_type", required = true) String responseType,
-                                     RedirectAttributes redirectAttributes) throws Exception {
+                                     RedirectAttributes redirectAttributes) {
 
         if(! responseType.equals("code")) {
-            throw new Exception("Invalid Response type");
+            throw new IllegalArgumentException("Invalid Response type");
         }
 
         Principal userPrincipal = request.getUserPrincipal();
@@ -58,6 +63,7 @@ public class OAuthController {
      * @param refreshToken  토큰 발급 시 응답으로 받은 refresh_token. Access Token을 갱신하기 위해 사용 (갱신 시)
      * @param clientSecret  토큰 발급 시, 보안을 강화하기 위해 추가 확인하는 코드(보안 기능 ON일 경우 필수 설정 해야함) (발급, 갱신 시)
      * @return
+     * @throws OAuth2ServerException
      *
      *  토큰 발급
      *  grant_type, client_id, redirect_uri, code, client_secret
@@ -70,7 +76,7 @@ public class OAuthController {
                              @RequestParam(value = "redirect_uri", required = false) String redirectUri,
                              @RequestParam(value = "code", required = false) String code,
                              @RequestParam(value = "refresh_token", required = false) String refreshToken,
-                             @RequestParam(value = "client_secret", required = false) String clientSecret) throws Exception {
+                             @RequestParam(value = "client_secret", required = false) String clientSecret) throws OAuth2ServerException {
 
         AuthorizationRequestDto authorizationRequestDto = AuthorizationRequestDto.builder()
                 .grantType(grantType)
