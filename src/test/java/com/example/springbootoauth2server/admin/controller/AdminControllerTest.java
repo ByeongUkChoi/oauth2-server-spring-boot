@@ -44,22 +44,33 @@ class AdminControllerTest {
     @WithMockUser(roles = "ADMIN")
     void getClients() throws Exception {
 
+        final String clientId1 = "cbw-client";
+        final String name1 = "client-name";
+        final String redirectUri1 = "https://";
+        final String username1 = "cbw-user";
+
+        final String clientId2 = "cbw-client2";
+        final String name2 = "client-name2";
+        final String redirectUri2 = "https://2";
+        final String username2 = "cbw-user2";
+
         ClientEntity clientEntity1 = ClientEntity.builder()
-                .clientId("cbw-client")
+                .clientId(clientId1)
                 .clientSecret("client-secret")
-                .name("client-name")
-                .redirectUri("https://")
+                .name(name1)
+                .redirectUri(redirectUri1)
                 .grantTypes("grant-a")
-                .username("cbw-user")
+                .username(username1)
                 .build();
         ClientEntity clientEntity2 = ClientEntity.builder()
-                .clientId("cbw-client2")
+                .clientId(clientId2)
                 .clientSecret("client-secret2")
-                .name("client-name2")
-                .redirectUri("https://2")
+                .name(name2)
+                .redirectUri(redirectUri2)
                 .grantTypes("grant-b")
-                .username("cbw-user2")
+                .username(username2)
                 .build();
+
         List<ClientEntity> clientEntities = new ArrayList<>(Arrays.asList(clientEntity1, clientEntity2));
         Page<ClientEntity> clients = new PageImpl(clientEntities);
         when(clientRepository.findAll(any(Pageable.class))).thenReturn(clients);
@@ -75,10 +86,15 @@ class AdminControllerTest {
         JSONObject content1 = (JSONObject) contents.get(0);
         JSONObject content2 = (JSONObject) contents.get(1);
 
-        assertTrue("cbw-client".equals(content1.get("clientId")));
-        assertTrue("cbw-client2".equals(content2.get("clientId")));
-//        assertSame(content1.get("clientId"), "cbw-client");
-//        assertSame(content2.get("clientId"), "cbw-client2");
+        assertTrue(clientId1.equals(content1.get("clientId")));
+        assertTrue(name1.equals(content1.get("name")));
+        assertTrue(redirectUri1.equals(content1.get("redirectUri")));
+        assertTrue(username1.equals(content1.get("username")));
+
+        assertTrue(clientId2.equals(content2.get("clientId")));
+        assertTrue(name2.equals(content2.get("name")));
+        assertTrue(redirectUri2.equals(content2.get("redirectUri")));
+        assertTrue(username2.equals(content2.get("username")));
 
         //.andExpect(MockMvcResultMatchers.content().json("{\"content\":[{\"clientId\":\"cbw-client\",\"clientSecret\":\"secret123\",\"name\":\"cbw-app\",\"redirectUri\":\"https://oauth.pstmn.io/v1/callback\",\"grantTypes\":\"Authorization Code\",\"username\":\"cbw0916\"}],\"pageable\":{\"sort\":{\"unsorted\":true,\"sorted\":false,\"empty\":true},\"offset\":0,\"pageSize\":20,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"totalPages\":1,\"totalElements\":1,\"last\":true,\"size\":20,\"number\":0,\"sort\":{\"unsorted\":true,\"sorted\":false,\"empty\":true},\"numberOfElements\":1,\"first\":true,\"empty\":false}"));
         // TODO: 검증을 해야함
