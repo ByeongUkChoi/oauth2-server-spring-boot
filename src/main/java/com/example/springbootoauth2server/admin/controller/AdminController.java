@@ -48,17 +48,10 @@ public class AdminController {
         // 첫 페이지 정보
         Pageable pageable = PageRequest.of(0, DASHBOARD_PAGE_SIZE);
 
-        Page<ClientEntity> clients = adminService.getClients(pageable);
-        Page<ClientDto> clientDtoPage = clients.map(client -> modelMapper.map(client, ClientDto.class));
-
-        Page<AuthorizationCodeEntity> authorizationCodes = adminService.getAuthorizationCodes(pageable);
-        Page<AuthorizationCodeDto> authorizationCodeDtoPage = authorizationCodes.map(authorizationCode -> modelMapper.map(authorizationCode, AuthorizationCodeDto.class));
-
-        Page<AccessTokenEntity> accessTokens = adminService.getAccessTokens(pageable);
-        Page<AccessTokenDto> accessTokenDtoPage = accessTokens.map(accessToken -> modelMapper.map(accessToken, AccessTokenDto.class));
-
-        Page<RefreshTokenEntity> refreshTokens = adminService.getRefreshTokens(pageable);
-        Page<RefreshTokenDto> refreshTokenDtoPage = refreshTokens.map(refreshToken -> modelMapper.map(refreshToken, RefreshTokenDto.class));
+        Page<ClientDto> clientDtoPage = adminService.getClientDtoPages(pageable);
+        Page<AuthorizationCodeDto> authorizationCodeDtoPage = adminService.getAuthorizationCodeDtoPages(pageable);
+        Page<AccessTokenDto> accessTokenDtoPage = adminService.getAccessTokenDtoPages(pageable);
+        Page<RefreshTokenDto> refreshTokenDtoPage = adminService.getRefreshTokenDtoPages(pageable);
 
         mav.addObject("clients", clientDtoPage);
         mav.addObject("authorizationCodes", authorizationCodeDtoPage);
@@ -73,20 +66,12 @@ public class AdminController {
 
     @GetMapping("/clients")
     public Page<ClientDto> getClients(final Pageable pageable) {
-
-        Page<ClientEntity> clients = adminService.getClients(pageable);
-        Page<ClientDto> clientDtoPage = clients.map(client -> modelMapper.map(client, ClientDto.class));
-
-        return clientDtoPage;
+        return adminService.getClientDtoPages(pageable);
     }
 
     @GetMapping("/authorization-codes")
     public Page<AuthorizationCodeDto> getAuthorizationCodes(final Pageable pageable) {
-
-        Page<AuthorizationCodeEntity> authorizationCodes = adminService.getAuthorizationCodes(pageable);
-        Page<AuthorizationCodeDto> authorizationCodeDtoPage = authorizationCodes.map(authorizationCode -> modelMapper.map(authorizationCode, AuthorizationCodeDto.class));
-
-        return authorizationCodeDtoPage;
+        return adminService.getAuthorizationCodeDtoPages(pageable);
     }
 
     @GetMapping("/access-tokens")
