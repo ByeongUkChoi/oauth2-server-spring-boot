@@ -1,17 +1,15 @@
 package com.example.springbootoauth2server.admin.controller;
 
+import com.example.springbootoauth2server.OAuth.domain.AccessTokenEntity;
+import com.example.springbootoauth2server.OAuth.domain.RefreshTokenEntity;
 import com.example.springbootoauth2server.OAuth.dto.AccessTokenDto;
 import com.example.springbootoauth2server.OAuth.dto.AuthorizationCodeDto;
 import com.example.springbootoauth2server.OAuth.dto.ClientDto;
 import com.example.springbootoauth2server.OAuth.dto.RefreshTokenDto;
-import com.example.springbootoauth2server.OAuth.domain.AccessTokenEntity;
-import com.example.springbootoauth2server.OAuth.domain.AuthorizationCodeEntity;
-import com.example.springbootoauth2server.OAuth.domain.ClientEntity;
-import com.example.springbootoauth2server.OAuth.domain.RefreshTokenEntity;
 import com.example.springbootoauth2server.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
 
     private final AdminService adminService;
-    private final ModelMapper modelMapper;
-
     private final int DASHBOARD_PAGE_SIZE = 5;
 
     /**
@@ -34,10 +32,9 @@ public class AdminController {
      * @return
      */
     @GetMapping("/login")
-    public ModelAndView login() {
-
-        //mav.setViewName("oauth/admin/admin");
-        return new ModelAndView("admin/login");
+    public ModelAndView login(ModelAndView mav) {
+        mav.setViewName("admin/login");
+        return mav;
     }
     /**
      * 관리자 메인 페이지
@@ -76,13 +73,11 @@ public class AdminController {
 
     @GetMapping("/access-tokens")
     public Page<AccessTokenEntity> getAccessTokens() {
-
-        return null;
+        return new PageImpl<>(new ArrayList<>());
     }
 
     @GetMapping("/refresh-tokens")
     public Page<RefreshTokenEntity> getRefreshTokens() {
-
-        return null;
+        return new PageImpl<>(new ArrayList<>());
     }
 }
